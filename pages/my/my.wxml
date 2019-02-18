@@ -1,0 +1,37 @@
+<!--pages/my/my.wxml-->
+
+<view class="self">
+   <view class='title' hover-class='hover-class'>
+       <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image  class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+      
+    </view>
+    
+</view>
+
+
+
+
+
+
+<view class="wrapper">
+  <navigator url="../feedback/feedback">
+   <view class='item' hover-class='hover-class'>
+      <view class='title'>
+        <text>意见</text>
+      </view>
+    </view>
+  </navigator>
+    <navigator url="../set/set">
+    <view class='item' hover-class='hover-class' >
+      <view class='title'>
+        <text >设置</text>
+      </view>
+    </view>
+      </navigator>
+</view>
+
+

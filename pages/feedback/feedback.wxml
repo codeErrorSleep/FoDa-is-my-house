@@ -1,0 +1,8 @@
+<!--pages/feedback/feedback.wxml-->
+
+
+
+<view>
+  <text>不许有意见</text>
+
+</view>

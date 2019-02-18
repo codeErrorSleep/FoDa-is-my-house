@@ -1,0 +1,18 @@
+<!--pages/news/news.wxml-->
+<view class="wrapper">
+  <navigator url="../feedback/feedback">
+   <view class='item' hover-class='hover-class'>
+      <view class='title'>
+        <text>消息</text>
+      </view>
+    </view>
+  </navigator>
+    <navigator url="../set/set">
+    <view class='item' hover-class='hover-class' >
+      <view class='title'>
+        <text >订单</text>
+      </view>
+    </view>
+      </navigator>
+</view>
+
