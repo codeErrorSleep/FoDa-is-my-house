@@ -1,19 +1,47 @@
 <view class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>
-    推荐
+    卖二手
     </view>
     <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>
-    热点
+    未用
     </view>
     <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>
-    关注
+    论坛
     </view>
 </view>
 
 
 
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
-  <swiper-item><view class='swiper_con'>welcome come to 推荐</view></swiper-item> 
+  <swiper-item>
+    <view class='swiper_con'>
+        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+              <view class="feed-item">
+                  <view class="feed-content">
+                      <view class="item-title">
+                          <text>{{item.goods_item_title}}</text>
+                      </view>
+                      <view class="item-price">
+                          <text>¥{{item.goods_item_price}}</text>
+                      </view>
+                      <view class="item-img">
+                          <view wx:for="{{item.goods_item_img}}" wx:for-index="img_num" wx:for-item="goods_img">
+                              <view wx:if="{{img_num < 3}}">
+                                  <image src="{{goods_img}}" lazy-load />
+                              </view>
+                          </view>
+                          <!-- <image src="../../images/test.jpg" /> -->
+                      </view>
+                      <view class="item-content">
+                          <text class="item-content">{{item.goods_item_content}}</text>
+                      </view>
+                  </view>
+              </view>
+          </block>
+          </scroll-view>
+      </view>
+  </swiper-item> 
   <swiper-item><view class='swiper_con'>welcome come to 热点</view></swiper-item>
   <swiper-item><view class='swiper_con'>welcome come to 关注</view></swiper-item>  
 </swiper>

@@ -1,5 +1,4 @@
-// pages/my/my.js
-
+// pages/test/test.js
 
 var util = require('../../utils/util.js')
 var app = getApp()
@@ -10,7 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentData: 0,
     feed: [],
     feed_length: 0
   },
@@ -25,24 +23,34 @@ Page({
     this.getData();
   },
 
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
-      currentData: e.detail.current
-    })
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
   },
 
-  checkCurrent: function (e) {
-    const that = this;
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
 
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
   },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
   // 拖到最下面更新数据
   lower: function (e) {
     wx.showNavigationBarLoading();
@@ -73,7 +81,8 @@ Page({
       })
     },3000)
   },
-  
+
+
   //使用本地 fake 数据实现刷新效果
   getData: function(){
     var feed = util.getData2();
@@ -85,6 +94,8 @@ Page({
     });
     console.log(feed_data);
   },
+
+
 
 
 })

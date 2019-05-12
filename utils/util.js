@@ -1,19 +1,17 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+var index = require('../data/data_index.js')
+
+// 主页二手获得新数据
+function getData2(){
+  return index.index;
 }
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+
+// 更新数据
+function getNext(){
+  return index.index;
 }
 
-module.exports = {
-  formatTime: formatTime
-}
+
+module.exports.getData2 = getData2;
+module.exports.getNext = getNext;

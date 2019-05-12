@@ -8,3 +8,59 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+
+.container .feed-item{
+  width: 690rpx;
+  padding: 30rpx 30rpx 20rpx ;
+  margin: 7rpx 0 6rpx 0;
+  background: #ffffff;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 5px #eeeeee;
+}
+
+.container .feed-item .feed-content{
+  padding: 10rpx 40rpx 0 0;
+}
+.container .feed-item .feed-content .item-title {
+  display: inline-block;
+  font-size: 40rpx;
+  font-weight: 600px;
+  line-height: 40rpx;
+}
+
+.container .feed-item .feed-content .item-price {
+  display: inline-block;
+  width: 40rpx;
+  height: 45rpx;
+  float: right;
+  color: red;
+}
+
+.container .feed-item .feed-content .item-img {
+  display: flex;
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.container .feed-item .feed-content .item-img image{
+  display: inline-block;
+  padding-right: 10rpx;
+  width: 180rpx;
+  height: 180rpx;
+}
+
+
+.container .feed-item .feed-content .item-content text{
+  display: block;
+  padding: 10rpx 10rpx 0 10rpx;
+  /*height: 10rpx;*/
+  font-size: 30rpx;
+  line-height: 40rpx;
+  color: #5b5b5b;
+  word-wrap:break-word;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}

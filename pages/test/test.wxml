@@ -1,0 +1,25 @@
+<scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+    <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+        <view class="feed-item">
+            <view class="feed-content">
+                <view class="item-title">
+                    <text>{{item.goods_item_title}}</text>
+                </view>
+                <view class="item-price">
+                    <text>{{item.goods_item_price}}</text>
+                </view>
+                <view class="item-img">
+                    <view wx:for="{{item.goods_item_img}}" wx:for-index="img_num" wx:for-item="goods_img">
+                        <view wx:if="{{img_num < 3}}">
+                            <image src="{{goods_img}}" lazy-load />
+                        </view>
+                    </view>
+                    <!-- <image src="../../images/test.jpg" /> -->
+                </view>
+                <view class="item-content">
+                    <text class="item-content">{{item.goods_item_content}}</text>
+                </view>
+            </view>
+        </view>
+    </block>
+</scroll-view>

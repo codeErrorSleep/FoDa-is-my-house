@@ -5,6 +5,7 @@
     "pages/news/news",
     "pages/feedback/feedback",
     "pages/set/set",
+    "pages/test/test",
     "component/itemOne"
   ],
   "window": {
@@ -31,7 +32,12 @@
       {
         "pagePath": "pages/my/my",
         "text": "我的"
+      },
+      {
+        "pagePath": "pages/test/test",
+        "text": "测试页面"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
