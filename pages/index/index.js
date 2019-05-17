@@ -30,6 +30,7 @@ Page({
     that.setData({
       currentData: e.detail.current
     })
+
   },
 
   checkCurrent: function (e) {
@@ -83,8 +84,10 @@ Page({
       feed:feed_data,
       feed_length: feed_data.length
     });
-    console.log(feed_data);
+    console.log(feed);
+    
   },
+
 
 
 })

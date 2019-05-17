@@ -5,59 +5,69 @@ module.exports = {
 
 
 var index= {
-    "id": 1,
         "data": [
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":1,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":1
         },
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg","../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":123,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":2
         },
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子我的儿子我的儿子我的",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":234,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":3
         },
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":154,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":41
+        },        {
+            "goods_id":114,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":13
         },
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":451,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":14
+        },        {
+            "goods_id":145,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":12
         },
         {
-            "user_id":1,
-            "user_name":"namename ",
-            "goods_item_title":"我的儿子",
-            "goods_item_price":3434,
-            "goods_item_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
-            "goods_item_content":"我是你爸爸我是你爸爸我是你爸爸我是你爸爸"
+            "goods_id":146,
+            "goods_price":2332,
+            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_title":"我是你爸爸",
+            "goods_comment":"sdfasffsdf我是你爸爸的撒发生的撒旦法答复答复爱上得分",
+            "user_id":1
         },
-
-
-
     ]
 
 }

@@ -6,7 +6,7 @@
     "pages/feedback/feedback",
     "pages/set/set",
     "pages/test/test",
-    "component/itemOne"
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "light",
