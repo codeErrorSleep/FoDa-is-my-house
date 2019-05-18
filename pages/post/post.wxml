@@ -1,2 +1,40 @@
-<!--pages/post/post.wxml-->
-<text>pages/post/post.wxml</text>
+<view class="post">
+    <view class="userInformation">
+        <view class="userImg">
+            <image src="{{user_data.user_img}}" lazy-load />
+        </view>
+        <view class="userName">
+            <text>{{user_data.user_name}}</text>
+        </view>
+    </view>
+
+    <view class="postInformation">
+        <view class="postTitle">
+            <text >{{post_data.post_title}}</text>
+        </view>
+        <view class="goodsPrice">
+            <text >¥ {{post_data.goods_price}}</text>
+        </view>
+        <view class="postContent">
+            <text >{{post_data.post_content}}</text>
+        </view>
+        <view class="goodsImg">
+            <view wx:for="{{post_data.goods_img}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+                <image src="{{goods_item_img}}" lazy-load />
+            </view>
+        </view>
+    </view>
+
+    <view class="contact">
+        <view class="phoneNum">
+            <button id="wechatButton" class="btn1" bindtap="showConnect">
+                微信联系
+            </button>
+        </view>
+        <view class="wechat">
+            <button id="phoneButton" class="btn2" bindtap="showConnect">
+                手机联系
+            </button>
+        </view>
+    </view>
+</view>

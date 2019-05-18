@@ -26,7 +26,7 @@
 .container .feed-item .feed-content .item-title {
   display: inline-block;
   font-size: 40rpx;
-  font-weight: 600px;
+  font-weight: 600rpx;
   line-height: 40rpx;
 }
 
