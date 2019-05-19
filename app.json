@@ -8,7 +8,6 @@
     "pages/feedback/feedback",
     "pages/set/set",
     "pages/post/post"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -25,21 +24,23 @@
     "list": [
       {
         "pagePath": "pages/homePage/homePage",
-        "text": "主页"
-
+        "text": "主页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home_selected.png"
       },
       {
         "pagePath": "pages/news/news",
-        "text": "消息"
+        "text": "消息",
+        "iconPath": "images/tabbar/news.png",
+        "selectedIconPath": "images/tabbar/news_selected.png"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/tabbar/me.png",
+        "selectedIconPath": "images/tabbar/me_selected.png"
       }
-
     ]
-  }
-
+  },
+  "sitemapLocation": "sitemap.json"
 }
-
-
