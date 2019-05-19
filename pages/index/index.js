@@ -21,6 +21,11 @@ Page({
   onLoad: function (options) {
     console.log('onLoad')
     var that = this
+    // 改变选项卡的值
+    console.log(options.tab_id)
+    that.setData({
+      currentData: options.tab_id
+    })
     //调用应用实例的方法获取全局数据
     this.getData();
   },

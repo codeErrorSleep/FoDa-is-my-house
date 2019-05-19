@@ -1,9 +1,32 @@
-.container{
-  height: 1500rpx;
-  padding: 0;
-  background: #F0F4F3;
-  color: #000;
+swiper{
+  width: 100%;
+  height: 360rpx;
 }
 
+swiper-item{
+  padding-top: 30rpx;  
+  background: white;
+}
+ .slide-image{
+  width: 575rpx; 
+  height: 300rpx;
+  position: absolute;
+  left: 50%;
+  margin-left: -287rpx;
+} 
+.slide-image.active{
+  transform: scale(1.1);
+  transition:all .2s ease-in 0s;
+} 
 
+.chooseList{
+  background: #578ef5;
+  color: #fff;
+  width: 50%;
+}
 
+.chooseList button{
+  float:left;
+  width: 50%;
+
+}
