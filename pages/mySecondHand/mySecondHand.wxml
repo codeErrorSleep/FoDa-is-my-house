@@ -1,12 +1,12 @@
 <view class='topTabSwiper'>
     <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>
-    闲置
+    我的闲置
     </view>
     <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>
-    快递
+    我的快递
     </view>
     <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>
-    琐事
+    我的琐事
     </view>
 </view>
 

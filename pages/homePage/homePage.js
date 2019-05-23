@@ -34,19 +34,28 @@ Page({
     })
   },
 
-  // 跳转到闲置商品列表地址
+  // 跳转到指定的列表地址
   jumpToList: function(e){
     // 判断跳转的选项卡
     var tab_id=0
-    if (e.currentTarget.id=="secondHand"){
-      tab_id=0
+    switch(e.currentTarget.id){
+      case "secondHand":
+          tab_id=0;
+          break; 
+      case "express":
+          tab_id=1;
+          break; 
+      case "trifles":
+        tab_id=2;
+        break; 
     }
     wx.navigateTo({
       url:"../index/index?tab_id=" + tab_id
       // url:"../index/index"
-
     })
-  }
+  },
+
+
 
   
 })

@@ -1,0 +1,33 @@
+.tab {
+    float: left;
+    width: 33.3333%;
+    text-align: center;
+    padding: 10rpx 0;
+  }
+  
+  .topTabSwiper {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    zoom: 1;
+  }
+  
+  .topTabSwiper:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  
+  .tabBorer {
+    border-bottom: 1px solid #f00;
+    color: #f00;
+  }
+  
+  
+  .container{
+    height: 1500rpx;
+    padding: 0;
+    background: #F0F4F3;
+    color: #000;
+  }
+  
+  

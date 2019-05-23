@@ -1,31 +1,13 @@
-/* pages/news/news.wxss */
-.item {
-  background: #F4F6F9;
-  margin-bottom: 20rpx;
-  height: 90rpx;
-  padding: 0 40rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+
+.news .choose{
+  padding:30rpx 10rpx;
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.news button{
+  float:flex;
+  width: 60%;
+  
+  background: #578ef5;
+  color: #fff;
 }

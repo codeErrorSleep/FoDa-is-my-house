@@ -19,14 +19,14 @@ swiper{
     transition:all .2s ease-in 0s;
   } 
   
-  .chooseList{
+  .chooseList .choose{
+    padding:10rpx 10rpx;
+  }
+
+  .chooseList button{
+    float:flex;
+    width: 60%;
+    
     background: #578ef5;
     color: #fff;
-    width: 50%;
-  }
-  
-  .chooseList button{
-    float:left;
-    width: 50%;
-  
   }

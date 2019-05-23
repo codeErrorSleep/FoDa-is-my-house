@@ -7,9 +7,21 @@
         </block>
     </swiper>
 
-    
-    <button id="secondHand" class="chooseList" bindtap="jumpToList">
-        闲置
-    </button>
-
+    <view class="chooseList">
+        <view class="choose">
+            <button id="secondHand" class="chooseList" bindtap="jumpToList">
+                闲置
+            </button>
+        </view>
+        <view class="choose">
+            <button id="express" class="chooseList" bindtap="jumpToList">
+                快递
+            </button>
+        </view>
+        <view class="choose">
+            <button id="trifles" class="chooseList" bindtap="jumpToList">
+                琐事
+            </button>
+        </view>
+    </view>
 </view>

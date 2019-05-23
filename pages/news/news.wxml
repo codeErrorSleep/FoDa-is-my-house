@@ -1,18 +1,17 @@
-<!--pages/news/news.wxml-->
-<view class="wrapper">
-  <navigator url="../feedback/feedback">
-   <view class='item' hover-class='hover-class'>
-      <view class='title'>
-        <text>消息</text>
-      </view>
+<view class="news">
+    <view class="choose">
+        <button id="secondHand" class="chooseList" bindtap="jumpToList">
+            我的闲置
+        </button>
     </view>
-  </navigator>
-    <navigator url="../set/set">
-    <view class='item' hover-class='hover-class' >
-      <view class='title'>
-        <text >订单</text>
-      </view>
+    <view class="choose">
+        <button id="express" class="chooseList" bindtap="jumpToList">
+            我的快递
+        </button>
     </view>
-      </navigator>
+    <view class="choose">
+        <button id="trifles" class="chooseList" bindtap="jumpToList">
+            我的琐事
+        </button>
+    </view>
 </view>
-

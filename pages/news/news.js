@@ -29,38 +29,26 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  // 跳转到指定的列表地址
+  jumpToList: function(e){
+    // 判断跳转的选项卡
+    var tab_id=0
+    switch(e.currentTarget.id){
+      case "secondHand":
+          tab_id=0;
+          break; 
+      case "express":
+          tab_id=1;
+          break; 
+      case "trifles":
+        tab_id=2;
+        break; 
+    }
+    wx.navigateTo({
+      url:"../mySecondHand/mySecondHand?tab_id=" + tab_id
+      // url:"../index/index"
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
 
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
