@@ -23,5 +23,10 @@
                 琐事
             </button>
         </view>
+        <view class="choose">
+            <button id="addtest" class="chooseList" bindtap="addtest">
+                添加信息测试
+            </button>
+        </view>
     </view>
 </view>

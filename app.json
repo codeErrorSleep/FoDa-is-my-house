@@ -8,8 +8,11 @@
     "pages/feedback/feedback",
     "pages/set/set",
     "pages/post/post",
-    "pages/mySecondHand/mySecondHand"
-
+    "pages/mySecondHand/mySecondHand",
+    "pages/test2/test2",
+    "pages/posttest/posttest"
+    
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,7 +22,7 @@
   },
   "tabBar": {
     "color": "#666666",
-    "selectedColor":"#0e80d1",
+    "selectedColor": "#0e80d1",
     "borderStyle": "white",
     "backgroundColor": "#f6f8f9",
     "position": "bottom",
@@ -27,7 +30,6 @@
       {
         "pagePath": "pages/homePage/homePage",
         "text": "主页",
-        
         "iconPath": "images/tabbar/home.png",
         "selectedIconPath": "images/tabbar/home_selected.png"
       },

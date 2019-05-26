@@ -13,7 +13,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.5.0",
+	"libVersion": "2.7.0",
 	"appid": "wx779446ec481e3593",
 	"projectname": "weather",
 	"debugOptions": {

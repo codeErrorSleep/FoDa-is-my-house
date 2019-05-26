@@ -10,24 +10,23 @@
     </view>
 </view>
 
-
-
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
         <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
           <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-              <view class="feed-item" >
-                <navigator url="../post/post?user_id={{item.user_id}}&post_id={{item.post_id}}" hover-class="none">
-                  <view class="feed-content">
+              <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
+                <!-- 将帖子的所有信息传入到帖子的主页面 -->
+                <!-- <navigator url="../posttest/posttest?title={{item.title}}&content={{item.content}}&price={{item.price}}&imgs={{item.imgs}}&_openid={{item._openid}}" hover-class="none"> -->
+                  <view class="feed-content" >
                       <view class="item-title" >
-                          <text>{{item.post_title}}</text>
+                          <text>{{item.title}}</text>
                       </view>
                       <view class="item-price">
-                          <text>¥{{item.goods_price}}</text>
+                          <text>¥{{item.price}}</text>
                       </view>
                       <view class="item-img">
-                          <view wx:for="{{item.goods_img}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+                          <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
                               <view wx:if="{{img_num < 3}}">
                                   <image src="{{goods_item_img}}" lazy-load />
                               </view>
@@ -35,10 +34,10 @@
                           <!-- <image src="../../images/test.jpg" /> -->
                       </view>
                       <view class="item-content">
-                          <text class="item-content">{{item.post_content}}</text>
+                          <text class="item-content">{{item.content}}</text>
                       </view>
                   </view>
-                  </navigator>
+                  <!-- </navigator> -->
               </view>
           </block>
           </scroll-view>

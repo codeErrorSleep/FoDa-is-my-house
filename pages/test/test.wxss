@@ -1,32 +1,34 @@
-swiper{
-  width: 100%;
-  height: 360rpx;
+
+.tab {
+  float: left;
+  width: 33.3333%;
+  text-align: center;
+  padding: 10rpx 0;
 }
 
-swiper-item{
-  padding-top: 30rpx;  
-  background: white;
-}
- .slide-image{
-  width: 575rpx; 
-  height: 300rpx;
-  position: absolute;
-  left: 50%;
-  margin-left: -287rpx;
-} 
-.slide-image.active{
-  transform: scale(1.1);
-  transition:all .2s ease-in 0s;
-} 
-
-.chooseList{
-  background: #578ef5;
-  color: #fff;
-  width: 50%;
+.topTabSwiper {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  zoom: 1;
 }
 
-.chooseList button{
-  float:left;
-  width: 50%;
-
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
 }
+
+.tabBorer {
+  border-bottom: 1px solid #f00;
+  color: #f00;
+}
+
+
+.container{
+  height: 1500rpx;
+  padding: 0;
+  background: #F0F4F3;
+  color: #000;
+}
+
+
