@@ -73,8 +73,13 @@ Page({
         console.log("插入成功")
       }
     })
-
-    
   },
+
+  writePost:function(){
+    wx.navigateTo({
+      url:"../uploadPost/uploadPost"
+    })
+  }
+
 
 })

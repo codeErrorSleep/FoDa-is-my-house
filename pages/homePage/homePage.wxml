@@ -28,5 +28,13 @@
                 添加信息测试
             </button>
         </view>
+        <view class="choose">
+            <button class="chooseList" bindtap="writePost">
+                发布闲置
+            </button>
+        </view>
+
+
+
     </view>
 </view>

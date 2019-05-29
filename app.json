@@ -10,8 +10,9 @@
     "pages/post/post",
     "pages/mySecondHand/mySecondHand",
     "pages/test2/test2",
-    "pages/posttest/posttest"
+    "pages/posttest/posttest",
     
+    "pages/uploadPost/uploadPost"
     
   ],
   "window": {
