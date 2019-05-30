@@ -62,7 +62,7 @@ Page({
 
   },
 
-  // 使用本地 fake 数据实现继续加载效果
+  // 在云数据库上查找数据(查找10条)
   nextLoad: function(){
     wx.showToast({
       title: '加载中',
@@ -100,7 +100,7 @@ Page({
     })
   },
   
-  //先数据库获取数据
+  //第一次从数据查找数据
   getData: function(){
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
