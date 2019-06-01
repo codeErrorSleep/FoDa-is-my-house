@@ -35,3 +35,9 @@
 </view>
 
 
+<view class="myself">
+  <button id="registered"  bindtap="registered">
+      个人注册
+  </button>
+
+</view>

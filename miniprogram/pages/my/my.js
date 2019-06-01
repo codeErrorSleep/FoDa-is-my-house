@@ -43,5 +43,13 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  registered:function(e){
+    wx.navigateTo({
+      url:"../registered/registered"
+    })
+
   }
+
 })

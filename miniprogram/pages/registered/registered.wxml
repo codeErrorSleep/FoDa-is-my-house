@@ -1,0 +1,24 @@
+<form bindsubmit='getUserData'>
+    <view class="container">
+        <view class='row'>
+            <input name="name" placeholder='请输入您的昵称' /> 
+        </view>
+        <view class='row'>
+            <input name="real_name" placeholder='请输入您的姓名' /> 
+        </view>
+        <view class='row'>
+            <input name="wechat_id" placeholder='请输入您的微信号（确保真实）' /> 
+        </view>
+        <view class='row'>
+            <input placeholder='请输入手机号' bindinput='bindPhoneInput' /> 
+        </view>
+        <view class='row'>
+            <input name="code" placeholder='请输验证码'  style='width:70%;'/> 
+            <button class='codeBtn' bindtap='getCode' hidden='{{hidden}}' disabled='{{btnDisabled}}'>{{btnValue}}</button>
+        </view>
+        <view>
+            <button class='submit' form-type='submit' >提交</button>
+        </view>
+    </view>
+</form>
+  

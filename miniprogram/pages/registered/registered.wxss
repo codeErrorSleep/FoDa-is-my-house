@@ -1,0 +1,92 @@
+/**index.wxss**/
+.title{
+    margin-top: 35rpx;
+    display: flex;
+    flex-direction: row;
+    padding: 16rpx 0 18rpx 26rpx;
+    margin-bottom: 30rpx;
+    border-bottom: 1rpx solid #abb4bf;
+    background: #F4F6F9;
+    } 
+  
+  .title .bindViewTap{width: 94rpx;height: 94rpx;border-radius: 8rpx;margin-right: 24rpx;}
+  .title .userinfo-nickname{line-height: 50rpx;display: block; }
+  
+  .item {
+    background: #F4F6F9;
+    margin-bottom: 20rpx;
+    height: 90rpx;
+    padding: 0 40rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .userinfo-avatar {
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
+  }
+  
+  .userinfo-nickname {
+    color: #aaa;
+  }
+  
+  .usermotto {
+    margin-top: 200px;
+  }
+  
+  page{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(#5681d7, #486ec3);
+    display: flex;
+    flex-direction: column;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 90%;
+    margin: 50rpx auto;
+  }
+  
+  .row{
+    position: relative;
+    height: 80rpx;
+    width: 100%;
+    border-radius: 10rpx;
+    background: #fff;
+    margin-bottom: 20rpx;
+    padding-left: 20rpx;
+    box-sizing: border-box;
+  }
+  .row input{
+    width: 100%;
+    height:100%;
+  }
+  .codeBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #bbb;
+    width: 30%;
+    font-size: 26rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+  }
+  .subBtn{
+    width: 200rpx;
+    height: 80rpx;
+    background: #fff;
+    color: #000;
+    border-radius: 50rpx;
+    line-height: 80rpx;
+  }
