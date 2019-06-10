@@ -11,7 +11,7 @@ Page({
   data: {
     //选项卡的编号
     currentData: 0,
-    //获取的数据集
+    //获取的二手物品数据
     feed: [],
     feed_length: 0,
     //下拉继续读取数据
@@ -33,7 +33,7 @@ Page({
       currentData: options.tab_id,
       openid:app.globalData.openid
     })
-    //调用应用实例的方法获取全局数据
+    //调用获取二手商品数据
     this.getData();
   },
 
@@ -76,10 +76,8 @@ Page({
       duration: 500
     })
     const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection('post').where({
-      "_openid":this.data.openid
-    })
+    // 查询所有用户的闲置二手信息
+    db.collection('post')
     .skip(this.data.nextPage)
     .limit(10) // 限制返回数量为 10 条
     .get({
@@ -112,9 +110,7 @@ Page({
   getData: function(){
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
-    db.collection('post').where({
-      "_openid":this.data.openid
-    })
+    db.collection('post')
     .limit(10) // 限制返回数量为 10 条
     .get({
       success: res => {
@@ -155,22 +151,6 @@ Page({
     //获得帖子id
     var post_id=this.data.feed[idx]._id
     var goods_Name=this.data.feed[idx].title
-    var removeImgs=this.data.feed[idx].imgs
-    console.log(removeImgs)
-
-    // 删除用户上传的图片
-    wx.cloud.deleteFile({
-      fileList: removeImgs,
-      success: res => {
-        // handle success
-        // console.log("res.fileList")
-        console.log("删除照片成功")
-      },
-      fail: err => {
-        // handle error
-      }
-    })
-    // 删除用户二手物品的数据库
     wx.showModal({
       title: '删除物品',
       content: goods_Name,
@@ -181,7 +161,7 @@ Page({
           db.collection('post').doc(post_id).remove({
             //删除成功显示提示
             success: function(res) {
-              console.log("删除二手物品成功")
+              console.log("删除成功")
               wx.showToast({
                 title: '删除成功',
                 icon: 'success',

@@ -39,5 +39,7 @@
   <button id="registered"  bindtap="registered">
       个人注册
   </button>
-
+  <button id="administrator"  bindtap="administrator">
+      管理员页面
+  </button>
 </view>

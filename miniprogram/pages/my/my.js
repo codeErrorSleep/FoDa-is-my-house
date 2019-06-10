@@ -45,11 +45,21 @@ Page({
     })
   },
 
+  // 跳转到注册页面
   registered:function(e){
     wx.navigateTo({
       url:"../registered/registered"
     })
 
-  }
+  },
+
+  // 跳转管理员页面
+  administrator:function(e){
+    wx.navigateTo({
+      url:"../administrator/administrator"
+    })
+
+  },
+
 
 })

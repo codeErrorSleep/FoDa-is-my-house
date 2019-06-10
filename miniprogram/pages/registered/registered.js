@@ -119,7 +119,8 @@ Page({
         "name":this.data.name,
         "real_name":this.data.real_name,
         "wechat_id":this.data.wechat_id,
-        "phone_num":this.data.phone
+        "phone_num":this.data.phone,
+        "approve":"False"
       },
       success(res){
         //成功上传后提示信息
