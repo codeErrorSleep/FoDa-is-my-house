@@ -57,10 +57,16 @@ Page({
     // setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
     that.nextLoad();
     console.log("lower")
-
-
-
   },
+
+  upper: function () {
+    wx.showNavigationBarLoading()
+    console.log("upper");
+    var that = this;
+    that.getData();
+  },
+
+
 
   // 在云数据库上查找数据(查找10条)
   nextLoad: function(){
@@ -72,6 +78,7 @@ Page({
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('post')
+    .orderBy('date', 'desc')
     .skip(this.data.nextPage)
     .limit(10) // 限制返回数量为 10 条
     .get({
@@ -102,29 +109,41 @@ Page({
   
   //第一次从数据查找数据
   getData: function(){
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('post')
-      .limit(10) // 限制返回数量为 10 条
-      .get({
-        success: res => {
-          this.setData({
-            // feed: JSON.stringify(res.data, null, 2)
-            feed:res.data,
-            nextPage:this.data.nextPage+10
-            // feed:this.data.feed.concat(res.data)
-          })
-          console.log('[数据库] [查询记录] 成功: ', this.data.feed)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
-        }
-      });
-    },
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 500
+    })
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('post')
+    .orderBy('date', 'desc')
+    .limit(10) // 限制返回数量为 10 条
+    .get({
+      success: res => {
+        this.setData({
+          // feed: JSON.stringify(res.data, null, 2)
+          feed:res.data,
+          nextPage:this.data.nextPage+10
+          // feed:this.data.feed.concat(res.data)
+        })
+        console.log('[数据库] [查询记录] 成功: ', this.data.feed)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    });
+
+    wx.showToast({
+      title: '加载成功',
+      icon: 'success',
+      duration: 1000
+    })
+  },
 
 
 
@@ -139,5 +158,8 @@ Page({
         url: '../post/post?post_data=' + post_data
       
       })
-    }
+    },
+
+
+
 })

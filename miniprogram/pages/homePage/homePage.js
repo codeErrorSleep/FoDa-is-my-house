@@ -79,7 +79,7 @@ Page({
     }
     wx.navigateTo({
       url:"../index/index?tab_id=" + tab_id
-      // url:"../test/test?tab_id=" + tab_id
+      // url:"../test/test" 
       // url:"../index/index"
     })
   },

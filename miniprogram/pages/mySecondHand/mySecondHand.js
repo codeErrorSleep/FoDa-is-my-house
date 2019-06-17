@@ -80,6 +80,7 @@ Page({
     db.collection('post').where({
       "_openid":this.data.openid
     })
+    .orderBy('date', 'desc')
     .skip(this.data.nextPage)
     .limit(10) // 限制返回数量为 10 条
     .get({
@@ -115,6 +116,7 @@ Page({
     db.collection('post').where({
       "_openid":this.data.openid
     })
+    .orderBy('date', 'desc')
     .limit(10) // 限制返回数量为 10 条
     .get({
       success: res => {

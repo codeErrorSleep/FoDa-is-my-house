@@ -13,7 +13,7 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
-        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
           <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
               <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
                 <!-- 将帖子的所有信息传入到帖子的主页面 -->
