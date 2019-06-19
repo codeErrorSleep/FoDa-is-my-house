@@ -1,6 +1,6 @@
 var util = require('../../utils/util.js')
 var app = getApp()
-
+// const regeneratorRuntime = require('../../utils/runtime.js');
 Page({
 
   /**
@@ -107,33 +107,39 @@ Page({
       });
   },
 
-
+  // 通过用户信息验证
   updateUser: function (e) {
     const idx = e.target.dataset.idx
-    //获得用户id
+    //获得用户记录id 不是oppenid
     var user_id = this.data.user_data[idx]._id
     var users_Name = this.data.user_data[idx].name
+
+    console.log(user_id)
     wx.showModal({
       title: '认证通过',
       content: users_Name,
       success(res) {
-        // 修改用户认证信息
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection('users').doc(user_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              console.log(res)
-
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-            }
-          })
-        }
+        // 通过用户验证
+        const db = wx.cloud.database()
+        db.collection('users').doc(user_id).update({
+          // 更新数据    已验证用户   用户通过
+          data: {
+            approve:"Ture",
+            al_approve:"Ture"
+          },
+          success: res => {
+            console.log(res)
+            wx.showToast({
+              title: '验证成功',
+              icon: 'success',
+              duration: 1000
+            })
+          },
+          fail: err => {
+            icon: 'none',
+            console.error('[数据库] [更新记录] 失败：', err)
+          }
+        })
       }
     })
 
@@ -143,7 +149,7 @@ Page({
 
 
 
-  //点击取消用户认证
+  //不通过用户验证
   removeUser: function (e) {
     const idx = e.target.dataset.idx
     //获得帖子id
@@ -153,23 +159,27 @@ Page({
       title: '认证不通过',
       content: users_Name,
       success(res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection('users').doc(user_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              console.log(res)
-
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-            }
-          })
-        }
+        // 通过用户验证
+        const db = wx.cloud.database()
+        db.collection('users').doc(user_id).update({
+          // 更新数据    已验证用户   用户不通过
+          data: {
+            approve:"Flase",
+            al_approve:"Ture"
+          },
+          success: res => {
+            console.log(res)
+            wx.showToast({
+              title: '验证不通过',
+              icon: 'success',
+              duration: 1000
+            })
+          },
+          fail: err => {
+            icon: 'none',
+            console.error('[数据库] [更新记录] 失败：', err)
+          }
+        })
       }
     })
   },

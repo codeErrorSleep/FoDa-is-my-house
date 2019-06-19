@@ -155,7 +155,8 @@ Page({
         "wechat_id":this.data.wechat_id,
         "phone_num":this.data.phone,
         "approve":"False",
-        "approve_img":this.data.approve_img
+        "approve_img":this.data.approve_img,
+        "al_approve":"False"
       },
       success(res){
         //成功上传后提示信息
