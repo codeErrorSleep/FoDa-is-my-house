@@ -17,6 +17,8 @@ Page({
     name:'',
     real_name:'',
     wechat_id:'',
+    // 用户formid 向要用户发送模板消息
+    formId:'',
     //照片在云的位置
     approve_img:[],
     //存放照片在手机中的位置
@@ -77,7 +79,8 @@ Page({
       name:e.detail.value.name,
       real_name:e.detail.value.real_name,
       wechat_id:e.detail.value.wechat_id,
-      code:e.detail.value.code
+      code:e.detail.value.code,
+      formId:e.detail.formId
     })
     // 验证验证码信息是否正确
     // if(this.data.code !=this.data.rightcode){
@@ -96,6 +99,8 @@ Page({
     console.log(this.data.real_name)
     console.log(this.data.wechat_id)
     console.log(this.data.phone)
+    console.log(this.data.formId)
+
 
 
     // 添加用户信息上云
@@ -105,7 +110,7 @@ Page({
   },
 
 
-  //上传物品图片信息
+  //上传用户图片信息
   uploadImages:function(){
 
     var images=this.data.images
@@ -156,7 +161,8 @@ Page({
         "phone_num":this.data.phone,
         "approve":"False",
         "approve_img":this.data.approve_img,
-        "al_approve":"False"
+        "al_approve":"False",
+        "formId":this.data.formId
       },
       success(res){
         //成功上传后提示信息

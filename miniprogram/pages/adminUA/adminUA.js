@@ -1,6 +1,6 @@
 var util = require('../../utils/util.js')
 var app = getApp()
-// const regeneratorRuntime = require('../../utils/runtime.js');
+const regeneratorRuntime = require('../../utils/runtime.js');
 Page({
 
   /**
@@ -112,9 +112,11 @@ Page({
     const idx = e.target.dataset.idx
     //获得用户记录id 不是oppenid
     var user_id = this.data.user_data[idx]._id
+    var user_openid=this.data.user_data[idx]._openid
     var users_Name = this.data.user_data[idx].name
+    var formId=this.data.user_data[idx].formId
 
-    console.log(user_id)
+    // 更新数据库 用户消息
     wx.showModal({
       title: '认证通过',
       content: users_Name,
@@ -143,11 +145,39 @@ Page({
       }
     })
 
-  
+    // 调用模板消息发送消息
+    this.sendTemplate("Ture",user_openid,formId)
+
   },
 
-
-
+  // 发送模板消息
+  sendTemplate:function(approve,user_openid,formId){
+    console.log(user_openid)
+    wx.cloud.callFunction({
+      name: 'openapi',
+      data: {
+        action: 'sendTemplateMessage',
+        formId: formId,
+        approve:approve,
+        user_openid:user_openid
+      },
+      success: res => {
+        console.warn('[云函数] [openapi] templateMessage.send 调用成功：', res)
+        wx.showModal({
+          title: '发送成功',
+          content: '成功发送信息',
+          showCancel: false,
+        })
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '调用失败',
+        })
+        console.error('[云函数] [openapi] templateMessage.send 调用失败：', err)
+      }
+    })
+  },
 
   //不通过用户验证
   removeUser: function (e) {
@@ -164,7 +194,7 @@ Page({
         db.collection('users').doc(user_id).update({
           // 更新数据    已验证用户   用户不通过
           data: {
-            approve:"Flase",
+            approve:"False",
             al_approve:"Ture"
           },
           success: res => {
@@ -182,7 +212,11 @@ Page({
         })
       }
     })
+    // 调用模板消息发送消息
+    this.sendTemplate("False",user_openid,formId)
+
   },
+
 
 
 
