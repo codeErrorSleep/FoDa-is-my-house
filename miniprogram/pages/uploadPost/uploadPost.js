@@ -68,7 +68,7 @@ Page({
     // console.log(this.data.post_title)
     // console.log(this.data.goods_price)
     // console.log(this.data.goods_type)
-
+    // 添加商品照片上云
     this.uploadImages()
   },
 
@@ -94,11 +94,6 @@ Page({
           icon: 'success',
           duration: 1000
         })
-
-
-
-
-
       }
     })
 

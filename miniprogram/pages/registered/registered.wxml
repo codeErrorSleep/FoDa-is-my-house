@@ -16,6 +16,25 @@
             <input name="code" placeholder='请输验证码'  style='width:70%;'/> 
             <button class='codeBtn' bindtap='getCode' hidden='{{hidden}}' disabled='{{btnDisabled}}'>{{btnValue}}</button>
         </view>
+
+
+        <view class="goodsImg">
+            <text >放照片</text>
+            <button bindtap="chooseImage" >
+                上传图片
+            </button>
+        </view>
+
+        <view class="userImage">
+            <view wx:if='{{images.length>0}}'>
+                <view class="q-image-wrap">
+                <!-- 图片缩略图  -->
+                <image class="q-image" src="{{images}}" mode="aspectFill"  bindtap="handleImagePreview"></image>
+                </view>
+                <view class="q-image-remover" bindtap="removeImage">删除</view>
+            </view>
+        </view>
+
         <view>
             <button class='submit' form-type='submit' >提交</button>
         </view>

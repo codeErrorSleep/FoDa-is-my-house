@@ -16,29 +16,13 @@ Page({
     phone:'',
     name:'',
     real_name:'',
-    wechat_id:''
+    wechat_id:'',
+    //照片在云的位置
+    approve_img:[],
+    //存放照片在手机中的位置
+    images:[]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
 
   //手机号输入
   bindPhoneInput(e) {
@@ -95,24 +79,74 @@ Page({
       wechat_id:e.detail.value.wechat_id,
       code:e.detail.value.code
     })
-
-    if(this.data.code !=this.data.rightcode){
-      wx.showToast({
-        title: '验证码错误',
-        icon: 'none',
-        duration: 1000
-      })
-    }else{
-      console.log("shangchuang")
-      this.uploadUser()
-    }
+    // 验证验证码信息是否正确
+    // if(this.data.code !=this.data.rightcode){
+    //   wx.showToast({
+    //     title: '验证码错误',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    // }else{
+    //   console.log("shangchuang")
+    //   this.uploadUser()
+    // }
     
+
+    console.log(this.data.name)
+    console.log(this.data.real_name)
+    console.log(this.data.wechat_id)
+    console.log(this.data.phone)
+
+
+    // 添加用户信息上云
+    this.uploadImages()
+
 
   },
 
 
-  uploadUser:function(){
-    console.log("shangchuang")
+  //上传物品图片信息
+  uploadImages:function(){
+
+    var images=this.data.images
+    //先添加到这一变量,在最后一个再改变this.data.中的approve_img
+    var approve_img=[]
+
+
+    // 对用户点击的图片进行上传
+    images.forEach(item => {
+      console.log(item)
+      wx.cloud.uploadFile({
+        cloudPath: "approve_imgs/"+item.substring(item.length-20), // 上传至云端的路径
+        filePath: item, // 小程序临时文件路径
+        success: res => {
+          // 返回文件 ID
+          console.log(res.fileID)
+          approve_img.push(res.fileID)
+          console.log(approve_img)
+
+          //获取所有图片在云端的位置后上传到数据库
+          if(approve_img.length===images.length){
+            //将局部变量赋给this.data
+            this.setData({
+              approve_img:approve_img
+            })
+            console.log(this.data.approve_img)
+            //隐藏上传提示
+            wx.hideLoading()
+            this.uploadData()
+          }
+        },
+        fail: console.error
+      })
+    });
+  },
+
+
+
+  // 将用户信息上传到数据库
+  uploadData:function(){
+    console.log("上传")
     const db = wx.cloud.database()
     db.collection("users").add({
       data:{
@@ -120,7 +154,8 @@ Page({
         "real_name":this.data.real_name,
         "wechat_id":this.data.wechat_id,
         "phone_num":this.data.phone,
-        "approve":"False"
+        "approve":"False",
+        "approve_img":this.data.approve_img
       },
       success(res){
         //成功上传后提示信息
@@ -130,11 +165,47 @@ Page({
           icon: 'success',
           duration: 1000
         })
-
       }
     })
 
 
-  }
+  },
+
+
+  //打开用户相册选择图片
+  chooseImage:function(e){
+    wx.chooseImage({
+      sizeType: ['compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      success: res => {
+        this.setData({
+          images:res.tempFilePaths
+        })
+        console.log(this.data.images)
+      }
+    })
+  },
+
+  //用户点击放大图片
+  handleImagePreview:function(e) {
+    const images = this.data.images
+    wx.previewImage({
+      current: images,  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
+
+  //点击删除移除照片
+  removeImage:function(e) {
+    //删除指定位置的照片
+    this.setData({
+      images:[]
+    })
+  },
+
+
+
+
+
 
 })    

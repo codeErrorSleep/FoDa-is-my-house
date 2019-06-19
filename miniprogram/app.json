@@ -13,7 +13,9 @@
     "pages/posttest/posttest",
     "pages/registered/registered",
     "pages/uploadPost/uploadPost",
-    "pages/administrator/administrator"
+    "pages/administrator/administrator",
+    "pages/adminSH/adminSH",
+    "pages/adminUA/adminUA"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -90,3 +90,21 @@
     border-radius: 50rpx;
     line-height: 80rpx;
   }
+
+
+
+/* 图片 */
+.userImage{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left
+
+}
+
+.userImage .q-image-wrap .q-image{
+  width: 150rpx;
+  height: 150rpx;
+  padding: 20rpx 20rpx;
+
+}/* pages/uploadPost/uploadPost.wxss */

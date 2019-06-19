@@ -1,0 +1,30 @@
+<view class='list'>
+    <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
+        <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+            <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
+                <view class="feed-content">
+                    <view class="item-title">
+                        <text>{{item.title}}</text>
+                    </view>
+                    <view class="item-price">
+                        <text>¥{{item.price}}</text>
+                    </view>
+                    <!-- 插入照片 -->
+                    <view class="item-img">
+                        <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+                            <view wx:if="{{img_num < 3}}">
+                                <image wx:if='{{goods_item_img}}' src="{{goods_item_img}}" lazy-load />
+                            </view>
+                        </view>
+                        <!-- <image src="../../images/test.jpg" /> -->
+                    </view>
+                    <view class="item-content">
+                        <text class="item-content">{{item.content}}</text>
+                    </view>
+                </view>
+                <!-- </navigator> -->
+            </view>
+            <view class="post-remover" data-idx="{{idx}}" bindtap="removeImage">删除</view>
+        </block>
+    </scroll-view>
+</view>

@@ -42,4 +42,15 @@
   <button id="administrator"  bindtap="administrator">
       管理员页面
   </button>
+
+  <navigator url="../adminSH/adminSH" open-type="navigate" class="uploader-text">
+    <text>test</text>
+  </navigator>
+
+  <navigator url="../adminUA/adminUA" open-type="navigate" class="uploader-text">
+    <text>test</text>
+  </navigator>
+
+
+
 </view>
