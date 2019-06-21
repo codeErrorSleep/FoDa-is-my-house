@@ -1,0 +1,61 @@
+<!--pages/Post/uploadDiscover/uploadDiscover.wxml-->
+
+
+<view class="discoverInformation">
+    <form class="uploadDiscover">
+
+        <view class="type">
+            <text >帖子类型</text>
+            <picker name="post_type_num" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
+                <view class="picker">
+                    当前选择：{{types[type_index]}}
+                </view>
+            </picker>
+        </view> 
+
+        <view class="title">
+            <text >帖子标题:</text>
+            <input name="title"  placeholder="标题" />
+        </view> 
+
+        <view class="postImg">
+            <text >放照片</text>
+            <button bindtap="chooseImage" >
+                上传图片
+            </button>
+        </view>
+
+        <view class="postContent">
+            <text >帖子描述</text>
+            <textarea  name="post_content" auto-height  />
+        </view>
+
+        <view class="Price">
+            <text >请求资金</text>
+            <input name="price" placeholder=""/>
+        </view>
+
+
+
+
+        <view class="choose">
+            <button class="" form-type='submit'>
+                发布帖子
+            </button>
+        </view>
+    </form>
+
+    <view class="postImage">
+        <block wx:for="{{images}}" wx:key="*this">
+            <view class="q-image-wrap">
+            <!-- 图片缩略图  -->
+            <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+            </view>
+            <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+        </block>
+    </view>
+
+
+
+
+</view>

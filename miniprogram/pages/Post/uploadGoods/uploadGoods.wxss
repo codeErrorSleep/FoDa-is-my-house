@@ -1,4 +1,150 @@
 
+.sell_cells {
+  margin: 30rpx 0;
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+
+.sell_cell {
+  display: flex;
+  padding: 20rpx 0;
+  align-items: center;
+}
+
+.sell_title {
+  width: 40px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.placeholder{
+  font-size: 15px;
+  color: #b2b2b2;
+}
+
+
+.sell_input {
+  flex: 1;
+  font-size:15px;
+}
+
+.sell_select {
+  font-size: 16px;
+  color: #b2b2b2;
+}
+
+/*伪元素实现右箭头*/
+.sell_select:after{
+  content: " ";
+  display: inline-block;
+  height:6px;
+  width:6px;
+  border-top:2px solid #768df3; 
+  border-right: 2px solid #768df3;
+  transform: rotate(45deg);
+  margin-left: 5rpx;
+}
+
+.sell_text{
+  color: #b2b2b2;
+}
+
+.sell_hint_text {
+  color: #FF4F64;
+}
+
+.sell_btn{
+  width: 90%;
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  background-color:cornflowerblue;
+  color: white;
+  border-radius: 98rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.sell-cell_uploader{
+  display:inline-block;
+  padding:5rpx 0 10rpx 0;
+}
+
+.sell_uploader_imgbox{
+  float:left;
+  position:relative;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.sell_uploader_img, .sell_uploader_img_cover {
+  width: 150rpx;
+  height: 150rpx;
+  
+}
+
+/*伪元素实现封面图片设置蒙层*/
+.sell_uploader_img_cover::before{
+  position:absolute;
+  top:70%;
+  right:0;
+  bottom:5.8%;
+  left:0;
+  font-size:13px;
+  color: #fff;
+  text-align: center;
+  background-color:rgba(0,0,0,0.4);
+}
+
+/*右上角删除按钮*/
+.sell_uploader_img_del{
+  position:absolute;
+  z-index: 1;
+  width:13px;
+  height:13px;
+  transform: translate(-100%,0);
+}
+
+.sell_uploader_box{
+  float:left;
+  position:relative;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  width: 150rpx;
+  height: 150rpx;
+  background-color:#f8f8f8;
+}
+
+/*伪元素实现上传图片的加号*/
+.sell_uploader_box:before, .sell_uploader_box:after{
+  content:" ";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background-color: #d5dffc;
+}
+.sell_uploader_box:before{
+  width:2px;
+  height:75rpx;
+}
+.sell_uploader_box:after{
+  width:75rpx;
+  height:2px;
+}
+/**/
+
+.sell_uploader_input {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
 
 
 /* 图片 */
@@ -15,4 +161,6 @@
     height: 150rpx;
     padding: 20rpx 20rpx;
 
-}/* pages/uploadGoods/uploadGoods.wxss */
+}
+
+

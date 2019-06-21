@@ -1,40 +1,54 @@
-<view>
-    <swiper autoplay="true" ndicator-dots="true" circular="true" bindchange="swiperChange" previous-margin="30px" next-margin="30px">
-        <block wx:for="{{cardSwiper}}" wx:key="{{index}}">
-            <swiper-item bindtap="swipclick">
-                <image src="{{item}}" class="slide-image {{swiperCurrent == index ? 'active' : ''}}" />
-            </swiper-item>
-        </block>
-    </swiper>
-
-    <view class="chooseList">
-        <view class="choose">
-            <button id="secondHand" class="chooseList" bindtap="jumpToList">
-                闲置
-            </button>
-        </view>
-        <view class="choose">
-            <button id="express" class="chooseList" bindtap="jumpToList">
-                快递
-            </button>
-        </view>
-        <view class="choose">
-            <button id="trifles" class="chooseList" bindtap="jumpToList">
-                琐事
-            </button>
-        </view>
-        <view class="choose">
-            <button id="addtest" class="chooseList" bindtap="addtest">
-                添加信息测试
-            </button>
-        </view>
-        <view class="choose">
-            <button class="chooseList" bindtap="writePost">
-                发布闲置
-            </button>
-        </view>
-
-
+  <import src="../../template/index_sections/index_sections.wxml" />
+ <view>
+   <view>
+   <view class="img_top">
+        <image src="/images/image001.png" style="width:720rpx;height:600rpx" mode="widthFix"></image>
+      </view>   
+    <!--显示分类-->
+      <view style="width:720rpx;margin:10rpx 15rpx 7.5rpx 15rpx;display:flex">
+       <view class="section">
+    <view class="section_container" bindtap='jumpToList' id="secondHand">
+      <view class="section_img">
+        <image src="/images/tabbar/xianzhi.png" style="width:80rpx;height:80rpx;display:flex"></image>
+      </view>
+      <text class="section_name">闲置</text>
+    </view>
+  </view>
+      <view class="section">
+    <view class="section_container" bindtap='jumpToList' id="express">
+      <view class="section_img">
+        <image src="/images/tabbar/kuaidi.png" style="width:80rpx;height:80rpx;display:flex"></image>
+      </view>
+      <text class="section_name">快递</text>
+    </view>
+  </view>
+  
+  </view>
+      <!--显示分类-->
+      <view style="width:720rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+       <view class="section">
+    <view class="section_container" bindtap='jumpToList' id="trifles">
+      <view class="section_img">
+        <image src="/images/tabbar/find.png" style="width:80rpx;height:80rpx;display:flex"></image>
+      </view>
+      <text class="section_name">发现</text>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section_container" bindtap='jumpToList' id="trifles">
+      <view class="section_img">
+        <image src="/images/tabbar/find.png" style="width:80rpx;height:80rpx;display:flex"></image>
+      </view>
+      <text class="section_name">排版</text>
+    </view>
+  </view>
+      </view> 
+     </view>
+     <view class='add_btn' > 
+    <button class='btn1' bindtap="publishPost"> 
+    <image class='btnImg1' src='/images/tabbar/up.png'></image>
+   <view class='text'>一键发布</view>
+    </button>
 
     </view>
 </view>

@@ -8,10 +8,12 @@ Page({
     //选择物品类型
     types:["其他","生活","学习","衣服"],
     type_index:0,
+    inputLength: 0, //文字输入框字数
 
     //用户上传的信息
     post_title:"",
     goods_price:Number,
+    goods_oriPrice:Number,
     goods_type:"",
     goods_content:"",
     //照片在云的位置
@@ -42,6 +44,18 @@ Page({
 
   },
 
+  //统计文本域字数
+  bindInput: function(e) {
+    var inputLength = e.detail.value.length;
+    this.setData({
+      inputLength: inputLength,
+    })
+  },
+
+
+
+
+
   //判断物品的类型
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -63,12 +77,10 @@ Page({
       post_title:e.detail.value.post_title,
       goods_price:e.detail.value.goods_price,
       goods_content:e.detail.value.goods_content,
+      oriPrice:e.detail.value.oriPrice
     })
 
-    // console.log(this.data.post_title)
-    // console.log(this.data.goods_price)
-    // console.log(this.data.goods_type)
-    // 添加商品照片上云
+
     this.uploadImages()
   },
 
@@ -78,11 +90,12 @@ Page({
     const db = wx.cloud.database()
     db.collection("post").add({
       data:{
-        "content":this.data.content,
+        "content":this.data.goods_content,
         "imgs":this.data.goods_imgs,
         "price":this.data.goods_price,
         "title":this.data.post_title,
         "type":this.data.goods_type,
+        "oriPrice":this.data.oriPrice,
         "date":date
       },
       success(res){
@@ -135,40 +148,54 @@ Page({
     });
   },
 
-  //打开用户相册选择图片
-  chooseImage:function(e){
-    wx.chooseImage({
-      sizeType: ['compressed'],  //可选择原图或压缩后的图片
-      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
-      success: res => {
-        this.setData({
-          images:this.data.images.concat(res.tempFilePaths)
-        })
-        console.log(this.data.images)
-      }
-    })
+
+  //选择图片
+  chooseImage: function(e) {
+    var that = this;
+    if (that.data.images.length < 3) {
+      wx.chooseImage({
+        count: 3, //最多可以选择的图片张数
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: res => {
+          this.setData({
+            images:this.data.images.concat(res.tempFilePaths)
+          })
+          console.log(this.data.images)
+        }
+      });
+    } else {
+      wx.showToast({
+        title: "图片限传三张！",
+        icon: 'none',
+        duration: 2000,
+        mask: true,
+      });
+    }
   },
+
+
 
   //用户点击放大图片
   handleImagePreview:function(e) {
-    const idx = e.target.dataset.idx
-    const images = this.data.images
+    var index = e.target.dataset.index
+    var images = this.data.images
     wx.previewImage({
-      current: images[idx],  //当前预览的图片
+      current: images[index],  //当前预览的图片
       urls: images,  //所有要预览的图片
     })
   },
 
   //点击删除移除照片
   removeImage:function(e) {
-    const idx = e.target.dataset.idx
+    var index = e.target.dataset.index
     //删除指定位置的照片
     var images=this.data.images
-    images.splice(idx,1)
+    images.splice(index,1)
     this.setData({
       images:images
     })
-    console.log(idx)
+    console.log(index)
     console.log(this.data.images)
   },
 

@@ -1,32 +1,99 @@
 swiper{
-    width: 100%;
-    height: 360rpx;
-  }
-  
-  swiper-item{
-    padding-top: 30rpx;  
-    background: white;
-  }
-   .slide-image{
-    width: 575rpx; 
-    height: 300rpx;
-    position: absolute;
-    left: 50%;
-    margin-left: -287rpx;
-  } 
-  .slide-image.active{
-    transform: scale(1.1);
-    transition:all .2s ease-in 0s;
-  } 
-  
-  .chooseList .choose{
-    padding:10rpx 10rpx;
-  }
+  width: 100%;
+  height: 360rpx;
+}
 
-  .chooseList button{
-    float:flex;
-    width: 60%;
-    
-    background: #578ef5;
-    color: #fff;
-  }
+swiper-item{
+  padding-top: 30rpx;  
+  background: white;
+}
+.btn1{
+width: 100px;
+height: 50px;
+margin-top: 20rpx;
+background-color: #d5dffc;
+border-bottom: none;
+border: 1px solid #d5dffc;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: 30rpx;
+border-radius: 50% 50% 0 0/100% 100% 0 0;
+}
+
+.btnImg1 {
+width: 50rpx;
+height: 50rpx;
+}
+.add_btn{
+border-radius: 0rpx;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+  
+  width: 100%;
+  position: fixed;
+  bottom: 5rpx;}
+.add_btn::after {
+border: 0; 
+}  
+.text{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-weight:800;
+color:rgb(255, 251, 251);
+}
+.img_top {
+width: 720rpx;
+margin: 7.5rpx 15rpx 7.5rpx 15rpx;
+}
+swiper{
+  width: 100%;
+  height: 360rpx;
+}
+.section {
+width: 345rpx;
+height: 200rpx;
+margin: 5rpx 7.5rpx 5rpx 7.5rpx;
+display: flex;
+background-color: #d5dffc;
+border-radius: 5%;
+}
+.section_container {
+width: 80rpx;
+height: 150rpx;
+display: flex;
+margin: 10px;
+flex: 1;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: #d5dffc;
+}
+ .slide-image{
+  width: 575rpx; 
+  height: 300rpx;
+  position: absolute;
+  left: 50%;
+  margin-left: -287rpx;
+} 
+.slide-image.active{
+  transform: scale(1.1);
+  transition:all .2s ease-in 0s;
+} 
+
+.chooseList .choose{
+  padding:10rpx 10rpx;
+}
+
+.chooseList button{
+  float:flex;
+  width: 60%;
+  
+  background: #578ef5;
+  color: #fff;
+}

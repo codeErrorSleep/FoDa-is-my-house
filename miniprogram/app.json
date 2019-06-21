@@ -13,14 +13,16 @@
     "pages/BackUp/posttest/posttest",
     "pages/Mine/registered/registered",
     "pages/Post/uploadGoods/uploadGoods",
+    "pages/Post/uploadExpress/uploadExpress",
+    "pages/Post/uploadDiscover/uploadDiscover",
     "pages/Admin/admin_main/admin_main",
     "pages/Admin/secondHand/secondHand",
     "pages/Admin/user/user"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#d5dffc",
+    "navigationBarTitleText": "佛大叮当",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

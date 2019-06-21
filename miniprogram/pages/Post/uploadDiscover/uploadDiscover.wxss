@@ -1,0 +1,18 @@
+/* pages/Post/uploadDiscover/uploadDiscover.wxss */
+
+
+/* 图片 */
+.goodsImage{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left
+
+}
+
+.goodsImage .q-image-wrap .q-image{
+    width: 150rpx;
+    height: 150rpx;
+    padding: 20rpx 20rpx;
+
+}/* pages/uploadGoods/uploadGoods.wxss */

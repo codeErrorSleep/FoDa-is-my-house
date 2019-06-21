@@ -103,11 +103,22 @@ Page({
     })
   },
 
-  writePost:function(){
+  // 发布二手交易信息
+  publishPost:function(){
     wx.navigateTo({
       url:"../../Post/uploadGoods/uploadGoods"
     })
+  },
+
+
+  // 发布快递交易信息
+  publishDiscover:function(){
+    wx.navigateTo({
+      url:"../../Post/uploadDiscover/uploadDiscover"
+    })
   }
+
+
 
 
 })
