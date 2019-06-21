@@ -1,21 +1,21 @@
 {
   "pages": [
-    "pages/homePage/homePage",
-    "pages/test/test",
-    "pages/index/index",
-    "pages/my/my",
-    "pages/news/news",
-    "pages/feedback/feedback",
-    "pages/set/set",
-    "pages/post/post",
-    "pages/mySecondHand/mySecondHand",
-    "pages/test2/test2",
-    "pages/posttest/posttest",
-    "pages/registered/registered",
-    "pages/uploadPost/uploadPost",
-    "pages/administrator/administrator",
-    "pages/adminSH/adminSH",
-    "pages/adminUA/adminUA"
+    "pages/Index/index_main/index_main",
+    "pages/BackUp/test/test",
+    "pages/Index/goods/goods",
+    "pages/Mine/mine_main/mine_main",
+    "pages/News/news_main/news_main",
+    "pages/Mine/feedback/feedback",
+    "pages/Mine/setting/setting",
+    "pages/Index/contact/contact",
+    "pages/News/myGoods/myGoods",
+    "pages/BackUp/test2/test2",
+    "pages/BackUp/posttest/posttest",
+    "pages/Mine/registered/registered",
+    "pages/Post/uploadGoods/uploadGoods",
+    "pages/Admin/admin_main/admin_main",
+    "pages/Admin/secondHand/secondHand",
+    "pages/Admin/user/user"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,19 +31,19 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/homePage/homePage",
+        "pagePath": "pages/Index/index_main/index_main",
         "text": "主页",
         "iconPath": "images/tabbar/home.png",
         "selectedIconPath": "images/tabbar/home_selected.png"
       },
       {
-        "pagePath": "pages/news/news",
+        "pagePath": "pages/News/news_main/news_main",
         "text": "消息",
         "iconPath": "images/tabbar/news.png",
         "selectedIconPath": "images/tabbar/news_selected.png"
       },
       {
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/Mine/mine_main/mine_main",
         "text": "我的",
         "iconPath": "images/tabbar/me.png",
         "selectedIconPath": "images/tabbar/me_selected.png"

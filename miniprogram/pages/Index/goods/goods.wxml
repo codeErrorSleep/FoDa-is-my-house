@@ -1,0 +1,48 @@
+<view class='topTabSwiper'>
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}'  data-current = "0" bindtap='checkCurrent'>
+    闲置
+    </view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}'  data-current = "1" bindtap='checkCurrent'>
+    快递
+    </view>
+    <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}'  data-current = "2" bindtap='checkCurrent'>
+    琐事
+    </view>
+</view>
+
+<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
+  <swiper-item>
+    <view class='swiper_con'>
+        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
+          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+              <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
+                <!-- 将帖子的所有信息传入到帖子的主页面 -->
+                <!-- <navigator url="../posttest/posttest?title={{item.title}}&content={{item.content}}&price={{item.price}}&imgs={{item.imgs}}&_openid={{item._openid}}" hover-class="none"> -->
+                  <view class="feed-content" >
+                      <view class="item-title" >
+                          <text>{{item.title}}</text>
+                      </view>
+                      <view class="item-price">
+                          <text>¥{{item.price}}</text>
+                      </view>
+                      <view class="item-img">
+                          <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+                              <view wx:if="{{img_num < 3}}">
+                                  <image src="{{goods_item_img}}" lazy-load />
+                              </view>
+                          </view>
+                          <!-- <image src="../../../images/test.jpg" /> -->
+                      </view>
+                      <view class="item-content">
+                          <text class="item-content">{{item.content}}</text>
+                      </view>
+                  </view>
+                  <!-- </navigator> -->
+              </view>
+          </block>
+          </scroll-view>
+      </view>
+  </swiper-item> 
+  <swiper-item><view class='swiper_con'>welcome come to 热点</view></swiper-item>
+  <swiper-item><view class='swiper_con'>welcome come to 关注</view></swiper-item>  
+</swiper>

@@ -1,0 +1,8 @@
+<!--pages/setting/setting.wxml-->
+<view>
+  <text>
+  不能设置
+
+  </text>
+
+</view>

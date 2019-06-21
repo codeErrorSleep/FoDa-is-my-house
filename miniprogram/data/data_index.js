@@ -9,7 +9,7 @@ var index= {
         {
             "post_id":1,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -19,7 +19,7 @@ var index= {
         {
             "post_id":123,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -29,7 +29,7 @@ var index= {
         {
             "post_id":234,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -39,7 +39,7 @@ var index= {
         {
             "post_id":154,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -48,7 +48,7 @@ var index= {
         },        {
             "post_id":114,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -58,7 +58,7 @@ var index= {
         {
             "post_id":451,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -67,7 +67,7 @@ var index= {
         },        {
             "post_id":145,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
@@ -77,7 +77,7 @@ var index= {
         {
             "post_id":146,
             "goods_price":2332,
-            "goods_img":["../../images/test.jpg","../../images/test.jpg","../../images/test.jpg","../../images/test.jpg"],
+            "goods_img":["../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg","../../../images/test.jpg"],
             "goods_type":"垃圾",
             "post_date":"1998",
             "post_title":"我是你爸爸",
