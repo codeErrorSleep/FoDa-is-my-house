@@ -1,61 +1,60 @@
-<!--pages/Post/uploadDiscover/uploadDiscover.wxml-->
-
-
-<view class="discoverInformation">
-    <form class="uploadDiscover">
-
-        <view class="type">
-            <text >帖子类型</text>
-            <picker name="post_type_num" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
-                <view class="picker">
-                    当前选择：{{types[type_index]}}
-                </view>
-            </picker>
-        </view> 
-
-        <view class="title">
-            <text >帖子标题:</text>
-            <input name="title"  placeholder="标题" />
-        </view> 
-
-        <view class="postImg">
-            <text >放照片</text>
-            <button bindtap="chooseImage" >
-                上传图片
-            </button>
-        </view>
-
-        <view class="postContent">
-            <text >帖子描述</text>
-            <textarea  name="post_content" auto-height  />
-        </view>
-
-        <view class="Price">
-            <text >请求资金</text>
-            <input name="price" placeholder=""/>
-        </view>
-
-
-
-
-        <view class="choose">
-            <button class="" form-type='submit'>
-                发布帖子
-            </button>
-        </view>
-    </form>
-
-    <view class="postImage">
-        <block wx:for="{{images}}" wx:key="*this">
-            <view class="q-image-wrap">
-            <!-- 图片缩略图  -->
-            <image class="q-image" src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
-            </view>
-            <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
-        </block>
+<!-- pages/update/update.wxml -->
+<view class="page">
+  <form bindsubmit='uploadPost'>
+    <!-- 分类 -->
+    <view class='sell_cells'>
+      <view class="sell_cell">
+        <text class="sell_title">分类</text>
+        <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
+          <text class="sell_select">{{types[type_index]}}</text>
+        </picker>
+      </view>
     </view>
-
-
-
-
+    <!--  -->
+    <!-- 标题和描述 -->
+    <view class="sell_cells">
+      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text class="sell_title">标题</text>
+        <input name="title" class="sell_input" placeholder="请输入您的帖子标题（不超过15个字）" placeholder-class='placeholder' maxlength='15' />
+      </view>
+      <view class="sell_cell" style="align-items: flex-start">
+        <text class="sell_title">内容</text>
+        <textarea name="content" class="sell_input" placeholder="请你简述一下你要说的内容,只有求助类型的帖子提供价格选项.（文字不超过140个字，附图不超过3张）" placeholder-class='placeholder' maxlength='140' bindinput='bindInput'></textarea>
+      </view>
+      <!-- 字数提示，超过130字变红 -->
+      <view class="sell_cell" style="justify-content:flex-end">
+        <view wx:if="{{inputLength>130}}">
+          <text class="sell_hint_text">{{inputLength}}</text>
+          <text class="sell_text">/140</text>
+        </view>
+        <view wx:else>
+          <text class="sell_text">{{inputLength}}/140</text>
+        </view>
+      </view>
+      <!--  -->
+      <!-- 上传图片 -->
+      <view class="sell-cell_uploader">
+        <view class="sell_uploader_imgbox" wx:for="{{images}}" wx:key="*this">
+          <image class="sell_uploader_img" src="{{item}}" data-index="{{index}}" bindtap="handleImagePreview" mode="aspectFill"></image>
+          <image class="sell_uploader_img_del" bindtap="removeImage" data-index="{{index}}" src="/images/x.png" />
+        </view>
+        <view class="sell_uploader_box">
+          <view class="sell_uploader_input" bindtap="chooseImage"></view>
+        </view>
+      </view>
+      <!--  -->
+    </view>
+    <!--  -->
+    <!-- 求助金额 -->
+    <view wx:if="{{type_index<1}}">
+      <view class='sell_cells'>
+        <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+          <text class="sell_title">价格</text>
+          <input name="price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+        </view>
+      </view>
+    </view>
+    <!--  -->
+    <button class="sell_btn" form-type='submit'>确认发布</button>
+  </form>
 </view>

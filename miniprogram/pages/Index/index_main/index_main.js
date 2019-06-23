@@ -114,7 +114,7 @@ Page({
   // 发布快递交易信息
   publishDiscover:function(){
     wx.navigateTo({
-      url:"../../BackUp/test/test"
+      url:"../../Post/uploadDiscover/uploadDiscover"
     })
   }
 
