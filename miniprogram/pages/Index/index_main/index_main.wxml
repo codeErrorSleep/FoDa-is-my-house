@@ -44,11 +44,17 @@
   </view>
       </view> 
      </view>
+
+
      <view class='add_btn' > 
     <button class='btn1' bindtap="publishPost"> 
     <image class='btnImg1' src='/images/tabbar/up.png'></image>
    <view class='text'>一键发布</view>
     </button>
 
-    </view>
+      </view>
+
+    <button class='btn1' bindtap="publishDiscover"> 
+    </button>
+
 </view>
