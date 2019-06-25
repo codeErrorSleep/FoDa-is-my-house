@@ -27,7 +27,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 判断当前用户是否为以注册用户
+    util.isRegistered()
   },
 
   /**

@@ -10,7 +10,7 @@
                         <text>微信号：{{item.wechat_id}}\n</text>
                     </view>
                     <view class="item-img">
-                        <view wx:for="{{item.approve_img>0}}" wx:for-index="img_num" wx:for-item="approve_item_img">
+                        <view wx:for="{{item.approve_img}}" wx:for-index="img_num" wx:for-item="approve_item_img">
                             <image src="{{approve_item_img}}" lazy-load />
                         </view>
                     </view>

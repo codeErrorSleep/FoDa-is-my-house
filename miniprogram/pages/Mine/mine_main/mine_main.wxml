@@ -1,56 +1,61 @@
-<!--pages/mine_main/mine_main.wxml-->
-
-<view class="self">
-   <view class='title' hover-class='hover-class'>
-       <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image  class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-      
+<!-- pages/mine_main/mine_main.wxml -->
+<view class="mine_top">
+  <view class="mine_index">
+    <view style="flex:0.3"></view>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      获取头像昵称
+    </button>
+    <view class="mine_avatar_bd">
+      <image wx:if="{{hasUserInfo}}" class="mine_avatar" src="{{userInfo.avatarUrl}} " />
+      <image wx:else class="mine_avatar" src="/images/per.png" bindtap='getUserInfo' />
     </view>
-    
-</view>
-
-
-
-
-
-
-<view class="wrapper">
-  <navigator url="../feedback/feedback">
-   <view class='item' hover-class='hover-class'>
-      <view class='title'>
-        <text>意见</text>
+    <view class="mine_nickName">
+      <view wx:if="{{hasUserInfo}}">
+        <view style="display:flex;justify-content:center;margin:0 0 10rpx 0">
+          <text style="font-weight:bold">{{userInfo.nickName}}</text>
+        </view>
       </view>
     </view>
-  </navigator>
-    <navigator url="../setting/setting">
-    <view class='item' hover-class='hover-class' >
-      <view class='title'>
-        <text >设置</text>
-      </view>
-    </view>
-      </navigator>
+  </view>
 </view>
-
-
-<view class="myself">
-  <button id="registered"  bindtap="registered">
-      个人注册
-  </button>
-  <button id="administrator"  bindtap="administrator">
-      管理员页面
-  </button>
-
-  <navigator url="../../Admin/secondHand/secondHand" open-type="navigate" class="uploader-text">
-    <text>test</text>
+<view class='mine_cells'>
+  <navigator url="../registered/registered" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch006.png" />
+    <text class="mine_title">个人注册</text>
+    <view class="mine_arrow"></view>
   </navigator>
-
-  <navigator url="../../Admin/user/user" open-type="navigate" class="uploader-text">
-    <text>test</text>
+</view>
+<view class='mine_cells'>
+  <navigator url="../feedback/feedback" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch001.png" />
+    <text class="mine_title">意见</text>
+    <view class="mine_arrow"></view>
   </navigator>
-
-
-
+  <navigator url="../setting/setting" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch002.png" />
+    <text class="mine_title">设置</text>
+    <view class="mine_arrow"></view>
+  </navigator>
+  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch002.png" />
+    <text class="mine_title">我的闲置</text>
+    <view class="mine_arrow"></view>
+  </navigator>
+  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch002.png" />
+    <text class="mine_title">我的快递</text>
+    <view class="mine_arrow"></view>
+  </navigator>
+  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
+    <image class="mine_icon" src="/images/my/Sketch002.png" />
+    <text class="mine_title">我的琐事</text>
+    <view class="mine_arrow"></view>
+  </navigator>
+  <view wx:if="{{admin}}">
+    <navigator url="../../Admin/admin_main/admin_main" class="mine_cell">
+      <image class="mine_icon" src="/images/my/Sketch003.png" />
+      <text class="mine_title">管理员页面</text>
+      <view class="mine_arrow"></view>
+    </navigator>
+  </view>
 </view>

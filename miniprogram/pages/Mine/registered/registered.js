@@ -25,6 +25,17 @@ Page({
     images:[]
   },
 
+  //页面加载时读取数据库
+  onLoad: function (options) {
+    if(options.show=="Ture"){
+      wx.showToast({
+        title: '请先完成校园认证',
+        icon: 'loading',
+        duration: 1000,
+        mask:true
+    })
+    }
+  },
 
   //手机号输入
   bindPhoneInput(e) {

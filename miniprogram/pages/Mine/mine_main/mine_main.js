@@ -2,6 +2,9 @@ const app = getApp()
 
 Page({
   data: {
+    // 判断是否为管理员
+    admin:"false",
+
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -9,6 +12,15 @@ Page({
   },
 
   onLoad: function () {
+    // 判断是否显示管理员页面
+    if(app.globalData.userCloudData.admin){
+      this.setData({
+        admin:true
+      })
+    }
+
+
+    // 判断获取用户的基本信息
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -35,6 +47,7 @@ Page({
         }
       })
     }
+
   },
   getUserInfo: function (e) {
     console.log(e)

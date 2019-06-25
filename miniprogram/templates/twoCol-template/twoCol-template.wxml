@@ -1,0 +1,45 @@
+<template name="twoCol">
+  <view class='categories'>
+    <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique">{{item}}</text>
+  </view>
+  <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
+    <block wx:for="{{categories}}" wx:for-item="category">
+      <swiper-item>
+        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
+          <view class="img_container">
+            <view class="img_col1">
+              <view class="img_col_item" wx:for="{{feed}}" wx:for-index="idx">
+                <view wx:if="{{idx % 2 == 0 && (category==('全部')||item.type==category)}}">        
+                  <view class="img_cell">
+                    <text class="user_nickname">{{item.title}}</text>
+                    <text class="user_location">江湾</text>
+                  </view>
+                  <image src="{{item.imgs[0]}}" bindtap='jumpToPost' id='{{idx}}' style="width:100%" mode="widthFix"></image>
+                  <text class="item_description">{{item.content}}</text>
+                  <view class="img_cell">
+                    <text class="item_price">￥{{item.price}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="img_col2">
+              <view class="img_col_item" wx:for="{{feed}}" wx:for-index="idx">
+                <view wx:if="{{idx % 2 == 1 && (category==('全部')||item.type==category)}}">
+                  <view class="img_cell">
+                    <text class="user_nickname">{{item.title}}</text>
+                    <text class="user_location">仙溪</text>
+                  </view>
+                  <image src="{{item.imgs[0]}}" bindtap='jumpToPost' id='{{idx}}' style="width:100%" mode="widthFix"></image>
+                  <text class="item_description">{{item.content}}</text>
+                  <view class="img_cell">
+                    <text class="item_price">￥{{item.price}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </block>
+  </swiper>
+</template>

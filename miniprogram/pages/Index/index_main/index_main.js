@@ -37,11 +37,10 @@ Page({
         this.setData({
           openid:res.result.openid
         })
-        app.globalData.openid=res.result.openid
+        util.getUserInCloud(this.data.openid);
       }
     })
 
-    
   },
 
 

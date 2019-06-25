@@ -16,8 +16,6 @@ Page({
     feed_length: 0,
     //下拉继续读取数据
     nextPage:0,
-    //用户id openid
-    openid:""
 
   },
 
@@ -31,10 +29,10 @@ Page({
     console.log(options.tab_id)
     that.setData({
       currentData: options.tab_id,
-      openid:app.globalData.openid
     })
     //调用应用实例的方法获取全局数据
-    this.nextLoad();
+    console.log(app.globalData.userCloudData._openid)
+    this.dbLoad();
   },
 
   //完成选项卡的跳转
@@ -63,15 +61,15 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
-    that.nextLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
+    that.dbLoad();
     console.log("lower")
   },
 
   // 在云数据库上查找数据(查找10条)
-  nextLoad: function () {
+  dbLoad: function () {
     var that = this;
-    util.nextLoad('post', that, that.data.openid);
+    util.dbLoad('post', that, app.globalData.userCloudData._openid);
   },
 
   //跳转到点击页面

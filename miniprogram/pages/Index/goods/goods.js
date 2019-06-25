@@ -7,77 +7,108 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //主导航栏
+    navbar: ["闲置", "快递", "发现"],
+    //闲置分类导航栏
+    categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+    //主导航栏下标
+    currentIndex: 0,
+    //分类导航栏下标
     currentData: 0,
+    //所要读取的数据库
+    database: 'post',
+    //数据库数据
     feed: [],
-    feed_length: 2,
-    //下拉继续读取数据
-    nextPage:0
+    //下拉更新数据库数据个数
+    nextPage: 0,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  //页面加载时读取数据库
   onLoad: function (options) {
-    console.log('onLoad')
-    var that = this
-    // 改变选项卡的值
-    console.log(options.tab_id)
-    that.setData({
-      currentData: options.tab_id
+    this.setData({
+      currentIndex: options.tab_id,
     })
-    //调用应用实例的方法获取全局数据
-    this.nextLoad();
-
+    this.navbarTab();
   },
-  //完成选项卡的跳转
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
+
+  //点击更新主导航栏下标
+  navbarTab: function (e) {
+    if (e) {
+      this.setData({
+        currentIndex: e.currentTarget.dataset.index
+      });
+    }
+    var that = this;
+    if (that.data.currentIndex == 0) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        database: 'post',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 1) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        database: 'post',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 2) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "求助", "寻物", "找队友"],
+        database: 'discover',
+        currentData: 0,
+      })
+    };
+    this.dbLoad();
+  },
+
+  //点击更新闲置分类导航栏下标
+  categoriesTab: function (e) {
+    this.setData({
+      currentData: e.currentTarget.dataset.index
+    })
+  },
+
+  //滑动更新闲置分类导航栏下标
+  categoriesChange: function (e) {
+    this.setData({
       currentData: e.detail.current
     })
-
   },
-  //分析选项卡是否正确
-  checkCurrent: function (e) {
-    const that = this;
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
-  },
-
 
   // 拖到最下面更新数据
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
-    that.nextLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
+    that.dbLoad();
     console.log("lower")
   },
 
-  // 在云数据库上查找数据(查找10条)
-  nextLoad: function(){
-    var that=this;
-    util.nextLoad('post',that, ".");
+  // 调用util.js中读取数据库函数
+  dbLoad: function () {
+    var that = this;
+    console.log('ask:', that.data.database);
+    util.dbLoad(that.data.database, that, '.');
   },
 
-    //跳转到点击页面
-    jumpToPost: function(e){
-      var id=e.currentTarget.id
-      console.log(e.currentTarget.id)
-      console.log(this.data.feed[id])
-      var post_data=JSON.stringify(this.data.feed[id])
-      wx.navigateTo({
-        // url: '../posttest/posttest?post_data=' + post_data
-        url: '../contact/contact?post_data=' + post_data
-      
-      })
-    },
+  //跳转到点击页面
+  jumpToPost: function (e) {
+    var id = e.currentTarget.id
+    console.log(e.currentTarget.id)
+    console.log(this.data.feed[id])
+    var post_data = JSON.stringify(this.data.feed[id])
+    wx.navigateTo({
+      // url: '../posttest/posttest?post_data=' + post_data
+      url: '../contact/contact?post_data=' + post_data
 
+    })
+  },
 
 
 })

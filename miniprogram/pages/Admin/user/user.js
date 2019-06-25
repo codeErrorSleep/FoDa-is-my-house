@@ -29,7 +29,7 @@ Page({
       openid: app.globalData.openid
     })
     //调用获取用户信息数据
-    this.nextLoad();
+    this.dbLoad();
   },
 
 
@@ -38,15 +38,15 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
-    that.nextLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
+    that.dbLoad();
     console.log("lower")
   },
 
   // 在云数据库上查找数据(查找10条)
-  nextLoad: function () {
+  dbLoad: function () {
     var that = this;
-    util.nextLoad('users', that, ".");
+    util.dbLoad('users', that, '.');
   },
 
   // 通过用户信息验证

@@ -30,12 +30,14 @@ Page({
     console.log(this.data.post_data)
     console.log(this.data.user_id)
     
+
+
     this.getUserData()
 
 
   },
 
-
+  // 获取物品主人的信息
   getUserData:function(){
     const db = wx.cloud.database()
     // 查询当前物品的主人信息
@@ -61,40 +63,48 @@ Page({
 
   //用户联系方式复制
   showConnect: function (e) {
-    // 判断微信定系手机
-    var promptTitle=""
-    var content=""
-    if(e.currentTarget.id==="wechatButton"){
-      promptTitle="卖家微信"
-      content=this.data.user_data.wechat_id
-    }
-    else{
-      promptTitle="卖家手机号码"
-      content=this.data.user_data.phone_num
-    }
-    console.log(promptTitle)
-    console.log(content)
-    wx.showModal({
-      title: promptTitle,
-      content: content,
-      confirmText:"复制",
-      success: function (res) {
-        if (res.confirm) {
-          wx.setClipboardData({
-            data: content,
-            success: function (res) {
-              wx.showToast({
-                title: '复制成功',
-              });
-            }
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
+    // 判断当前用户是否为以注册用户
+    var isRegistered=util.isRegistered()
+    if(isRegistered=="Ture")
+    {
+      // 判断微信定系手机
+      var promptTitle=""
+      var content=""
+      if(e.currentTarget.id==="wechatButton"){
+        promptTitle="卖家微信"
+        content=this.data.user_data.wechat_id
       }
-    })
+      else{
+        promptTitle="卖家手机号码"
+        content=this.data.user_data.phone_num
+      }
+      console.log(promptTitle)
+      console.log(content)
+      wx.showModal({
+        title: promptTitle,
+        content: content,
+        confirmText:"复制",
+        success: function (res) {
+          if (res.confirm) {
+            wx.setClipboardData({
+              data: content,
+              success: function (res) {
+                wx.showToast({
+                  title: '复制成功',
+                });
+              }
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+
+    }
+
   },
 
+  // 复制功能函数
   copyText:function(connectWay){
     var that = this;
     wx.setClipboardData({

@@ -1,23 +1,23 @@
 {
   "pages": [
     "pages/Index/index_main/index_main",
-    "pages/BackUp/test/test",
     "pages/Index/goods/goods",
-    "pages/Mine/mine_main/mine_main",
+    "pages/Index/contact/contact",
     "pages/News/news_main/news_main",
+    "pages/News/myGoods/myGoods",
+    "pages/Mine/mine_main/mine_main",
     "pages/Mine/feedback/feedback",
     "pages/Mine/setting/setting",
-    "pages/Index/contact/contact",
-    "pages/News/myGoods/myGoods",
-    "pages/BackUp/test2/test2",
-    "pages/BackUp/posttest/posttest",
     "pages/Mine/registered/registered",
     "pages/Post/uploadGoods/uploadGoods",
     "pages/Post/uploadExpress/uploadExpress",
     "pages/Post/uploadDiscover/uploadDiscover",
     "pages/Admin/admin_main/admin_main",
     "pages/Admin/secondHand/secondHand",
-    "pages/Admin/user/user"
+    "pages/Admin/user/user",
+    "pages/BackUp/test/test",
+    "pages/BackUp/test2/test2",
+    "pages/BackUp/posttest/posttest"
   ],
   "window": {
     "backgroundTextStyle": "light",

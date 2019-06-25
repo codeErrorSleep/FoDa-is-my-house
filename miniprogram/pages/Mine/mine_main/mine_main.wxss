@@ -14,6 +14,105 @@
 .title .userinfo-nickname{line-height: 50rpx;display: block; }
 
 
+.mine_top {
+  display:flex;
+  width: 100%;
+  height: 280rpx;
+  background:linear-gradient(to right,#d5dffc,#d5dffc);
+  justify-content: center;
+  align-items: cneter;
+}
+
+.mine_index{
+  display:flex;
+  flex-direction:column;
+  width:300rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.mine_top button{
+  color: #d5dffc;
+
+}
+/*头像容器*/
+.mine_avatar_bd{
+  flex:1.5;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:150rpx;
+  height:150rpx;
+}
+.mine_avatar{
+  width:150rpx;
+  height:150rpx;
+  border-radius: 50%;
+}
+.mine_nickName{
+  flex:1;
+  color:rgb(0, 0, 0);
+  font-size:16px;
+}
+.mine_login{
+  flex:1;
+  color:#fff;
+  font-size:16px;
+}
+.mine_cell {
+  border-bottom: 1px solid #e2e2e2;
+}
+.mine_cell, .mine_cell_last {
+  display: flex;
+  padding: 15rpx 0;
+  align-items: center;
+}
+
+.mine_cells {
+  margin: 20rpx 0;
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+.mine_icon {
+  margin:0 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.mine_title{
+  font-size:13px;
+  flex:1;
+}
+
+.mine_arrow{
+  text-align: right;
+}
+/*伪元素实现右箭头*/
+.mine_arrow:after{
+  content: " ";
+  display: inline-block;
+  height:6px;
+  width:6px;
+  border-top:2px solid #d5dffc; 
+  border-right: 2px solid #d5dffc;
+  transform: rotate(45deg);
+  margin-left: 5rpx;
+}
+.title{
+  margin-top: 35rpx;
+  display: flex;
+  flex-direction: row;
+  padding: 16rpx 0 18rpx 26rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx solid #abb4bf;
+  background: #F4F6F9;
+  } 
+
+.title .bindViewTap{width: 94rpx;height: 94rpx;border-radius: 8rpx;margin-right: 24rpx;}
+.title .userinfo-nickname{line-height: 50rpx;display: block; }
+
+
 
 .item {
   background: #F4F6F9;

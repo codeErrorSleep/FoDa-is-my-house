@@ -32,7 +32,7 @@ Page({
       openid: app.globalData.openid
     })
     //调用获取二手商品数据
-    this.nextLoad();
+    this.dbLoad();
   },
 
   // 完成选项卡的跳转
@@ -61,15 +61,15 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.nextLoad();}, 1000);
-    that.nextLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
+    that.dbLoad();
     console.log("lower")
   },
 
   // 在云数据库上查找数据(查找10条)
-  nextLoad: function () {
+  dbLoad: function () {
     var that = this;
-    util.nextLoad('post', that, ".");
+    util.dbLoad('post', that, '.');
   },
 
   //跳转到点击页面

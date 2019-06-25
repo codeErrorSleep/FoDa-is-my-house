@@ -1,37 +1,43 @@
+var app = getApp()
 
-// 商品信息
-var index = require('../data/data_index.js')
-// 用户信息
-var allUsers=require('../data/user_data.js')
-// 主页二手获得新数据
-function getData2(){
-  return index.index;
+
+// 获取用户是否已经注册
+function getUserInCloud(openid){
+  const db = wx.cloud.database()
+  db.collection('users').where({
+    _openid: openid,
+  })
+  .get({
+    success: function(res) {
+      // res.data 是包含以上定义的两条记录的数组
+      // 读取第一个数据(后期修改用户上传只能上传一次,修改)
+      app.globalData.userCloudData=res.data[0]
+      console.log(app.globalData.userCloudData)
+
+    }
+  })
+}
+
+// 判断是否为注册用户
+function isRegistered(){
+  // 判断当前用户是否为以注册用户
+  if(app.globalData.userCloudData.approve==="False"){
+  wx.navigateTo({
+    url: '../../Mine/registered/registered?show=Ture'
+  })
+  } 
+  else{
+    return "Ture"
+  }
+
 }
 
 
-// 更新数据
-function getNext(){
-  return index.index;
-}
 
-// 获取详细的商品信息
-function getPostData(post_id){
-  // console.log(post_id)
-  // console.log(index.index.data)
-  // 跨类型对比
-  var postData=index.index.data.find(s => s.post_id ==post_id)
-  return postData;
-}
 
-// 获取详细的用户信息
-function getUserData(user_id){
-  var userData=allUsers.userData.data.find(s => s.user_id ==user_id)
-  // console.log(userData)
-  return userData
-}
 
 //在云数据库上查找数据(查找10条)
-function nextLoad(database, that, limit) {
+function dbLoad(database, that, limit) {
   wx.showToast({
     title: '加载中',
     icon: 'loading',
@@ -76,8 +82,14 @@ function nextLoad(database, that, limit) {
   })
 }
 
-module.exports.getData2 = getData2;
-module.exports.getNext = getNext;
-module.exports.getPostData = getPostData;
-module.exports.getUserData = getUserData;
-module.exports.nextLoad = nextLoad;
+
+
+
+
+
+
+
+
+module.exports.dbLoad = dbLoad;
+module.exports.getUserInCloud = getUserInCloud;
+module.exports.isRegistered=isRegistered;
