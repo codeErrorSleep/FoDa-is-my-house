@@ -5,7 +5,7 @@ Page({
   data: {
     //用户的信息
     openid:"",
-
+    tabbar: {},//自定义tabbar
 
     //轮播图测试
     cardSwiper: [
@@ -28,7 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.editTabbar(); //自定义tabbar
     //获取用户的openid并设置为全局变量
     wx.cloud.callFunction({
       name: 'login',
@@ -113,7 +113,7 @@ Page({
   // 发布快递交易信息
   publishDiscover:function(){
     wx.navigateTo({
-      url:"../../Post/uploadDiscover/uploadDiscover"
+      url: "../../Index/contactest/contactest"
     })
   }
 

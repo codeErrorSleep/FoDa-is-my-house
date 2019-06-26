@@ -3,6 +3,7 @@
     "pages/Index/index_main/index_main",
     "pages/Index/goods/goods",
     "pages/Index/contact/contact",
+    "pages/Index/modal/modal",
     "pages/News/news_main/news_main",
     "pages/News/myGoods/myGoods",
     "pages/Mine/mine_main/mine_main",
@@ -37,12 +38,6 @@
         "text": "主页",
         "iconPath": "images/tabbar/home.png",
         "selectedIconPath": "images/tabbar/home_selected.png"
-      },
-      {
-        "pagePath": "pages/News/news_main/news_main",
-        "text": "消息",
-        "iconPath": "images/tabbar/news.png",
-        "selectedIconPath": "images/tabbar/news_selected.png"
       },
       {
         "pagePath": "pages/Mine/mine_main/mine_main",

@@ -1,4 +1,8 @@
 /**app.wxss**/
+page {
+  background-color:rgba(250,250,250,0.90)
+ ;
+}
 .container {
   height: 100%;
   /* height: 1500rpx; */
