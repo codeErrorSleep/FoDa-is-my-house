@@ -1,3 +1,7 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">商品详细</view>
+</cu-custom>
 <view class="post">
     <view class="userInformation">
         <view class="userImg">
@@ -25,18 +29,31 @@
         </view>
     </view>
 
-    <view class="contact">
-        <view class="phoneNum">
-            <button id="wechatButton" class="btn1" bindtap="showConnect">
-                微信联系
-            </button>
-        </view>
-        <view class="wechat">
-            <button id="phoneButton" class="btn2" bindtap="showConnect">
-                手机联系
-            </button>
-        </view>
+  <button  class="circle" bindtap="showModal" data-target="Modal">
+<view class="want">想要</view>
+</button>
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">联系方式</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
     </view>
+    <view class="padding-xl">
+       <view style="width:520rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+    <button id="wechatButton" class='btn1' bindtap="showConnect">
+    <image class='btnImg' src='../../../images/wechat.png'></image>
+ <view>微信联系</view>
+ </button>  
+  <button id="phoneButton" class='btn2' bindtap="showConnect">
+   <image class='btnImg' src='../../../images/phone.png'></image>
+    <view>手机联系</view>
+ </button>  
+ </view>
+    </view>
+  </view>
+</view> 
 </view>
 
 

@@ -1,4 +1,7 @@
   <import src="../../template/index_sections/index_sections.wxml" />
+ <cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
+	<view slot="content">佛大叮当</view>
+</cu-custom>
  <view>
    <view>
    <view class="img_top">
@@ -7,19 +10,20 @@
     <!--显示分类-->
       <view style="width:720rpx;margin:10rpx 15rpx 7.5rpx 15rpx;display:flex">
        <view class="section">
-    <view class="section_container" bindtap='jumpToList' id="secondHand">
+    <view class="section_container1" bindtap='jumpToList' id="secondHand">
+     <text class="section_name">闲置</text>
       <view class="section_img">
-        <image src="/images/tabbar/xianzhi.png" style="width:80rpx;height:80rpx;display:flex"></image>
+        <image src="/images/my/1.png" style="width:120rpx;height:120rpx;"></image>
       </view>
-      <text class="section_name">闲置</text>
     </view>
   </view>
       <view class="section">
-    <view class="section_container" bindtap='jumpToList' id="express">
+    <view class="section_container2" bindtap='jumpToList' id="express">
+       <text class="section_name">快递</text>
       <view class="section_img">
-        <image src="/images/tabbar/kuaidi.png" style="width:80rpx;height:80rpx;display:flex"></image>
+        <image src="/images/my/2.png" style="width:100rpx;height:100rpx;display:flex"></image>
       </view>
-      <text class="section_name">快递</text>
+   
     </view>
   </view>
   
@@ -27,38 +31,54 @@
       <!--显示分类-->
       <view style="width:720rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
        <view class="section">
-    <view class="section_container" bindtap='jumpToList' id="trifles">
-      <view class="section_img">
-        <image src="/images/tabbar/find.png" style="width:80rpx;height:80rpx;display:flex"></image>
-      </view>
+    <view class="section_container3" bindtap='jumpToList' id="trifles">
       <text class="section_name">发现</text>
+      <view class="section_img">
+        <image src="/images/my/3.png" style="width:100rpx;height:100rpx;display:flex"></image>
+      </view>
+    
     </view>
   </view>
   <view class="section">
-    <view class="section_container" bindtap='jumpToList' id="trifles">
+    <view class="section_container4" bindtap='jumpToList' id="trifles">
+       <text class="section_name">日签</text>
       <view class="section_img">
-        <image src="/images/tabbar/find.png" style="width:80rpx;height:80rpx;display:flex"></image>
+        <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
       </view>
-      <text class="section_name">排版</text>
+   
     </view>
   </view>
       </view> 
      </view>
 
 
-     <view class='add_btn' > 
-    <button class='btn1' bindtap="publishPost"> 
-    <image class='btnImg1' src='/images/tabbar/up.png'></image>
-   <view class='text'>一键发布</view>
+  <view class='but'>
+    <button class='butt' style="display:block;margin:0 auto" bindtap="showModal" data-target="Modal">
+      <image class='btnImg1' src='/images/tabbar/加号.png'></image>
     </button>
+  </view>
 
+  <view class="cu-modal {{modalName=='Modal'?'show':''}}" bindtap="hideModal">
+    <view class="cu-dialog">
+      <view class="padding-xl">
+        <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+          <view class="sectionmodal">
+            <view class="section_container5" bindtap='publishPost'>
+              <image src="/images/arrived destination 1.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              发布闲置
+            </view>
+          </view>
+          <view class="sectionmodal">
+            <view class="section_container5" bindtap='publishDiscover'>
+              <image src="/images/directions.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              发布任务
+            </view>
+          </view>
+
+        </view>
       </view>
+    </view>
+  </view>
 
-    <button class='btn1' bindtap="publishDiscover"> 
-    </button>
-      <!--占用自定义tabbar空间-->
-    <view style="height:108rpx"></view>
-    <!--占用自定义tabbar空间-->
-  <tabbar tabbar="{{tabbar}}"></tabbar>
 
 </view>

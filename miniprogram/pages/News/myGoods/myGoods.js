@@ -1,7 +1,5 @@
-// pages/myGoods/myGoods.js
-
 var util = require('../../../utils/util.js')
-var app = getApp()
+const app = getApp()
 
 Page({
 
@@ -9,53 +7,79 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //选项卡的编号
+    //主导航栏
+    navbar: ["闲置", "快递", "发现"],
+    //闲置分类导航栏
+    categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+    //主导航栏下标
+    currentIndex: 0,
+    //分类导航栏下标
     currentData: 0,
-    //获取的数据集
+    //所要读取的数据库
+    database: 'post',
+    //数据库数据
     feed: [],
-    feed_length: 0,
-    //下拉继续读取数据
-    nextPage:0,
-
+    //下拉更新数据库数据个数
+    nextPage: 0,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  //页面加载时读取数据库
   onLoad: function (options) {
-    console.log('onLoad')
-    var that = this
-    // 改变选项卡的值
-    console.log(options.tab_id)
-    that.setData({
-      currentData: options.tab_id,
+    this.setData({
+      currentIndex: options.tab_id,
     })
-    //调用应用实例的方法获取全局数据
-    console.log(app.globalData.userCloudData._openid)
+    this.navbarTab();
+  },
+
+  //点击更新主导航栏下标
+  navbarTab: function (e) {
+    if (e) {
+      this.setData({
+        currentIndex: e.currentTarget.dataset.index
+      });
+    }
+    var that = this;
+    if (that.data.currentIndex == 0) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        database: 'post',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 1) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        database: 'post',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 2) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "求助", "寻物", "找队友"],
+        database: 'discover',
+        currentData: 0,
+      })
+    };
     this.dbLoad();
   },
 
-  //完成选项卡的跳转
-  bindchange: function (e) {
-    const that = this;
-    that.setData({
+  //点击更新闲置分类导航栏下标
+  categoriesTab: function (e) {
+    this.setData({
+      currentData: e.currentTarget.dataset.index
+    })
+  },
+
+  //滑动更新闲置分类导航栏下标
+  categoriesChange: function (e) {
+    this.setData({
       currentData: e.detail.current
     })
-
   },
-
-  //分析选项卡是否正确
-  checkCurrent: function (e) {
-    const that = this;
-    if (that.data.currentData === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentData: e.target.dataset.current
-      })
-    }
-  },
-
 
   // 拖到最下面更新数据
   lower: function (e) {
@@ -66,70 +90,25 @@ Page({
     console.log("lower")
   },
 
-  // 在云数据库上查找数据(查找10条)
+  // 调用util.js中读取数据库函数
   dbLoad: function () {
     var that = this;
-    util.dbLoad('post', that, app.globalData.userCloudData._openid);
+    console.log('ask:', that.data.database);
+    util.dbLoad(that.data.database, that, app.globalData.userCloudData._openid);
   },
 
   //跳转到点击页面
-  jumpToPost: function(e){
-    var id=e.currentTarget.id
+  jumpToPost: function (e) {
+    var id = e.currentTarget.id
     console.log(e.currentTarget.id)
     console.log(this.data.feed[id])
-    var post_data=JSON.stringify(this.data.feed[id])
+    var post_data = JSON.stringify(this.data.feed[id])
     wx.navigateTo({
       // url: '../posttest/posttest?post_data=' + post_data
       url: '../contact/contact?post_data=' + post_data
-    
+
     })
   },
-
-  //点击删除帖子
-  removeImage:function(e) {
-    const idx = e.target.dataset.idx
-    //获得帖子id
-    var post_id=this.data.feed[idx]._id
-    var goods_Name=this.data.feed[idx].title
-    var removeImgs=this.data.feed[idx].imgs
-    console.log(removeImgs)
-
-    // 删除用户上传的图片
-    wx.cloud.deleteFile({
-      fileList: removeImgs,
-      success: res => {
-        // handle success
-        // console.log("res.fileList")
-        console.log("删除照片成功")
-      },
-      fail: err => {
-        // handle error
-      }
-    })
-    // 删除用户二手物品的数据库
-    wx.showModal({
-      title: '删除物品',
-      content: goods_Name,
-      success (res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection('post').doc(post_id).remove({
-            //删除成功显示提示
-            success: function(res) {
-              console.log("删除二手物品成功")
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-            }
-          })
-        }
-      }
-    })
-  },
-  
 
 
 })

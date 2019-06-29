@@ -1,4 +1,8 @@
 <!--pages/setting/setting.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">设置</view>
+</cu-custom>
 <view>
   <text>
   不能设置

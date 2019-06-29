@@ -1,7 +1,10 @@
 <!--pages/feedback/feedback.wxml-->
 
 
-
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">意见</view>
+</cu-custom>
 <view>
   <text>不许有意见</text>
 

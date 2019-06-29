@@ -1,51 +1,23 @@
-<view class='topTabSwiper'>
-    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>
-        闲置
-    </view>
-    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>
-        快递
-    </view>
-    <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" bindtap='checkCurrent'>
-        琐事
-    </view>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">我的{{navbar[currentIndex]}}</view>
+</cu-custom>
+<!--主导航栏-->
+<view class="navbar"> 
+  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text> 
 </view>
-<swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
-    <swiper-item>
-        <view class='swiper_con'>
-            <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
-                <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
-                    <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
-                        <view class="feed-content">
-                            <view class="item-title">
-                                <text>{{item.title}}</text>
-                            </view>
-                            <view class="item-price">
-                                <text>¥{{item.price}}</text>
-                            </view>
-                            <!-- 插入照片 -->
-                            <view class="item-img">
-                                <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
-                                    <view wx:if="{{img_num < 3}}">
-                                        <image wx:if='{{goods_item_img}}' src="{{goods_item_img}}" lazy-load />
-                                    </view>
-                                </view>
-                                <!-- <image src="../../../images/test.jpg" /> -->
-                            </view>
-                            <view class="item-content">
-                                <text class="item-content">{{item.content}}</text>
-                            </view>
-                        </view>
-                        <!-- </navigator> -->
-                    </view>
-                    <view class="post-remover" data-idx="{{idx}}" bindtap="removeImage">删除</view>
-                </block>
-            </scroll-view>
-        </view>
-    </swiper-item>
-    <swiper-item>
-        <view class='swiper_con'>welcome come to 热点</view>
-    </swiper-item>
-    <swiper-item>
-        <view class='swiper_con'>welcome come to 关注</view>
-    </swiper-item>
-</swiper>
+
+<import src="../../../templates/oneCol-template/oneCol-template.wxml" />
+<import src="../../../templates/twoCol-template/twoCol-template.wxml" />
+
+<view hidden="{{currentIndex!=0}}">
+  <template is="twoCol" data="{{feed, categories, currentData}}"></template>
+</view>
+
+<view hidden="{{currentIndex!=1}}">
+  <text>快递</text>
+</view>
+
+<view hidden="{{currentIndex!=2}}">
+  <template is="oneCol" data="{{feed, categories, currentData}}"></template>
+</view>

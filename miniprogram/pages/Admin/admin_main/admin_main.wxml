@@ -1,3 +1,7 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">管理</view>
+</cu-custom>
 <view class="myself">
   <button id="adminSH"  bindtap="adminSH">
       闲置

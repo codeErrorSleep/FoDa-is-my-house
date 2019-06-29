@@ -3,8 +3,6 @@
  width: 100%; 
  flex-direction: row; 
  line-height: 80rpx; 
- position: fixed; 
- top: 0rpx; 
 } 
 .navbar .item{ 
  flex: auto; 
@@ -32,8 +30,6 @@
  width: 100%; 
  flex-direction: row; 
  line-height: 80rpx; 
- position: fixed; 
- top: 80rpx; 
 } 
 .categories .item{ 
  flex: auto; 
@@ -63,7 +59,7 @@
   line-height: 80rpx; 
   position: fixed;
   height: 100%;
-  top: 160rpx;
+  top: 280rpx;
 }
 
 

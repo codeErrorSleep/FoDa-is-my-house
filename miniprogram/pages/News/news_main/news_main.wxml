@@ -1,3 +1,7 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">我的</view>
+</cu-custom>
 <view class="news">
     <view class="choose">
         <button id="secondHand" class="chooseList" bindtap="jumpToList">

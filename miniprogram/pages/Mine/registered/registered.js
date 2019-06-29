@@ -1,57 +1,184 @@
-// pages/test2/test2.js
+const app = getApp();
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    //验证按钮状态
-    hidden: true,
-    btnValue: '',
-    btnDisabled: false,
-    //手机验证信息
-    code:'',
-    rightcode:'',
-    //用户信息
-    phone:'',
-    name:'',
-    real_name:'',
-    wechat_id:'',
-    // 用户formid 向要用户发送模板消息
-    formId:'',
-    //照片在云的位置
-    approve_img:[],
-    //存放照片在手机中的位置
-    images:[]
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    swiperList: [{
+      id: 0,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+    }, {
+      id: 1,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
+    }, {
+      id: 2,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+    }, {
+      id: 3,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+    }, {
+      id: 4,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
+    }, {
+      id: 5,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
+    }, {
+      id: 6,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
+    }],
+    //选择的头像的url
+    chooseImg: "",
+    //昵称
+    nick_name: "",
+    //姓名
+    real_name: "",
+    //微信号
+    wechat_id: "",
+    //手机号码
+    phone: "",
+    //验证码
+    code: "",
+    //正确验证码
+    rightcode: "",
+    //校园卡照片
+    imgList: [],
   },
-
-  //页面加载时读取数据库
-  onLoad: function (options) {
-    if(options.show=="Ture"){
-      wx.showToast({
-        title: '请先完成校园认证',
-        icon: 'loading',
-        duration: 1000,
-        mask:true
+  onLoad() {
+    // 初始化towerSwiper 传已有的数组名即可
+    this.towerSwiper('swiperList');
+    this.setData({
+      chooseImg: this.data.swiperList[3].url
     })
+    console.log('chooseImg:', this.data.chooseImg)
+  },
+  //选择图片
+  ChooseImage() {
+    wx.chooseImage({
+      count: 4, //默认9
+      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album'], //从相册选择
+      success: (res) => {
+        if (this.data.imgList.length != 0) {
+          this.setData({
+            imgList: this.data.imgList.concat(res.tempFilePaths)
+          })
+        } else {
+          this.setData({
+            imgList: res.tempFilePaths
+          })
+        }
+      }
+    });
+  },
+  //显示图片
+  ViewImage(e) {
+    wx.previewImage({
+      urls: this.data.imgList,
+      current: e.currentTarget.dataset.url
+    });
+  },
+  //删除图片
+  DelImg(e) {
+    wx.showModal({
+      title: '召唤师',
+      content: '确定要删除这段回忆吗？',
+      cancelText: '再看看',
+      confirmText: '再见',
+      success: res => {
+        if (res.confirm) {
+          this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+          this.setData({
+            imgList: this.data.imgList
+          })
+        }
+      }
+    })
+  },
+  // towerSwiper
+  // 初始化towerSwiper
+  towerSwiper(name) {
+    let list = this.data[name];
+    for (let i = 0; i < list.length; i++) {
+      list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+      list[i].mLeft = i - parseInt(list.length / 2)
     }
-  },
-
-  //手机号输入
-  bindPhoneInput(e) {
-    var val = e.detail.value;
     this.setData({
-      phone: val
-    })
-    this.setData({
-      hidden: false,
-      btnValue: '获取验证码'
+      swiperList: list
     })
   },
-
-
-
-  //调用云函数,获取短信验证码
+  // towerSwiper触摸开始
+  towerStart(e) {
+    this.setData({
+      towerStart: e.touches[0].pageX
+    })
+  },
+  // towerSwiper计算方向
+  towerMove(e) {
+    this.setData({
+      direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
+    })
+  },
+  // towerSwiper计算滚动
+  towerEnd(e) {
+    let direction = this.data.direction;
+    let list = this.data.swiperList;
+    if (direction == 'right') {
+      let mLeft = list[0].mLeft;
+      let zIndex = list[0].zIndex;
+      for (let i = 1; i < list.length; i++) {
+        list[i - 1].mLeft = list[i].mLeft
+        list[i - 1].zIndex = list[i].zIndex
+      }
+      list[list.length - 1].mLeft = mLeft;
+      list[list.length - 1].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    } else {
+      let mLeft = list[list.length - 1].mLeft;
+      let zIndex = list[list.length - 1].zIndex;
+      for (let i = list.length - 1; i > 0; i--) {
+        list[i].mLeft = list[i - 1].mLeft
+        list[i].zIndex = list[i - 1].zIndex
+      }
+      list[0].mLeft = mLeft;
+      list[0].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    }
+    //zIndex=4 ,mLeft=0为中心图片
+    var that = this;
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].mLeft == 0) {
+        that.setData({
+          chooseImg: list[i].url
+        })
+      }
+    }
+    console.log('chooseImg:',this.data.chooseImg)
+  },
+  //获取手机号
+  getPhone(e) {
+    var data = e.detail.value;
+    this.setData({
+      phone: data
+    })
+  },
+  //检测手机号
+  checkPhone() {
+    if ((/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.phone))) {
+      return true; 
+    }
+    return false;
+  },
+  //获取验证码
   getCode(e) {
     var Num = "";
     //生成随机验证码
@@ -70,10 +197,10 @@ Page({
       // 传给云函数的参数
       data: {
         $url: 'send',
-         apiUrl: 'https://sms_developer.zhenzikj.com',
+        apiUrl: 'https://sms_developer.zhenzikj.com',
         appId: '101695',
         appSecret: 'b45001fd-1825-4b6a-a189-4d88f41065b4',
-        message: '你的验证码为:'+this.data.rightcode,
+        message: '你的验证码为:' + this.data.rightcode,
         number: this.data.phone,
         messageId: ''
       },
@@ -83,147 +210,40 @@ Page({
       fail: console.error
     })
   },
-
-  getUserData:function(e){
-    //得到用户填写的信息
-    this.setData({
-      name:e.detail.value.name,
-      real_name:e.detail.value.real_name,
-      wechat_id:e.detail.value.wechat_id,
-      code:e.detail.value.code,
-      formId:e.detail.formId
-    })
-    // 验证验证码信息是否正确
-    // if(this.data.code !=this.data.rightcode){
-    //   wx.showToast({
-    //     title: '验证码错误',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    // }else{
-    //   console.log("shangchuang")
-    //   this.uploadUser()
-    // }
-    
-
-    console.log(this.data.name)
-    console.log(this.data.real_name)
-    console.log(this.data.wechat_id)
-    console.log(this.data.phone)
-    console.log(this.data.formId)
-
-
-
-    // 添加用户信息上云
-    this.uploadImages()
-
-
-  },
-
-
-  //上传用户图片信息
-  uploadImages:function(){
-
-    var images=this.data.images
-    //先添加到这一变量,在最后一个再改变this.data.中的approve_img
-    var approve_img=[]
-
-
-    // 对用户点击的图片进行上传
-    images.forEach(item => {
-      console.log(item)
-      wx.cloud.uploadFile({
-        cloudPath: "approve_imgs/"+item.substring(item.length-20), // 上传至云端的路径
-        filePath: item, // 小程序临时文件路径
-        success: res => {
-          // 返回文件 ID
-          console.log(res.fileID)
-          approve_img.push(res.fileID)
-          console.log(approve_img)
-
-          //获取所有图片在云端的位置后上传到数据库
-          if(approve_img.length===images.length){
-            //将局部变量赋给this.data
-            this.setData({
-              approve_img:approve_img
-            })
-            console.log(this.data.approve_img)
-            //隐藏上传提示
-            wx.hideLoading()
-            this.uploadData()
-          }
-        },
-        fail: console.error
+  //发送验证码
+  sendCode(e) {
+    if (!this.checkPhone()) {
+      this.setData({
+        modalName: e.currentTarget.dataset.target
       })
-    });
+    }else {
+      console.log("code sending");
+      this.getCode(e);
+    }
   },
-
-
-
-  // 将用户信息上传到数据库
-  uploadData:function(){
-    console.log("上传")
-    const db = wx.cloud.database()
-    db.collection("users").add({
-      data:{
-        "name":this.data.name,
-        "real_name":this.data.real_name,
-        "wechat_id":this.data.wechat_id,
-        "phone_num":this.data.phone,
-        "approve":"False",
-        "approve_img":this.data.approve_img,
-        "al_approve":"False",
-        "formId":this.data.formId
-      },
-      success(res){
-        //成功上传后提示信息
-        console.log("上传成功")
-        wx.showToast({
-          title: '成功上传',
-          icon: 'success',
-          duration: 1000
-        })
-      }
-    })
-
-
-  },
-
-
-  //打开用户相册选择图片
-  chooseImage:function(e){
-    wx.chooseImage({
-      sizeType: ['compressed'],  //可选择原图或压缩后的图片
-      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
-      success: res => {
-        this.setData({
-          images:res.tempFilePaths
-        })
-        console.log(this.data.images)
-      }
-    })
-  },
-
-  //用户点击放大图片
-  handleImagePreview:function(e) {
-    const images = this.data.images
-    wx.previewImage({
-      current: images,  //当前预览的图片
-      urls: images,  //所有要预览的图片
-    })
-  },
-
-  //点击删除移除照片
-  removeImage:function(e) {
-    //删除指定位置的照片
+  //隐藏模态窗口
+  hideModal(e) {
     this.setData({
-      images:[]
+      modalName: null
     })
   },
-
-
-
-
-
-
-})    
+  //提交表单
+  formSubmit(e) {
+    this.setData({
+      nick_name: e.detail.value.nick_name,
+      real_name: e.detail.value.real_name,
+      wechat_id: e.detail.value.wechat_id,
+      phone: e.detail.value.phone,
+      code: e.detail.value.code,
+      formId: e.detail.formId
+    })
+    console.log(this.data.chooseImg);
+    console.log(this.data.nick_name);
+    console.log(this.data.real_name);
+    console.log(this.data.wechat_id);
+    console.log(this.data.phone);
+    console.log(this.data.code);
+    console.log(this.data.imgList[0]);
+    console.log(this.data.formId);
+  },
+})

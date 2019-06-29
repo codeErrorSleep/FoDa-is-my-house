@@ -1,43 +1,81 @@
-<form  report-submit='true' bindsubmit='getUserData'>
-    <view class="container">
-        <view class='row'>
-            <input name="name" placeholder='请输入您的昵称' /> 
-        </view>
-        <view class='row'>
-            <input name="real_name" placeholder='请输入您的姓名' /> 
-        </view>
-        <view class='row'>
-            <input name="wechat_id" placeholder='请输入您的微信号（确保真实）' /> 
-        </view>
-        <view class='row'>
-            <input placeholder='请输入手机号' bindinput='bindPhoneInput' /> 
-        </view>
-        <view class='row'>
-            <input name="code" placeholder='请输验证码'  style='width:70%;'/> 
-            <button class='codeBtn' bindtap='getCode' hidden='{{hidden}}' disabled='{{btnDisabled}}'>{{btnValue}}</button>
-        </view>
-
-
-        <view class="goodsImg">
-            <text >放照片</text>
-            <button bindtap="chooseImage" >
-                上传图片
-            </button>
-        </view>
-
-        <view class="userImage">
-            <view wx:if='{{images.length>0}}'>
-                <view class="q-image-wrap">
-                <!-- 图片缩略图  -->
-                <image class="q-image" src="{{images}}" mode="aspectFill"  bindtap="handleImagePreview"></image>
-                </view>
-                <view class="q-image-remover" bindtap="removeImage">删除</view>
-            </view>
-        </view>
-
-        <view>
-            <button class='submit' form-type='submit' >提交</button>
-        </view>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">注册</view>
+</cu-custom>
+<form report-submit='true' bindsubmit='formSubmit'>
+  <view class="cu-form-group bg-white margin-top">
+		<view class="title">
+			头像
+		</view>
+	</view>
+  <view class="tower-swiper" bindtouchmove="towerMove" bindtouchstart="towerStart" bindtouchend="towerEnd">
+    <view class="tower-item {{item.zIndex==1?'none':''}} {{item.zIndex!=4?'imgBlur':''}}" wx:for="{{swiperList}}" wx:key style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
+      <view class="swiper-item">
+        <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      </view>
     </view>
+  </view>
+	<view class="cu-form-group margin-top">
+		<view class="title">昵称</view>
+		<input name="nick_name" placeholder="请输入您的昵称"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">姓名</view>
+		<input name="real_name" placeholder="请输入您的姓名"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">微信号</view>
+		<input name="wechat_id" placeholder="请输入您的微信号（确保真实）"></input>
+	</view>
+  	<view class="cu-form-group">
+		<view class="title">手机号码</view>
+		<input name="phone" placeholder="请输入您的手机号码" bindinput="getPhone"></input>
+		<view class="cu-capsule radius">
+			<view class="cu-tag bg-blue">
+				+86
+			</view>
+			<view class="cu-tag line-blue">
+				中国大陆
+			</view>
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">验证码</view>
+		<input name="code" placeholder="请输入验证码"></input>
+		<button class="cu-btn round bg-blue shadow" bindtap="sendCode" data-target="Modal">验证码</button>
+	</view>
+  <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">提示</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        请输入正确的手机号码
+      </view>
+    </view>
+  </view>
+  <view class="cu-form-group bg-white margin-top">
+		<view class="title">
+			校园卡认证
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="grid col-3 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+  <view class="padding flex flex-direction">
+    <button class="cu-btn round bg-blue shadow lg" form-type='submit'>确认提交</button>
+  </view>
 </form>
-  

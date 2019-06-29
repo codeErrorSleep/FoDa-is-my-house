@@ -1,4 +1,8 @@
 <!--pages/update/update.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">上传闲置</view>
+</cu-custom>
 <view class="page">
   <form bindsubmit='uploadPost'>
 

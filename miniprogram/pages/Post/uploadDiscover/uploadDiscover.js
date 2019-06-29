@@ -1,4 +1,7 @@
-// pages/test2/test2.js
+var util = require('../../../utils/util.js')
+var app = getApp()
+
+
 Page({
 
   /**

@@ -3,7 +3,6 @@
     "pages/Index/index_main/index_main",
     "pages/Index/goods/goods",
     "pages/Index/contact/contact",
-    "pages/Index/modal/modal",
     "pages/News/news_main/news_main",
     "pages/News/myGoods/myGoods",
     "pages/Mine/mine_main/mine_main",
@@ -21,10 +20,13 @@
     "pages/BackUp/posttest/posttest"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#d5dffc",
-    "navigationBarTitleText": "佛大叮当",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#39b54a",
+    "navigationBarTitleText": "Color UI",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
   },
   "tabBar": {
     "color": "#666666",
