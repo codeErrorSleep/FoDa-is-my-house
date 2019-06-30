@@ -41,22 +41,23 @@
 /*头像容器*/
 .mine_avatar_bd{
 
-  padding:12px;
-  width:200rpx;
+  padding:39rpx 10rpx;
+  width:180rpx;
   height:200rpx;
  
 }
 .mine_avatar{
-  width:200rpx;
-  height:200rpx;
+  width:500rpx;
+  height:500rpx;
   border-radius: 50%;
 
   
 }
 .mine_nickName{
-  flex:1;
+  /* flex:1; */
   color:rgb(0, 0, 0);
   font-size:16px;
+  padding:90rpx 23rpx;
 }
 .mine_login{
   flex:1;
@@ -188,3 +189,5 @@ padding:2px 180px 2px 130px;
 .text-df {
 	font-size: 15rpx;
 }
+
+

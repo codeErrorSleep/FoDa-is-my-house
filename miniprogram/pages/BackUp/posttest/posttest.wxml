@@ -4,7 +4,7 @@
             <image src="cloud://fdimh-eqlws.6664-fdimh-eqlws/用户通用头像.png" lazy-load />
         </view>
         <view class="userName">
-            <text>{{user_data.name}}</text>
+            <text>{{user_data.nick_name}}</text>
         </view>
     </view>
 

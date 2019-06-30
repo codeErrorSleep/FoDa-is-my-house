@@ -1,0 +1,47 @@
+.cu-form-group+.cu-form-group {
+	border-top: 0rpx solid #eee;
+}
+.cu-form-group .title {
+	text-align: justify;
+	padding-right: 30rpx;
+	font-size: 30rpx;
+	position: relative;
+	height: 60rpx;
+	line-height: 60rpx;
+  font-weight: bold;
+  color:black;
+}
+.tower-swiper {
+	height: 420rpx;
+	position: relative;
+	max-width: 750rpx;
+	overflow: hidden;
+  background-color: white;
+}
+.tower-swiper .tower-item {
+	position: absolute;
+	width: 300rpx;
+	height: 300rpx;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	margin: auto;
+	transition: all 0.2s ease-in 0s;
+	opacity: 1;
+  transform: scale(calc(0.5 + var(--index) / 10));
+  margin-left: calc(var(--left) * 100rpx - 150rpx);
+  z-index: var(--index);
+}
+.tower-swiper .tower-item .swiper-item {
+	width: 100%;
+	height: 100%;
+	border-radius: 150rpx;
+	overflow: hidden;
+}
+.imgBlur {
+  filter: blur(5px);
+}
+.approve {
+  font-weight: bold;
+  color: red;
+}

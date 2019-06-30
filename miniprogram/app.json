@@ -17,7 +17,8 @@
     "pages/Admin/user/user",
     "pages/BackUp/test/test",
     "pages/BackUp/test2/test2",
-    "pages/BackUp/posttest/posttest"
+    "pages/BackUp/posttest/posttest",
+    "pages/Mine/userInfo/userInfo"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",

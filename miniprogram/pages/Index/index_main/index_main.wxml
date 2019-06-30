@@ -1,60 +1,60 @@
-  <import src="../../template/index_sections/index_sections.wxml" />
- <cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
-	<view slot="content">佛大叮当</view>
+<import src="../../template/index_sections/index_sections.wxml" />
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
+  <view slot="content">佛大叮当</view>
 </cu-custom>
- <view>
-   <view>
-   <view class="img_top">
-        <image src="/images/image001.png" style="width:720rpx;height:600rpx" mode="widthFix"></image>
-      </view>   
+<view>
+  <view>
+    <view class="img_top">
+      <image src="/images/image001.png" style="width:720rpx;height:600rpx" mode="widthFix"></image>
+    </view>
     <!--显示分类-->
-      <view style="width:720rpx;margin:10rpx 15rpx 7.5rpx 15rpx;display:flex">
-       <view class="section">
-    <view class="section_container1" bindtap='jumpToList' id="secondHand">
-     <text class="section_name">闲置</text>
-      <view class="section_img">
-        <image src="/images/my/1.png" style="width:120rpx;height:120rpx;"></image>
-      </view>
-    </view>
-  </view>
+    <view style="width:720rpx;margin:10rpx 15rpx 7.5rpx 15rpx;display:flex">
       <view class="section">
-    <view class="section_container2" bindtap='jumpToList' id="express">
-       <text class="section_name">快递</text>
-      <view class="section_img">
-        <image src="/images/my/2.png" style="width:100rpx;height:100rpx;display:flex"></image>
+        <view class="section_container1" bindtap='jumpToList' id="secondHand">
+          <text class="section_name">闲置</text>
+          <view class="section_img">
+            <image src="/images/my/1.png" style="width:100rpx;height:100rpx;"></image>
+          </view>
+        </view>
       </view>
-   
+      <view class="section">
+        <view class="section_container2" bindtap='jumpToList' id="express">
+          <text class="section_name">快递</text>
+          <view class="section_img">
+            <image src="/images/my/2.png" style="width:100rpx;height:100rpx;display:flex"></image>
+          </view>
+
+        </view>
+      </view>
+
+    </view>
+    <!--显示分类-->
+    <view style="width:720rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+      <view class="section">
+        <view class="section_container3" bindtap='jumpToList' id="trifles">
+          <text class="section_name">发现</text>
+          <view class="section_img">
+            <image src="/images/my/3.png" style="width:100rpx;height:100rpx;display:flex"></image>
+          </view>
+
+        </view>
+      </view>
+      <view class="section">
+        <view class="section_container4" bindtap='jumpToList' id="trifles">
+          <text class="section_name">日签</text>
+          <view class="section_img">
+            <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
+          </view>
+
+        </view>
+      </view>
     </view>
   </view>
-  
-  </view>
-      <!--显示分类-->
-      <view style="width:720rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
-       <view class="section">
-    <view class="section_container3" bindtap='jumpToList' id="trifles">
-      <text class="section_name">发现</text>
-      <view class="section_img">
-        <image src="/images/my/3.png" style="width:100rpx;height:100rpx;display:flex"></image>
-      </view>
-    
-    </view>
-  </view>
-  <view class="section">
-    <view class="section_container4" bindtap='jumpToList' id="trifles">
-       <text class="section_name">日签</text>
-      <view class="section_img">
-        <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
-      </view>
-   
-    </view>
-  </view>
-      </view> 
-     </view>
 
 
   <view class='but'>
     <button class='butt' style="display:block;margin:0 auto" bindtap="showModal" data-target="Modal">
-      <image class='btnImg1' src='/images/tabbar/加号.png'></image>
+      <image class='btnImg1' src='/images/tabbar/add.png'></image>
     </button>
   </view>
 

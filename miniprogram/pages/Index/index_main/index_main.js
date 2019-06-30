@@ -41,7 +41,19 @@ Page({
 
   },
 
-
+  onShow: function (options) {
+    //获取用户的openid并设置为全局变量
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        console.log('callFunction test result: ', res)
+        this.setData({
+          openid: res.result.openid
+        })
+        util.getUserInCloud(this.data.openid);
+      }
+    })
+  },
 
 
   // 改变现在的图片点

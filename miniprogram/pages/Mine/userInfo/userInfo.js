@@ -31,17 +31,27 @@ Page({
     formId: "",
     //警告
     warning: "",
+    //认证状态
+    approve: "未通过",
   },
   onLoad() {
-    this.setData({
-      swiperList: app.globalData.swiperList
-    })
     // 初始化towerSwiper 传已有的数组名即可
-    this.towerSwiper('swiperList');
     this.setData({
-      head_index: this.data.swiperList[3].id
+      swiperList: app.globalData.swiperList,
+      head_index: app.globalData.userCloudData.head_index,
+      nick_name: app.globalData.userCloudData.nick_name,
+      real_name: app.globalData.userCloudData.real_name,
+      region_index: app.globalData.userCloudData.region_index,
+      wechat_id: app.globalData.userCloudData.wechat_id,
+      phone: app.globalData.userCloudData.phone,
+      imgList: app.globalData.userCloudData.approve_img,
+      approve_img: app.globalData.userCloudData.approve_img,
+      formId: app.globalData.userCloudData.formId,
+      approve: app.globalData.userCloudData.approve,
+      al_approve: app.globalData.userCloudData.al_approve,
     })
-    console.log('head_index:', this.data.head_index)
+
+    this.towerSwiper('swiperList');
   },
   //选择图片
   ChooseImage() {
@@ -227,10 +237,16 @@ Page({
   checkDB(key,value) {
     return new Promise((resolve,reject)=>{
       const db = wx.cloud.database()
+      const _ = db.command
       db.collection('users')
-        .where({
-          [key]: value,
-        })
+        .where(_.and([
+          {
+            "_openid": _.neq(app.globalData.userCloudData._openid),
+          },
+          {
+            [key]: value,
+          }
+        ]))
         .limit(1)
         .get({
           success: function (res) {
@@ -256,7 +272,7 @@ Page({
       this.setData({
         warning: "昵称不能为空",
       })
-    } else if (await this.checkDB('nick_name', this.data.nick_name)){
+    } else if (await this.checkDB('name', this.data.nick_name)){
       this.setData({
         warning: "昵称已被注册",
       })
@@ -307,11 +323,27 @@ Page({
   },
   //提交表单
   formSubmit(e) {
+    if (e.detail.value.nick_name != "") {
+      this.setData({
+        nick_name: e.detail.value.nick_name
+      })
+    }
+    if (e.detail.value.real_name != "") {
+      this.setData({
+        nick_name: e.detail.value.real_name
+      })
+    }
+    if (e.detail.value.wechat_id != "") {
+      this.setData({
+        nick_name: e.detail.value.wechat_id
+      })
+    }
+    if (e.detail.value.phone != "") {
+      this.setData({
+        nick_name: e.detail.value.phone
+      })
+    }
     this.setData({
-      nick_name: e.detail.value.nick_name,
-      real_name: e.detail.value.real_name,
-      wechat_id: e.detail.value.wechat_id,
-      phone: e.detail.value.phone,
       code: e.detail.value.code,
       formId: e.detail.formId,
       warning: "",
@@ -334,7 +366,7 @@ Page({
   uploadData() {
     console.log("上传数据")
     const db = wx.cloud.database()
-    db.collection("users").add({
+    db.collection("users").doc(app.globalData.userCloudData._id).update({
       data: {
         "head_index": this.data.head_index,
         "nick_name": this.data.nick_name,
@@ -344,16 +376,15 @@ Page({
         "phone": this.data.phone,
         "approve_img": this.data.approve_img,
         "formId": this.data.formId,
-        "approve": false,
-        "al_approve": false,
       },
-      success: function(res) {
+      success: function (res) {
         //成功上传后提示信息
         console.log("上传成功")
         wx.showLoading({
           title: '成功上传',
           icon: 'success',
-          duration: 1000
+          duration: 1000,
+          
         })
         wx.navigateBack({})
       }
@@ -361,34 +392,39 @@ Page({
   },
   //上传用户图片信息
   uploadImages() {
-    console.log("上传图片")
-    var images = this.data.imgList
-    //先添加到这一变量,在最后一个再改变this.data.中的approve_img
-    var approve_img = []
-    // 对用户点击的图片进行上传
-    images.forEach(item => {
-      console.log(item)
-      wx.cloud.uploadFile({
-        cloudPath: "approve_imgs/" + item.substring(item.length - 20), // 上传至云端的路径
-        filePath: item, // 小程序临时文件路径
-        success: res => {
-          // 返回文件 ID
-          console.log(res.fileID)
-          approve_img.push(res.fileID)
-          console.log(approve_img)
-          //获取所有图片在云端的位置后上传到数据库
-          if (approve_img.length === images.length) {
-            //将局部变量赋给this.data
-            this.setData({
-              approve_img: approve_img
-            })
-            console.log(this.data.approve_img)
+    if (this.data.imgList != app.globalData.userCloudData.approve_img) {
+      console.log("上传图片")
+      var images = this.data.imgList
+      //先添加到这一变量,在最后一个再改变this.data.中的approve_img
+      var approve_img = []
+      // 对用户点击的图片进行上传
+      images.forEach(item => {
+        console.log(item)
+        wx.cloud.uploadFile({
+          cloudPath: "approve_imgs/" + item.substring(item.length - 20), // 上传至云端的路径
+          filePath: item, // 小程序临时文件路径
+          success: res => {
+            // 返回文件 ID
+            console.log(res.fileID)
+            approve_img.push(res.fileID)
+            console.log(approve_img)
+            //获取所有图片在云端的位置后上传到数据库
+            if (approve_img.length === images.length) {
+              //将局部变量赋给this.data
+              this.setData({
+                approve_img: approve_img
+              })
+              console.log(this.data.approve_img)
 
-            this.uploadData()
-          }
-        },
-        fail: console.error
-      })
-    });
+
+              this.uploadData()
+            }
+          },
+          fail: console.error
+        })
+      });
+    }else {
+      this.uploadData()
+    }
   },
 })

@@ -76,7 +76,7 @@ Page({
   showConnect: function (e) {
     // 判断当前用户是否为以注册用户
     var isRegistered=util.isRegistered()
-    if(isRegistered=="Ture")
+    if(isRegistered)
     {
       // 判断微信定系手机
       var promptTitle=""
@@ -87,7 +87,7 @@ Page({
       }
       else{
         promptTitle="卖家手机号码"
-        content=this.data.user_data.phone_num
+        content=this.data.user_data.phone
       }
       console.log(promptTitle)
       console.log(content)

@@ -21,13 +21,13 @@ function getUserInCloud(openid){
 // 判断是否为注册用户
 function isRegistered(){
   // 判断当前用户是否为以注册用户
-  if(app.globalData.userCloudData.approve==="False"){
+  if(!app.globalData.userCloudData.approve){
   wx.navigateTo({
-    url: '../../Mine/registered/registered?show=Ture'
+    url: '../../Mine/registered/registered?show=true'
   })
   } 
   else{
-    return "Ture"
+    return true
   }
 
 }

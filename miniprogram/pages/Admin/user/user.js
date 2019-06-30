@@ -20,6 +20,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const db = wx.cloud.database()
+    
     console.log('onLoad')
     var that = this
     // 改变选项卡的值
@@ -51,11 +53,13 @@ Page({
 
   // 通过用户信息验证
   updateUser: function (e) {
+    console.log(this.data.feed)
+
     const idx = e.target.dataset.idx
     //获得用户记录id 不是oppenid
     var user_id = this.data.feed[idx]._id
     var user_openid=this.data.feed[idx]._openid
-    var users_Name = this.data.feed[idx].name
+    var users_Name = this.data.feed[idx].nick_name
     var formId=this.data.feed[idx].formId
 
     // 更新数据库 用户消息
@@ -63,38 +67,38 @@ Page({
       title: '认证通过',
       content: users_Name,
       success(res) {
-        // 通过用户验证
-        const db = wx.cloud.database()
-        db.collection('users').doc(user_id).update({
-          // 更新数据    已验证用户   用户通过
-          data: {
-            approve:"Ture",
-            al_approve:"Ture"
-          },
-          success: res => {
-            console.log(res)
-            wx.showToast({
-              title: '验证成功',
-              icon: 'success',
-              duration: 1000
-            })
-          },
-          fail: err => {
-            icon: 'none',
-            console.error('[数据库] [更新记录] 失败：', err)
-          }
+
+                // 调用云函数修改用户信息
+        wx.cloud.callFunction({
+        name:'approvePass',
+        data:{
+          user_id:user_id,
+          approve:true,
+          al_approve: true
+        },success:function(res){
+        console.log("修改成功"+ res)
+        },fail:function(res){
+        console.log(res)
+        }
         })
+
+
       }
     })
 
     // 调用模板消息发送消息
-    this.sendTemplate("Ture",user_openid,formId)
+    this.sendTemplate(true,user_openid,formId)
 
+
+
+
+    
   },
 
   // 发送模板消息
   sendTemplate:function(approve,user_openid,formId){
     console.log(user_openid)
+    wx.cloud.init()
     wx.cloud.callFunction({
       name: 'openapi',
       data: {
@@ -126,36 +130,31 @@ Page({
     const idx = e.target.dataset.idx
     //获得帖子id
     var user_id = this.data.feed[idx]._id
-    var users_Name = this.data.feed[idx].name
+    var users_Name = this.data.feed[idx].nick_name
     wx.showModal({
       title: '认证不通过',
       content: users_Name,
       success(res) {
         // 通过用户验证
         const db = wx.cloud.database()
-        db.collection('users').doc(user_id).update({
-          // 更新数据    已验证用户   用户不通过
-          data: {
-            approve:"False",
-            al_approve:"Ture"
-          },
-          success: res => {
-            console.log(res)
-            wx.showToast({
-              title: '验证不通过',
-              icon: 'success',
-              duration: 1000
-            })
-          },
-          fail: err => {
-            icon: 'none',
-            console.error('[数据库] [更新记录] 失败：', err)
+        wx.cloud.callFunction({
+          name:'approvePass',
+          data:{
+            user_id:user_id,
+            approve:false,
+            al_approve: true
+          },success:function(res){
+          console.log("修改成功"+ res)
+          },fail:function(res){
+          console.log(res)
           }
-        })
+          })
+
+
       }
     })
     // 调用模板消息发送消息
-    this.sendTemplate("False",user_openid,formId)
+    this.sendTemplate(false,user_openid,formId)
 
   },
 

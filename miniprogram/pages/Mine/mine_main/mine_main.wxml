@@ -8,28 +8,28 @@
     <view class="mine_avatar_bd">
 
     <!-- <image class="mine_avatar" src="/images/per1.png" /> -->
-      <image wx:if="{{userData.approve_img}}" class="mine_avatar" src="/images/per.png " />
-      <image wx:else class="mine_avatar" src="/images/per1.png" />
+      <image wx:if="{{userData.head_index}}" class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
+      <image wx:else class="cu-avatar xl round margin-left" src="/images/per1.png" />
     </view>
   </navigator>
 
   <navigator url="../registered/registered" class="mine_cell">
-    <text class="margin-top-sm" wx:if="{{!userData.name.length}}" bindtap="registered">登录/注册</text>
+    <text class="margin-top-sm" wx:if="{{!userData.nick_name.length}}" bindtap="registered">登录/注册</text>
   </navigator>
      <view class="mine_nickName">
-      <view style="display:flex;justify-content:center;margin:0 0 10rpx 0">
-        <text style="font-weight:bold">{{userData.name}}</text>
+      <view style="display:flex;justify-content:center">
+        <text style="font-weight:bold">{{userData.nick_name}}</text>
       </view>
     </view>
 </view>
 
 <view class="mine_cells2">
 
-  <navigator url="../registered/registered" class="mine_cell">
+  <view class="mine_cell" bindtap="checkUser">
     <image class="mine_icon" src="/images/my/geren.png" />
-    <text class="mine_title">个人注册</text>
+    <text class="mine_title">个人信息</text>
     <view class="mine_arrow"></view>
-  </navigator>
+  </view>
 </view>
 
 

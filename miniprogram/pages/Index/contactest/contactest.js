@@ -87,7 +87,7 @@ Page({
     }
     else {
       promptTitle = "卖家手机号码"
-      content = this.data.user_data.phone_num
+      content = this.data.user_data.phone
     }
     console.log(promptTitle)
     console.log(content)

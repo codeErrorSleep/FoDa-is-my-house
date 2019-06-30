@@ -1,6 +1,6 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">注册</view>
+	<view slot="content">个人信息</view>
   <view class="action" slot="right">
     <view class="cu-load load-icon {{isLoad?'loading':'over'}}"></view>
   </view>
@@ -20,11 +20,11 @@
   </view>
 	<view class="cu-form-group margin-top">
 		<view class="title">昵称</view>
-		<input name="nick_name" placeholder="请输入您的昵称"></input>
+		<input name="nick_name" placeholder="{{nick_name}}"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">姓名</view>
-		<input name="real_name" placeholder="请输入您的姓名"></input>
+		<input name="real_name" placeholder="{{real_name}}"></input>
 	</view>
   <view class="cu-form-group">
 		<view class="title">校区</view>
@@ -36,16 +36,16 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">微信号</view>
-		<input name="wechat_id" placeholder="请输入您的微信号（确保真实）"></input>
+		<input name="wechat_id" placeholder="{{wechat_id}}"></input>
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
-		<input name="phone" placeholder="请输入您的手机号码" bindinput="getPhone"></input>
+		<input name="phone" placeholder="{{phone}}" bindinput="getPhone"></input>
 		<view class="cu-capsule radius">
-			<view class="cu-tag bg-blue">
+			<view class="cu-tag bg-yellow">
 				+86
 			</view>
-			<view class="cu-tag line-blue">
+			<view class="cu-tag line-yellow">
 				中国大陆
 			</view>
 		</view>
@@ -53,7 +53,7 @@
 	<view class="cu-form-group">
 		<view class="title">验证码</view>
 		<input name="code" placeholder="请输入验证码"></input>
-		<button class="cu-btn round bg-blue shadow" bindtap="sendCode" data-target="Modal">验证码</button>
+		<button class="cu-btn round bg-yellow shadow" bindtap="sendCode" data-target="Modal">验证码</button>
 	</view>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
@@ -73,8 +73,12 @@
 			</view>
 		</view>
 	</view>
+  <view class="cu-form-group margin-top">
+		<view class="title">验证状态</view>
+		<text class="approve">{{al_approve?(approve?'通过':'未通过'):'待检验'}}</text>
+	</view>
   <view class="padding flex flex-direction">
-    <button class="cu-btn round bg-blue shadow lg" form-type='submit'>确认提交</button>
+    <button class="cu-btn round bg-yellow shadow lg" form-type='submit'>确认修改</button>
   </view>
   <view class="cu-modal {{modalName=='Modal'?'show':''}}">
     <view class="cu-dialog">

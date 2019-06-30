@@ -8,10 +8,10 @@
             <view class="feed-item" id='{{idx}}'>
                 <view class="feed-content">
                     <view class="item-title">
-                        <text>用户名：{{item.name}}\n</text>
-                        <text>电话号码：{{item.phone_num}}\n</text>
+                        <text>用户名：{{item.nick_name}}\n</text>
                         <text>真实姓名：{{item.real_name}}\n</text>
                         <text>微信号：{{item.wechat_id}}\n</text>
+                        <text>电话号码：{{item.phone}}\n</text>
                     </view>
                     <view class="item-img">
                         <view wx:for="{{item.approve_img}}" wx:for-index="img_num" wx:for-item="approve_item_img">

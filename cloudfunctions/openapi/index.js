@@ -1,6 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
+
 cloud.init()
 
 // 云函数入口函数
@@ -26,7 +27,7 @@ async function sendTemplateMessage(event) {
 
   // 根据验证是否通过来发送信息
   var approve=event.approve
-  if(approve=="Ture"){
+  if(approve){
     approve="认证成功"
     note="恭喜你已成为佛大叮当的一员"
   }
@@ -59,27 +60,7 @@ async function sendTemplateMessage(event) {
 
 
 
-// async function sendTemplateMessage(event) {
 
-//   const templateId = "BnaH1SWP6RP7kTUl8oIKGHE9IE_rgcewtNqaPmBC_v8"
-
-//   const sendResult = await cloud.openapi.templateMessage.send({
-//     touser: event.user_openid,
-//     formId: event.formId,
-//     data: {
-//       keyword1: {
-//         value: '未名咖啡屋',
-//       },
-//       keyword2: {
-//         value: '2019 年 1 月 1 日',
-//       },
-//       keyword3: {
-//         value: '拿铁',
-//       },
-//     }
-//   })
-//   return sendResult
-// }
 
 async function getWXACode(event) {
 
