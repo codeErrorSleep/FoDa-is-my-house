@@ -21,14 +21,21 @@ Page({
     feed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
+    //我的页面
+    myPage: false,
+    // 现在的时间戳 (暂时,添加到全局变量)
+    nowDate: 0,
   },
 
   //页面加载时读取数据库
   onLoad: function (options) {
     this.setData({
       currentIndex: options.tab_id,
+      nowDate: Number(new Date().getTime())
     })
     this.navbarTab();
+    // 添加到全局变量 (时间戳)
+    app.globalData.nowDate = this.data.nowDate
   },
 
   //点击更新主导航栏下标
@@ -38,6 +45,7 @@ Page({
         currentIndex: e.currentTarget.dataset.index
       });
     }
+    console.log(this.data.currentIndex)
     var that = this;
     if (that.data.currentIndex == 0) {
       that.setData({

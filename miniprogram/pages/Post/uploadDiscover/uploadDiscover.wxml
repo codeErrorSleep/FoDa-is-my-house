@@ -51,12 +51,32 @@
     <!--  -->
     <!-- 求助金额 -->
     <view wx:if="{{type_index<1}}">
+      <!-- 价钱 -->
       <view class='sell_cells'>
         <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
           <text class="sell_title">价格</text>
           <input name="price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
         </view>
       </view>
+      <!-- 选择时间 -->
+      <view class="cu-form-group">
+        <view class="title">时间选择</view>
+        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
+          <view class="picker">
+            {{time}}
+          </view>
+        </picker>
+      </view>
+      <view class="cu-form-group">
+        <view class="title">日期选择</view>
+        <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="DateChange">
+          <view class="picker">
+            {{date}}
+          </view>
+        </picker>
+      </view>
+
+
     </view>
     <!--  -->
     <button class="sell_btn" form-type='submit'>确认发布</button>

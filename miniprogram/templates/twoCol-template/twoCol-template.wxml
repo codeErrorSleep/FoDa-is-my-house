@@ -6,35 +6,26 @@
     <block wx:for="{{categories}}" wx:for-item="category">
       <swiper-item>
         <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
-          <view class="img_container">
-            <view class="img_col1">
-              <view class="img_col_item" wx:for="{{feed}}" wx:for-index="idx">
-                <view wx:if="{{idx % 2 == 0 && (category==('全部')||item.type==category)}}">        
-                  <view class="img_cell">
-                    <text class="user_nickname">{{item.title}}</text>
-                    <text class="user_location">江湾</text>
-                  </view>
-                  <image src="{{item.imgs[0]}}" bindtap='jumpToPost' id='{{idx}}' style="width:100%" mode="widthFix"></image>
-                  <text class="item_description">{{item.content}}</text>
-                  <view class="img_cell">
-                    <text class="item_price">￥{{item.price}}</text>
-                  </view>
+          <view class="item_container">
+            <view class="item_each" wx:for="{{feed}}" wx:for-index="idx" wx:if="{{category==('全部')||item.type==category}}">
+              <view bindtap='jumpToPost' id='{{idx}}'>     
+                <view class="item_cell">
+                  <text class="item_text text-bold">{{item.title}}</text>
+                  <text class="cu-tag round text-bold line-red">{{item.region}}</text>
+                </view>
+                <view class="item_cell">
+                  <image src="{{item.imgs[0]}}" style="width=100%" mode="aspectFill"></image>
+                </view>
+                <view class="item_cell">
+                  <text class="item_text">{{item.content}}</text>
+                </view>
+                <view class="item_cell">
+                  <text class="item_price">￥{{item.price}}</text>
+                  <text class="item_price_before">￥{{item.oriPrice}}</text>
                 </view>
               </view>
-            </view>
-            <view class="img_col2">
-              <view class="img_col_item" wx:for="{{feed}}" wx:for-index="idx">
-                <view wx:if="{{idx % 2 == 1 && (category==('全部')||item.type==category)}}">
-                  <view class="img_cell">
-                    <text class="user_nickname">{{item.title}}</text>
-                    <text class="user_location">仙溪</text>
-                  </view>
-                  <image src="{{item.imgs[0]}}" bindtap='jumpToPost' id='{{idx}}' style="width:100%" mode="widthFix"></image>
-                  <text class="item_description">{{item.content}}</text>
-                  <view class="img_cell">
-                    <text class="item_price">￥{{item.price}}</text>
-                  </view>
-                </view>
+              <view class="item.cell" hidden="{{!myPage}}">
+                <button class="delete" bindtap="deleteGood" id='{{idx}}'>删除</button>
               </view>
             </view>
           </view>

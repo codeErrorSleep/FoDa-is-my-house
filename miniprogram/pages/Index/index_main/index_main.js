@@ -119,8 +119,14 @@ Page({
     })
   },
 
+  //发布快递交易信息
+  publishExpress:function(){
+    wx.navigateTo({
+      url: "../../Post/uploadExpress/uploadExpress"
+    })
+  },
 
-  // 发布快递交易信息
+  // 发布发现信息
   publishDiscover:function(){
     wx.navigateTo({
       url:"../../Post/uploadDiscover/uploadDiscover"

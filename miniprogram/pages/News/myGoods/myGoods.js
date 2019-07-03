@@ -21,6 +21,8 @@ Page({
     feed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
+    //我的页面
+    myPage: true,
   },
 
   //页面加载时读取数据库
@@ -105,10 +107,67 @@ Page({
     var post_data = JSON.stringify(this.data.feed[id])
     wx.navigateTo({
       // url: '../posttest/posttest?post_data=' + post_data
-      url: '../contact/contact?post_data=' + post_data
+      url: '../../Index/contact/contact?post_data=' + post_data
 
     })
   },
 
+  //删除商品
+  deleteGood: function(e) {
+    var id = e.currentTarget.id
+    //获得帖子id
+    var post_id = this.data.feed[id]._id
+    var goods_Name = this.data.feed[id].title
+    wx.showModal({
+      title: '删除物品',
+      content: goods_Name,
+      success(res) {
+        //用户点击删除就删除帖子
+        if (res.confirm) {
+          const db = wx.cloud.database()
+          db.collection('post').doc(post_id).remove({
+            //删除成功显示提示
+            success: function (res) {
+              console.log("删除成功")
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success',
+                duration: 1000
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  //删除发现
+  deleteDiscover: function(e) {
+    var id = e.currentTarget.id
+    //获得帖子id
+    var discover_id = this.data.feed[id]._id
+    var discover_Name = this.data.feed[id].title
+    wx.showModal({
+      title: '删除发现',
+      content: discover_Name,
+      success(res) {
+        //用户点击删除就删除帖子
+        if (res.confirm) {
+          const db = wx.cloud.database()
+          db.collection('discover').doc(discover_id).remove({
+            //删除成功显示提示
+            success: function (res) {
+              console.log("删除成功")
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success',
+                duration: 1000
+              })
+            }
+          })
+        }
+      }
+    })
+  }
 
 })

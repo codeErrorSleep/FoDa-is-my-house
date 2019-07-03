@@ -40,7 +40,7 @@
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
-		<input name="phone" placeholder="{{phone}}" bindinput="getPhone"></input>
+		<input name="phone" placeholder="{{phone}}" type="number" maxlength="11" bindinput="getPhone"></input>
 		<view class="cu-capsule radius">
 			<view class="cu-tag bg-yellow">
 				+86
@@ -50,7 +50,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="cu-form-group">
+	<view class="cu-form-group" hidden="{{!editPhone}}">
 		<view class="title">验证码</view>
 		<input name="code" placeholder="请输入验证码"></input>
 		<button class="cu-btn round bg-yellow shadow" bindtap="sendCode" data-target="Modal">验证码</button>

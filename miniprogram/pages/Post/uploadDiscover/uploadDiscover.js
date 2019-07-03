@@ -22,29 +22,33 @@ Page({
     discover_imgs:[],
 
     //存放照片在手机中的位置
-    images:[]
+    images:[],
+
+    // 时间选择
+    time: '12:01',
+    date: '2019-9-1',
+    startDate:"",
+    endDate: "",
+    deadline:"",  // 求助截止时间 存放 具体时间 yyyy-mm-dd hh:mm
+    timeStamp:"", // 求助截止时间 存放时间戳
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 对求助开始时间和结束时间的处理
+    var startDate=new Date()
+    var endDate=new Date()
+    endDate.setDate(startDate.getDate()+10)
+    this.setData({
+      startDate:util.getDate(startDate),
+      endDate:util.getDate(endDate)
+    })
+    // console.log(this.data.startDate)
+    // console.log(this.data.endDate)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
 
   //统计文本域字数
   bindInput: function(e) {
@@ -88,7 +92,15 @@ Page({
 
   //将帖子信息上传到数据库
   uploadData:function(){
+    // 发帖时间
     var date=new Date()
+    // 求助截止时间
+    var deadline=this.data.date+" "+this.data.time
+    // 将截止时间转换为时间戳
+    this.setData({
+      timeStamp:new Date(deadline).getTime(),
+      deadline:deadline
+    })
     const db = wx.cloud.database()
     db.collection("discover").add({
       data:{
@@ -98,7 +110,9 @@ Page({
         "title":this.data.title,
         "type":this.data.type,
         "date":date,
-        "type":this.data.types[this.data.type_index]
+        "type":this.data.types[this.data.type_index],
+        "timeStamp":this.data.timeStamp,
+        "deadline":this.data.deadline,
       },
       success(res){
         //成功上传后提示信息
@@ -198,7 +212,20 @@ Page({
     console.log(this.data.images)
   },
 
+  // 选择时间的变化函数
+  TimeChange(e) {
+    this.setData({
+      time: e.detail.value
+    })
+    console.log(this.data.time)
+  },
 
+  // 选择日期的变化函数
+  DateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
 
+  },
 
 })    

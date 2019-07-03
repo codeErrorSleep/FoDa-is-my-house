@@ -13,7 +13,9 @@ Page({
     user_id: "",
     user_data: {},
     //帖子信息
-    post_data:{}
+    post_data:{},
+    //头像列表
+    swiperList:[],
   },
   showModal(e) {
     this.setData({
@@ -33,10 +35,10 @@ Page({
   onLoad: function (options) {
     var post_data=JSON.parse(options.post_data)
     this.setData({
+        swiperList: app.globalData.swiperList,
         post_data:post_data,
         user_id:post_data._openid
     })
-
 
     console.log(this.data.post_data)
     console.log(this.data.user_id)

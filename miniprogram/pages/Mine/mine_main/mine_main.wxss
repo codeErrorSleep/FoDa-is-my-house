@@ -190,4 +190,36 @@ padding:2px 180px 2px 130px;
 	font-size: 15rpx;
 }
 
+.cu-avatar {
+	font-variant: small-caps;
+	margin: 0;
+	padding: 0;
+	display: inline-flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	color: var(--white);
+	white-space: nowrap;
+	position: relative;
+	width: 64rpx;
+	height: 64rpx;
+	background-size: cover;
+	background-position: center;
+	vertical-align: middle;
+	font-size: 1.5em;
+}
 
+.cu-avatar.xl {
+	width: 128rpx;
+	height: 128rpx;
+	font-size: 2.5em;
+}
+
+.round {
+	border-radius: 5000rpx;
+}
+
+.margin-left {
+	margin-left: 30rpx;
+}

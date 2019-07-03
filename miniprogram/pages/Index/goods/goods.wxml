@@ -11,7 +11,7 @@
 <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
 
 <view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, myPage}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=1}}">
@@ -19,5 +19,5 @@
 </view>
 
 <view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData}}"></template>
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate}}"></template>
 </view>

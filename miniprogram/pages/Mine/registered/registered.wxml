@@ -40,7 +40,7 @@
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
-		<input name="phone" placeholder="请输入您的手机号码" bindinput="getPhone"></input>
+		<input name="phone" placeholder="请输入您的手机号码" type="number" maxlength="11" bindinput="getPhone"></input>
 		<view class="cu-capsule radius">
 			<view class="cu-tag bg-blue">
 				+86

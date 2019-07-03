@@ -34,6 +34,22 @@
  .btn2::after {
   border: none;   
 }
+.block1{
+  height: 200rpx;
+  background:rgb(241, 241, 241)
+
+}
+.floatbutton{
+   /* bottom:0; */
+   margin:10rpx 10rpx 20rpx 30rpx;
+   position:fixed; 
+  bottom: 30rpx;
+  /* padding: 0 auto; */
+      display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .circle{
   display: flex;
   flex-direction: column;
@@ -42,31 +58,41 @@
   margin-top: 30rpx;
    width: 70px;
    height:70px;
-   background: #e54d42;
+   background: rgb(229, 77, 66);
    border-radius: 100%;
+   margin:0 290rpx;
+
+
 
 }
 .want{
   color: #ffffff;
+  
 }
 
 .btnImg {
   width: 70rpx;
   height: 60rpx;
 }
+/* 下划线 */
+.bottom_line {
+  border-bottom: 1px solid rgb(226, 226, 226);
+}
+
 .post .userInformation{
     display: flex;
-    border-radius: 10px;
-     width:720rpx; /**宽度*/
-     height:100rpx; 
-     margin: 7.5rpx 15rpx 7.5rpx 15rpx;
+    border-radius: 10px 10px 0 0;
+     width:722rpx; /**宽度*/
+     height:110rpx; 
+     margin: 15rpx 15rpx 1rpx 15rpx;
     flex-direction: row;
     background:#fff;
+    padding:0 30rpx;
 }
 
 .post .userInformation .userImg{
-    width: 80rpx;
-    height: 80rpx;
+    width: 110rpx;
+    height: 110rpx;
     padding: 0 20rpx;
     line-height:100rpx;
     background:#fff;
@@ -82,10 +108,11 @@
 }
 
 .post .userInformation .userName {
-    padding: 0 10rpx;
-    font-size: 35rpx;
+    padding: 10rpx 10rpx;
+    font-size: 28rpx;
     line-height:100rpx;
     color: rgb(0, 0, 0);
+    
 }
 
 .post .postInformation{
@@ -93,44 +120,107 @@
     flex-direction: row;
     flex-wrap: wrap;
     background:#fff;
-    border-radius: 10px;
-    margin: 7.5rpx 15rpx 7.5rpx 15rpx;
+    border-radius: 0;
+    margin: 2.5rpx 15rpx 0 15rpx;
+    justify-content: space-between;
+    height: 80rpx;
+    padding: 15rpx 15rpx;
+    align-items: center;
 }
+.postInformation3{
+    height: 90rpx;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:#fff;
+    border-radius: 0;
+    margin: 0 15rpx 0 15rpx;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15rpx 15rpx;
+}
+.post .postInformation2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:#fff;
+    margin: 0 15rpx 0 15rpx;
+    padding:30rpx 30rpx 5rpx 45rpx;
+}
+.post .postInformation4{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background:#fff;
+    border-radius: 0 0 10px 10px;
+    margin: 0 15rpx 0 15rpx;
+    align-items: center;
+}
+
 
 
 .post .postInformation .postTitle{
-    padding: 10rpx 22rpx; 
-    font-size:16px;
+  padding: 20rpx 40rpx; 
+  display: inline-block;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size:40rpx;
+  color: #3d3a3a
+
 }
 
 .post .postInformation .goodsPrice{
-    padding: 30rpx 0 0 350rpx;
-    font-size:16px;
-    color: red;
+  padding: 20rpx 40rpx;
+  display: inline-block;
+  color: #e74552;
+  font-size:40rpx;
+  font-weight:bold;
 }
 
-.post .postInformation .postContent{
-    padding: 15rpx 22rpx;
-    font-size:12px;
+.item_price_before{
+  padding: 20rpx 40rpx;
+  display: inline-block;
+  color:#B2B2B2;
+  font-weight:bold;
+  font-size: 30rpx;
+  text-decoration:line-through;
+}
 
+.post .postInformation2 .postContent{
+    font-size:33rpx;
+    color: rgb(117, 117, 117);
 }
 
  .goodsImg{
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 100rpx;
+    align-items:center;
+    padding-bottom: 50rpx;
+}
 
-    width: 800rpx;
-    height: 600rpx;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.post .postInformation .goodsImg image{
-    width: 600rpx;
-    height: 600rpx;
-    justify-content: center;
-}
 .post .contact{
     width: 100%;
     height: 100%;
     position: fixed;  
+}
+
+.good_cell {
+  padding: 15rpx 0;
+  align-items: center;
+}
+.user_nickname {
+  display: inline-block;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.user_location {
+  display: inline-block;
+  color: #e74552;
 }
 

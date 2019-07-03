@@ -2,7 +2,7 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
 page {
-  background-color:rgba(250,250,250,0.90)
+  background-color:rgb(241,241,241)
  ;
 }
 .container {

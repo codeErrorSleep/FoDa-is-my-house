@@ -10,15 +10,20 @@ Page({
    */
   data: {
     //选择物品类型
-    types:["其他","生活","学习","衣服"],
+    types:["电器类","学习类","衣物类","生活类","其它"],
     type_index:0,
-    inputLength: 0, //文字输入框字数
+    //选择校区
+    regions: ["江湾", "仙溪", "河滨"],
+    region_index: 0,
+    //文字输入框字数
+    inputLength: 0,
 
     //用户上传的信息
     post_title:"",
     goods_price:Number,
     goods_oriPrice:Number,
-    goods_type:"",
+    goods_type:"电器类",
+    goods_region:"江湾",
     goods_content:"",
     //照片在云的位置
     goods_imgs:[],
@@ -70,6 +75,14 @@ Page({
     })
   },
 
+  //判断校区
+  bindRegionChange: function (e) {
+    this.setData({
+      region_index: e.detail.value,
+      goods_region: this.data.regions[e.detail.value]
+    })
+  },
+
   //处理用户填写信息并准备上传
   uploadPost:function(e){
     wx.showLoading({
@@ -100,6 +113,7 @@ Page({
         "price":this.data.goods_price,
         "title":this.data.post_title,
         "type":this.data.goods_type,
+        "region":this.data.goods_region,
         "oriPrice":this.data.oriPrice,
         "date":date
       },

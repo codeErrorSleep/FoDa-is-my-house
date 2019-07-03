@@ -83,13 +83,29 @@ function dbLoad(database, that, limit) {
 }
 
 
+// 传入日期变转换为  "yyyy-mm-dd" 形式
+function getDate(date){
+  var dateY = date.getFullYear() + '-';
+  var dateM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  var dateD = date.getDate() + ' ';
+  date=dateY+dateM+dateD;
+  return date
+}
+
+// // 将时间戳转换为 具体时间 yyyy-mm-dd hh:mm
+// function getDeadLine(date){
+//   var date = new Date(date);
+//   Y = date.getFullYear() + '-';
+//   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+//   D = date.getDate() + ' ';
+//   h = date.getHours() + ':';
+//   m = date.getMinutes();
+//   date=Y+M+D+h+m
+//   return date
+// }
 
 
-
-
-
-
-
+module.exports.getDate = getDate;
 module.exports.dbLoad = dbLoad;
 module.exports.getUserInCloud = getUserInCloud;
 module.exports.isRegistered=isRegistered;

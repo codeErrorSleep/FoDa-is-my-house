@@ -3,24 +3,26 @@
 	<view slot="content">佛大叮当</view>
 </cu-custom>
 <view class="mine_top">
-  <navigator url="../registered/registered" class="mine_cell">
 
     <view class="mine_avatar_bd">
-
-    <!-- <image class="mine_avatar" src="/images/per1.png" /> -->
-      <image wx:if="{{userData.head_index}}" class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
-      <image wx:else class="cu-avatar xl round margin-left" src="/images/per1.png" />
-    </view>
-  </navigator>
-
-  <navigator url="../registered/registered" class="mine_cell">
-    <text class="margin-top-sm" wx:if="{{!userData.nick_name.length}}" bindtap="registered">登录/注册</text>
-  </navigator>
-     <view class="mine_nickName">
-      <view style="display:flex;justify-content:center">
-        <text style="font-weight:bold">{{userData.nick_name}}</text>
+      <view wx:if="{{userData.head_index != null}}" class="mine_cell">
+        <image class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
+      </view>
+      <view wx:else class="mine_cell">
+        <image class="cu-avatar xl round margin-left" src="/images/per1.png" bindtap="registered"/>
       </view>
     </view>
+
+  <view wx:if="{{userData.nick_name.length}}" class="mine_nickName">
+    <view style="display:flex;justify-content:center">
+      <text style="font-weight:bold">{{userData.nick_name}}</text>
+    </view>
+  </view>
+  <view wx:else class="mine_nickName">
+    <view style="display:flex;justify-content:center">
+      <text style="font-weight:bold" bindtap="registered">登录/注册</text>
+    </view>
+  </view>
 </view>
 
 <view class="mine_cells2">

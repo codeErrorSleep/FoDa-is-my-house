@@ -32,7 +32,11 @@ Page({
     //警告
     warning: "",
     //认证状态
-    approve: "未通过",
+    approve: "",
+    //审阅状态
+    al_approve: "",
+    //修改了电话号码
+    editPhone: false,
   },
   onLoad() {
     // 初始化towerSwiper 传已有的数组名即可
@@ -58,7 +62,7 @@ Page({
     wx.chooseImage({
       count: 1, //默认9
       sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album'], //从相册选择
+      sourceType: ['album', 'camera'], //从相册选择
       success: (res) => {
         if (this.data.imgList.length != 0) {
           this.setData({
@@ -170,7 +174,8 @@ Page({
   getPhone(e) {
     var data = e.detail.value;
     this.setData({
-      phone: data
+      phone: data,
+      editPhone: true,
     })
   },
   //获取验证码
@@ -304,7 +309,7 @@ Page({
       this.setData({
         warning: "请上传校园卡",
       })
-    } else if (this.data.code == "" || (this.data.code != this.data.rightcode)){
+    } else if (this.data.editPhone && (this.data.code == "" || (this.data.code != this.data.rightcode))){
       this.setData({
         warning: "验证码错误",
       })
@@ -330,17 +335,23 @@ Page({
     }
     if (e.detail.value.real_name != "") {
       this.setData({
-        nick_name: e.detail.value.real_name
+        real_name: e.detail.value.real_name
       })
     }
     if (e.detail.value.wechat_id != "") {
       this.setData({
-        nick_name: e.detail.value.wechat_id
+        wechat_id: e.detail.value.wechat_id
       })
     }
     if (e.detail.value.phone != "") {
       this.setData({
-        nick_name: e.detail.value.phone
+        phone: e.detail.value.phone
+      })
+    }
+    if (this.data.imgList != app.globalData.userCloudData.approve_img) {
+      this.setData({
+        approve: false,
+        al_approve: false
       })
     }
     this.setData({
@@ -376,6 +387,8 @@ Page({
         "phone": this.data.phone,
         "approve_img": this.data.approve_img,
         "formId": this.data.formId,
+        "approve": this.data.approve,
+        "al_approve": this.data.al_approve
       },
       success: function (res) {
         //成功上传后提示信息

@@ -1,33 +1,37 @@
 <template name="oneCol">
   <view class='categories'>
-    <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique">{{item}}</text>
+    <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique" wx:key="key" >{{item}}</text>
   </view>
   <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
-    <block wx:for="{{categories}}" wx:for-item="category">
+    <block wx:for="{{categories}}" wx:for-item="category" wx:key="key">
       <swiper-item>
-        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
-          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+        <scroll-view scroll-y="true"  class="container" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
             <view wx:if="{{category==('全部')||item.type==category}}">
-              <view class="feed-item" id='{{idx}}' bindtap="jumpToPost">
-                  <view class="feed-content" >
-                      <view class="item-title" >
-                          <text>{{item.title}}</text>
-                      </view>
-                      <view class="item-price">
-                          <text>¥{{item.price}}</text>
-                      </view>
-                      <view class="item-img">
-                          <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
-                              <view wx:if="{{img_num < 3}}">
-                                  <image src="{{goods_item_img}}" lazy-load />
-                              </view>
-                          </view>
-                      </view>
-                      <view class="item-content">
-                          <text class="item-content">{{item.content}}</text>
-                      </view>
+            <view wx:if="{{(category==('全部')||category==('求助'))&&item.timeStamp>nowDate}}">
+              <view class="cu-card article" id='{{idx}}' bindtap="jumpToPost">
+                <view class="cu-item shadow">
+                  <view class="title">
+                    <view class="flex justify-between">
+                      <text class="text-cut">{{item.title}}</text>
+                      <text class="text-price">{{item.price}}</text>
+                    </view>
                   </view>
+                  <view class="content">
+                    <image src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                    <view class="desc">
+                      <view class="text-content">{{item.content}}</view>
+                      <view>
+                        <view wx:if="{{category==('全部')||category==('求助')}}">
+                          <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
+                        </view>
+                      </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
               </view>
+              <button class="delete" bindtap="deleteDiscover" id='{{idx}}' hidden="{{!mypage}}">删除</button>
             </view>
           </block>
         </scroll-view>

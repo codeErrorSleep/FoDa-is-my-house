@@ -1,10 +1,32 @@
 <!--pages/update/update.wxml-->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">上传闲置</view>
+	<view slot="content">发布闲置</view>
 </cu-custom>
 <view class="page">
   <form bindsubmit='uploadPost'>
+
+    <!--分类-->
+    <view class='sell_cells'>
+      <view class="sell_cell">
+        <text class="sell_title">分类</text>
+        <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
+          <text class="sell_select">{{types[type_index]}}</text>
+        </picker>
+      </view>
+    </view>
+    <!---->
+
+    <!--校区-->
+    <view class='sell_cells'>
+      <view class="sell_cell">
+        <text class="sell_title">校区</text>
+        <picker name="goods_region" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindRegionChange" value="{{region_index}}" range="{{regions}}">
+          <text class="sell_select">{{regions[region_index]}}</text>
+        </picker>
+      </view>
+    </view>
+    <!---->
 
     <!--标题和描述-->
     <view class="sell_cells">
@@ -49,23 +71,12 @@
     <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">价格</text>
-        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
+        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
 
       <view class="sell_cell">
         <text class="sell_title">原价</text>
-        <input name="oriPrice" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
-      </view>
-    </view>
-    <!---->
-
-    <!--分类-->
-    <view class='sell_cells'>
-      <view class="sell_cell">
-        <text class="sell_title">分类</text>
-        <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
-          <text class="sell_select">{{types[type_index]}}</text>
-        </picker>
+        <input name="oriPrice" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
     </view>
     <!---->
