@@ -1,60 +1,41 @@
-<!-- pages/update/update.wxml -->
-<view class="page">
-  <form bindsubmit='uploadPost'>
-    <!-- 分类 -->
-    <view class='sell_cells'>
-      <view class="sell_cell">
-        <text class="sell_title">分类</text>
-        <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
-          <text class="sell_select">{{types[type_index]}}</text>
-        </picker>
-      </view>
-    </view>
-    <!--  -->
-    <!-- 标题和描述 -->
-    <view class="sell_cells">
-      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
-        <text class="sell_title">标题</text>
-        <input name="title" class="sell_input" placeholder="请输入您的帖子标题（不超过15个字）" placeholder-class='placeholder' maxlength='15' />
-      </view>
-      <view class="sell_cell" style="align-items: flex-start">
-        <text class="sell_title">内容</text>
-        <textarea name="content" class="sell_input" placeholder="请你简述一下你要说的内容,只有求助类型的帖子提供价格选项.（文字不超过140个字，附图不超过3张）" placeholder-class='placeholder' maxlength='140' bindinput='bindInput'></textarea>
-      </view>
-      <!-- 字数提示，超过130字变红 -->
-      <view class="sell_cell" style="justify-content:flex-end">
-        <view wx:if="{{inputLength>130}}">
-          <text class="sell_hint_text">{{inputLength}}</text>
-          <text class="sell_text">/140</text>
-        </view>
-        <view wx:else>
-          <text class="sell_text">{{inputLength}}/140</text>
-        </view>
-      </view>
-      <!--  -->
-      <!-- 上传图片 -->
-      <view class="sell-cell_uploader">
-        <view class="sell_uploader_imgbox" wx:for="{{images}}" wx:key="*this">
-          <image class="sell_uploader_img" src="{{item}}" data-index="{{index}}" bindtap="handleImagePreview" mode="aspectFill"></image>
-          <image class="sell_uploader_img_del" bindtap="removeImage" data-index="{{index}}" src="/images/x.png" />
-        </view>
-        <view class="sell_uploader_box">
-          <view class="sell_uploader_input" bindtap="chooseImage"></view>
-        </view>
-      </view>
-      <!--  -->
-    </view>
-    <!--  -->
-    <!-- 求助金额 -->
-    <view wx:if="{{type_index<1}}">
-      <view class='sell_cells'>
-        <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
-          <text class="sell_title">价格</text>
-          <input name="price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
-        </view>
-      </view>
-    </view>
-    <!--  -->
-    <button class="sell_btn" form-type='submit'>确认发布</button>
-  </form>
-</view>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">快递</view>
+</cu-custom>
+      <swiper-item>
+        <scroll-view scroll-y="true"  class="container" >
+              <view class="cu-card article"  bindtap="jumpToPost">
+                <view class="cu-item shadow">
+                  <view class="title">
+                    <view class="flex justify-between">
+                      <text class="text-cut">西四502</text>
+                      <text class="text-price">3</text>
+
+                    </view>
+                  </view>
+                  <view style="width:900px;height:1px;margin:0px auto;padding:0px;background-color:rgb(241,241,241);overflow:hidden;">
+                  </view>
+                  <view class="content">
+
+
+
+                    <view class="desc">
+                    
+                      <view class="text-content">快递点: 大成楼</view>
+                      <view class="block1">
+                      <view class="text-content">快递件数: 1件</view>
+                      <view class="text-content2">重量：较重</view>
+                      </view>
+                      <view class="text-content">截止时间: 2019-03-12 12:12</view>
+
+                      <view class="text-content3">备注: 我是你爸爸阿法很多粉红色···</view>
+                      <!-- 备注限制12个字 -->
+                  <view class="condition">
+                      <image class="cond" src="/images/yijie.png" />
+                  </view>
+                      </view>
+                    </view>
+                  </view>
+            </view>
+        </scroll-view>
+      </swiper-item>

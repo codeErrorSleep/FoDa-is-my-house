@@ -11,7 +11,7 @@
       <view class="sell_cell">
         <text class="sell_title">分类</text>
         <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
-          <text class="sell_select">{{types[type_index]}}</text>
+          <text class="sell_select">{{goods_type!=""?goods_type:"请选择闲置物品分类"}}</text>
         </picker>
       </view>
     </view>
@@ -22,7 +22,7 @@
       <view class="sell_cell">
         <text class="sell_title">校区</text>
         <picker name="goods_region" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindRegionChange" value="{{region_index}}" range="{{regions}}">
-          <text class="sell_select">{{regions[region_index]}}</text>
+          <text class="sell_select">{{goods_region!=""?goods_region:"请选择闲置物品所在校区"}}</text>
         </picker>
       </view>
     </view>
@@ -71,7 +71,7 @@
     <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">价格</text>
-        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
+        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />/////xdff//
       </view>
 
       <view class="sell_cell">
@@ -82,5 +82,20 @@
     <!---->
 
     <button class="sell_btn" form-type='submit'>确认发布</button>
+
+    <!--模态窗口-->
+    <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+      <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+          <view class="content">提示</view>
+          <view class="action" bindtap="hideModal">
+            <text class="cuIcon-close text-red"></text>
+          </view>
+        </view>
+        <view class="padding-xl">
+          {{warning}}
+        </view>
+      </view>
+    </view>
   </form>
 </view>

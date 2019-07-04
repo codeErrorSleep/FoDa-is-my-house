@@ -1,6 +1,7 @@
 
 .sell_cells {
-  margin: 30rpx 0;
+  margin: 30rpx 15rpx;
+  border-radius: 5%;
   padding: 0 30rpx;
   background-color: #fff;
 }
@@ -12,7 +13,7 @@
 }
 
 .sell_title {
-  width: 60px;
+  width: 120px;
   font-size: 15px;
   font-weight: bold;
 }
@@ -161,6 +162,12 @@
     height: 150rpx;
     padding: 20rpx 20rpx;
 
+}
+
+.payNote{
+  display: flex;
+  padding: 5rpx;
+  text-align: left;
 }
 
 

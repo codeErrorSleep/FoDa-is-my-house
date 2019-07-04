@@ -22,14 +22,19 @@ Page({
     post_title:"",
     goods_price:Number,
     goods_oriPrice:Number,
-    goods_type:"电器类",
-    goods_region:"江湾",
+    goods_type:"",
+    goods_region:"",
     goods_content:"",
     //照片在云的位置
     goods_imgs:[],
 
     //存放照片在手机中的位置
-    images:[]
+    images:[],
+
+    //警告
+    warning: "",
+    //检验状态
+    mode: "",
   },
 
   /**
@@ -85,21 +90,71 @@ Page({
 
   //处理用户填写信息并准备上传
   uploadPost:function(e){
-    wx.showLoading({
-      title: '正在上传...',
-      mask: true
-    })
-
     //得到用户填写的信息
     this.setData({
       post_title:e.detail.value.post_title,
       goods_price:e.detail.value.goods_price,
       goods_content:e.detail.value.goods_content,
-      oriPrice:e.detail.value.oriPrice
+      oriPrice:e.detail.value.oriPrice,
+      warning:"",
+      mode: false,
     })
 
+    //检查提交信息
+    this.checkInfo()
 
-    this.uploadImages()
+    // 先将照片上传再上传数据库
+    if (this.data.mode) {
+      this.uploadImages()
+    }
+  },
+
+  //检查提交信息
+  checkInfo() {
+    if (this.data.goods_type=="") {
+      this.setData({
+        warning: "请选择闲置物品的分类类型",
+      })
+    } else if (this.data.goods_region=="") {
+      this.setData({
+        warning: "请选择闲置物品在哪一个校区",
+      })
+    } else if (this.data.post_title == "") {
+      this.setData({
+        warning: "请输入闲置物品的标题",
+      })
+    } else if (this.data.goods_content == "") {
+      this.setData({
+        warning: "请输入闲置物品的描述",
+      })
+    } else if (this.data.images.length === 0) {
+      this.setData({
+        warning: "请输入闲置物品的图片",
+      })
+    } else if (this.data.goods_price == "") {
+      this.setData({
+        warning: "请输入闲置物品的价格",
+      })
+    } else if (this.data.oriPrice == "") {
+      this.setData({
+        warning: "请输入闲置物品的原价",
+      })
+    } else {
+      this.setData({
+        warning: "发布成功",
+        mode: true,
+      })
+    }
+    this.setData({
+      modalName: "Modal",
+    })
+  },
+
+  //隐藏模态窗口
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
   },
 
   //将帖子信息上传到数据库

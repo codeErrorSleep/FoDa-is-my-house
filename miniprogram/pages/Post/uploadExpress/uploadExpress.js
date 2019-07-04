@@ -1,188 +1,300 @@
 var util = require('../../../utils/util.js')
 var app = getApp()
 
-
-
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    //选择物品数量
-    nums: [1,2,3,4,5,6,7,8,9],
-    num_index: 0,
-    //选择物品重量
-    weights: ['轻小件(轻小包装商品)','中件(稍重或稍大包装的商品)','大件(较重或较大包装的商品)','超大件(非常重或非常大包装的商品)'],
-    weight_index: 0,
-    //选择物品取件地址
-    takes: ['快递点1', '快递点2', '快递点3', '快递点4', '快递点5', '快递点6','快递点7'],
-    take_index: 0,
-    //选择物品收件地址
-    brings: [['东区', '西区'], ['东一', '东二', '东三','东四']],
-    bring_index: [0,0],
+    //快递数量
+    express_num:"",
+    //可选快递数量
+    chooseNum:[1,2,3,4,5,6,7,8,9],
+    //所选快递数量下标
+    numIndex:0,
+
+    //快递总重量
+    express_weight:"",
+    //可选快递总重量
+    chooseWeight:["轻小件(如衣服，小盒子等)","中件(大于鞋盒)","大件(需要两手扛的)","超大件(壮汉或两人扛)"],
+    //所选快递总重量下标
+    weightIndex:0,
+
+    //快递酬金
+    express_pay:"",
+
+    //快递取件地址
+    express_pickUp:"",
+    //可选快递取件地址
+    choosePickUp:["中门中通","商业街菜鸟驿站","南门中国邮政"],
+    //所选快递取件地址下标
+    pickUpIndex:0,
+
+    //快递收件地址
+    express_destination:"",
+    express_destination_1:"",
+    express_destination_2:"",
+    //可选快递收件地址
+    chooseDestination:[["东区","西区"],["东一","东二","东三","东四"]],
+    //所选快递收件地址下标
+    destinationIndex:[0,0],
+
+    //详细快递收件地址
+    express_destination_detail:"",
+
+    //送达起始日期
+    startDate:"",
+
+    //送达终点日期
+    endDate: "",
+
+    //送达日期
+    express_date: "",
+
     //送达时间
-    time:'12:01',
-    regions: ["江湾", "仙溪", "河滨"],
-    region_index: 0,
-    //文字输入框字数
-    inputLength: 0,
+    express_time:"",
 
-    //用户上传的信息
-    post_title: "",
-    goods_price: Number,
-    goods_oriPrice: Number,
-    goods_num: 1,
-    goods_weight: '轻小件(轻小包装商品)',
-    goods_take: '快递点1',
-    goods_bring: '东区，东一',
-    bring_detail: '',
-    goods_region: "江湾",
-    goods_content: "",
-    //照片在云的位置
-    goods_imgs: [],
+    //快递取件人姓名
+    express_name: "",
 
-    //存放照片在手机中的位置
-    images: []
+    //快递取件人手机号
+    express_phone: "",
+
+    //详细说明
+    express_note:"",
+
+    //警告
+    warning:"",
+
+    //验证状态
+    mode: "",
+
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     // 判断当前用户是否为以注册用户
     util.isRegistered()
+    var startDate = new Date()
+    var endDate = new Date()
+    endDate.setDate(startDate.getDate() + 2)
+    this.setData({
+      express_name: app.globalData.userCloudData.real_name,
+      express_phone: app.globalData.userCloudData.phone,
+      startDate: util.getDate(startDate),
+      endDate: util.getDate(endDate),
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //选择快递数量
+  numChange(e) {
+    this.setData({
+      numIndex: e.detail.value,
+      express_num: this.data.chooseNum[e.detail.value],
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  //选择快递总重量
+  weightChange(e) {
+    this.setData({
+      weightIndex: e.detail.value,
+      express_weight: this.data.chooseWeight[e.detail.value],
+    })
+  },
 
+  //报酬金额提示
+  payNote(e) {
+    this.setData({
+      warning: "",
+      modalName:"Modal",
+    })
+  },
+
+  //隐藏模态窗口
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
+  },
+
+  //选择快递取件地址
+  pickUpChange(e) {
+    this.setData({
+      pickUpIndex: e.detail.value,
+      express_pickUp: this.data.choosePickUp[e.detail.value],
+    })
+  },
+
+  //选择快递收件地址
+  destinationChange(e) {
+    this.setData({
+      destinationIndex: e.detail.value
+    })
+  },
+
+  //选择快递收件地址
+  destinationChange_column(e) {
+    let data = {
+      chooseDestination: this.data.chooseDestination,
+      destinationIndex: this.data.destinationIndex
+    };
+    data.destinationIndex[e.detail.column] = e.detail.value;
+    switch (e.detail.column) {
+      case 0:
+        switch (data.destinationIndex[0]) {
+          case 0:
+            data.chooseDestination[1] = ['东一', '东二', '东三', '东四'];
+            break;
+          case 1:
+            data.chooseDestination[1] = ['西一', '西二', '西三', '西四'];
+            break;
+        }
+        data.destinationIndex[1] = 0;
+        break;
+    }
+    this.setData(data);
+    this.setData({
+      express_destination: this.data.chooseDestination[0][this.data.destinationIndex[0]] + " " + this.data.chooseDestination[1][this.data.destinationIndex[1]],
+      express_destination_1: this.data.chooseDestination[0][this.data.destinationIndex[0]],
+      express_destination_2: this.data.chooseDestination[1][this.data.destinationIndex[1]],
+    });
+  },
+
+  // 选择快递送达日期
+  dateChange(e) {
+    this.setData({
+      express_date: e.detail.value
+    })
+  },
+
+  // 选择快递送达时间
+  timeChange(e) {
+    this.setData({
+      express_time: e.detail.value
+    })
   },
 
   //统计文本域字数
-  bindInput: function (e) {
+  bindInput(e) {
     var inputLength = e.detail.value.length;
     this.setData({
       inputLength: inputLength,
     })
   },
 
-  //判断物品的数量
-  bindNumChange: function (e) {
-    this.setData({
-      num_index: e.detail.value,
-      goods_num: this.data.nums[e.detail.num]
-    })
-  },
-
-  //判断物品的重量
-  bindWeightChange: function (e) {
-    this.setData({
-      weight_index: e.detail.value,
-      goods_weight: this.data.weights[e.detail.num]
-    })
-  },
-
-  //判断物品的取件地址
-  bindTakeChange: function (e) {
-    this.setData({
-      take_index: e.detail.value,
-      goods_take: this.data.takes[e.detail.num]
-    })
-  },
-
-  //判断物品的收件地址
-  bindBringChange: function (e) {
-    this.setData({
-      bring_index: e.detail.value
-    })
-  },
-
-  //判断物品的收件地址
-  ColumnBringChange: function (e) {
-    let data = {
-      brings: this.data.brings,
-      bring_index: this.data.bring_index
-    };
-    data.bring_index[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
-      case 0:
-        switch (data.bring_index[0]) {
-          case 0:
-            data.brings[1] = ['东一', '东二', '东三', '东四'];
-            break;
-          case 1:
-            data.brings[1] = ['西一', '西二', '西三', '西四'];
-            break;
-        }
-        data.bring_index[1] = 0;
-        break;
+  //提交表单
+  uploadPost(e) {
+    if (e.detail.value.express_name!="") {
+      this.setData({
+        express_name: e.detail.value.express_name
+      })
     }
-    this.setData(data);
-  },
 
-  //时间选取
-  TimeChange(e) {
+    if (e.detail.value.express_phone != "") {
+      this.setData({
+        express_phone: e.detail.value.express_phone
+      })
+    }
+
     this.setData({
-      time: e.detail.value
+      express_pay:e.detail.value.express_pay,
+      express_destination_detail:e.detail.value.express_destination_detail,
+      express_note:e.detail.value.express_note,
+      warning:"",
+      mode: false,
     })
+
+    console.log(this.data.express_num)
+    console.log(this.data.express_weight)
+    console.log(this.data.express_pay)
+    console.log(this.data.express_pickUp)
+    console.log(this.data.express_destination_1)
+    console.log(this.data.express_destination_2)
+    console.log(this.data.express_destination_detail)
+    console.log(this.data.express_date)
+    console.log(this.data.express_time)
+    console.log(this.data.express_name)
+    console.log(this.data.express_phone)
+    console.log(this.data.express_note)
+
+    this.checkInfo();
+
+    if (this.data.mode) {
+      this.uploadData();
+    }
   },
 
-  //判断校区
-  bindRegionChange: function (e) {
+  //检查是否有空值
+  checkInfo() {
+    if (this.data.express_num == "") {
+      this.setData({
+        warning: "请选择快递件数"
+      })
+    } else if (this.data.express_weight == ""){
+      this.setData({
+        warning: "请选择快递总重量"
+      })
+    } else if (this.data.express_pay == "") {
+      this.setData({
+        warning: "请输入报酬金额"
+      })
+    } else if (this.data.express_pickUp == "") {
+      this.setData({
+        warning: "请选择快递取件地址"
+      })
+    } else if (this.data.express_destination_1 == "" || this.express_destination_2 == "") {
+      this.setData({
+        warning: "请选择快递收件地址"
+      })
+    } else if (this.data.express_destination_detail == "") {
+      this.setData({
+        warning: "请输入您的详细收件地址"
+      })
+    } else if (this.data.express_date == "") {
+      this.setData({
+        warning: "请选择送达日期"
+      })
+    } else if (this.data.express_time == "") {
+      this.setData({
+        warning: "请选择送达时间"
+      })
+    } else if (this.data.express_time == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
+      this.setData({
+        warning: "请输入正确的手机号码"
+      })
+    } else{
+      this.setData({
+        warning: "发布成功",
+        mode: true,
+      })
+    }
     this.setData({
-      region_index: e.detail.value,
-      goods_region: this.data.regions[e.detail.value]
+      modalName: "Modal",
     })
   },
 
-  //处理用户填写信息并准备上传
-  uploadPost: function (e) {
-    wx.showLoading({
-      title: '正在上传...',
-      mask: true
-    })
-
-    //得到用户填写的信息
-    this.setData({
-      post_title: e.detail.value.post_title,
-      goods_price: e.detail.value.goods_price,
-      goods_content: e.detail.value.goods_content,
-      oriPrice: e.detail.value.oriPrice
-    })
-
-
-    this.uploadImages()
-  },
-
-  //将帖子信息上传到数据库
+  //上传数据
   uploadData: function () {
+    // 送达截止时间戳
+    var deadline_timeStamp = new Date(this.data.express_date + " " + this.data.express_time).getTime()
     var date = new Date()
     const db = wx.cloud.database()
-    db.collection("post").add({
+    db.collection("express").add({
       data: {
-        "content": this.data.goods_content,
-        "imgs": this.data.goods_imgs,
-        "price": this.data.goods_price,
-        "title": this.data.post_title,
-        "type": this.data.goods_type,
-        "region": this.data.goods_region,
-        "oriPrice": this.data.oriPrice,
-        "date": date
+        "num": this.data.express_num,
+        "weight": this.data.express_weight,
+        "price": this.data.express_pay,
+        "pickUp": this.data.express_pickUp,
+        "destination_1": this.data.express_destination_1,
+        "destination_2": this.data.express_destination_2,
+        "destination_detail": this.data.express_destination_detail,
+        "deadline_date": this.data.express_date,
+        "deadline_time": this.data.express_time,
+        "deadline_timeStamp": deadline_timeStamp,
+        "real_name": this.data.express_name,
+        "phone": this.data.express_phone,
+        "note": this.data.express_note,
+        "date": date,
+        "receiver_openid": "",
       },
       success(res) {
-        //成功上传后提示信息
         console.log("插入成功")
-
         wx.showToast({
           title: '成功上传',
           icon: 'success',
@@ -190,97 +302,5 @@ Page({
         })
       }
     })
-
-
   },
-
-  //上传物品图片信息
-  uploadImages: function () {
-
-    var images = this.data.images
-    //先添加到这一变量,在最后一个再改变this.data.中的goods_imgs
-    var goods_imgs = []
-
-    images.forEach(item => {
-      console.log(item)
-      wx.cloud.uploadFile({
-        cloudPath: "goods_imgs/" + item.substring(item.length - 20), // 上传至云端的路径
-        filePath: item, // 小程序临时文件路径
-        success: res => {
-          // 返回文件 ID
-          console.log(res.fileID)
-          goods_imgs.push(res.fileID)
-          console.log(goods_imgs)
-
-          //获取所有图片在云端的位置后上传到数据库
-          if (goods_imgs.length === images.length) {
-            //将局部变量赋给this.data
-            this.setData({
-              goods_imgs: goods_imgs
-            })
-            console.log(this.data.goods_imgs)
-            //隐藏上传提示
-            wx.hideLoading()
-            this.uploadData()
-          }
-        },
-        fail: console.error
-      })
-    });
-  },
-
-
-  //选择图片
-  chooseImage: function (e) {
-    var that = this;
-    if (that.data.images.length < 3) {
-      wx.chooseImage({
-        count: 3, //最多可以选择的图片张数
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: res => {
-          this.setData({
-            images: this.data.images.concat(res.tempFilePaths)
-          })
-          console.log(this.data.images)
-        }
-      });
-    } else {
-      wx.showToast({
-        title: "图片限传三张！",
-        icon: 'none',
-        duration: 2000,
-        mask: true,
-      });
-    }
-  },
-
-
-
-  //用户点击放大图片
-  handleImagePreview: function (e) {
-    var index = e.target.dataset.index
-    var images = this.data.images
-    wx.previewImage({
-      current: images[index],  //当前预览的图片
-      urls: images,  //所有要预览的图片
-    })
-  },
-
-  //点击删除移除照片
-  removeImage: function (e) {
-    var index = e.target.dataset.index
-    //删除指定位置的照片
-    var images = this.data.images
-    images.splice(index, 1)
-    this.setData({
-      images: images
-    })
-    console.log(index)
-    console.log(this.data.images)
-  },
-
-
-
-
-})    
+})

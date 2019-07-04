@@ -88,7 +88,7 @@ Page({
     }
     wx.navigateTo({
       url:"../goods/goods?tab_id=" + tab_id
-      // url:"../test/test" 
+      //url:"../../BackUp/test/test" 
       // url:"../goods/goods"
     })
   },

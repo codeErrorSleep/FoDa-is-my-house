@@ -25,12 +25,17 @@ Page({
     images:[],
 
     // 时间选择
-    time: '12:01',
-    date: '2019-9-1',
+    time: '',
+    date: '',
     startDate:"",
     endDate: "",
     deadline:"",  // 求助截止时间 存放 具体时间 yyyy-mm-dd hh:mm
     timeStamp:"", // 求助截止时间 存放时间戳
+
+    //警告
+    warning:"",
+    //检验状态
+    mode:"",
   },
 
   /**
@@ -69,25 +74,68 @@ Page({
 
   //处理用户填写信息并准备上传
   uploadPost:function(e){
-    wx.showLoading({
-      title: '正在上传...',
-      mask: true
-    })
 
     //得到用户填写的信息
     this.setData({
       title:e.detail.value.title,
       price:e.detail.value.price,
       content:e.detail.value.content,
+      warning:"",
+      mode: false,
     })
 
+    //检查提交信息
+    this.checkInfo()
+
     // 先将照片上传再上传数据库
-    if(this.data.images===0){
-      console.log("没有上传图片")
-      this.uploadData()
-    }else{
-      this.uploadImages()
+    if (this.data.mode) {
+      if (this.data.images.length === 0) {
+        console.log("没有上传图片")
+        this.uploadData()
+      } else {
+        this.uploadImages()
+      }
     }
+  },
+
+  //检查提交信息
+  checkInfo() {
+    if (this.data.type=="") {
+      this.setData({
+        warning: "请选择求助分类类型",
+      })
+    } else if (this.data.title=="") {
+      this.setData({
+        warning: "请输入求助标题",
+      })
+    } else if (this.data.price == "") {
+      this.setData({
+        warning: "请输入求助价格",
+      })
+    } else if (this.data.date == "") {
+      this.setData({
+        warning: "请输入求助截止日期",
+      })
+    } else if (this.data.time == "") {
+      this.setData({
+        warning: "请输入求助截止时间",
+      })
+    }else {
+      this.setData({
+        warning: "发布成功",
+        mode: true,
+      })
+    }
+    this.setData({
+      modalName: "Modal",
+    })
+  },
+
+  //隐藏模态窗口
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
   },
 
   //将帖子信息上传到数据库
@@ -110,7 +158,6 @@ Page({
         "title":this.data.title,
         "type":this.data.type,
         "date":date,
-        "type":this.data.types[this.data.type_index],
         "timeStamp":this.data.timeStamp,
         "deadline":this.data.deadline,
       },

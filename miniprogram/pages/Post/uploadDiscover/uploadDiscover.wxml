@@ -9,8 +9,8 @@
     <view class='sell_cells'>
       <view class="sell_cell">
         <text class="sell_title">分类</text>
-        <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
-          <text class="sell_select">{{types[type_index]}}</text>
+        <picker name="type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
+          <text class="sell_select">{{type!=""?type:"请输入消息的分类"}}</text>
         </picker>
       </view>
     </view>
@@ -60,18 +60,18 @@
       </view>
       <!-- 选择时间 -->
       <view class="cu-form-group">
-        <view class="title">时间选择</view>
-        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
-          <view class="picker">
-            {{time}}
+        <view class="sell_title">日期选择</view>
+        <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" style="flex:1;display:flex;justify-content:flex-end" bindchange="DateChange">
+          <view class="sell_select">
+            {{date!=""?date:"请选择日期"}}
           </view>
         </picker>
       </view>
       <view class="cu-form-group">
-        <view class="title">日期选择</view>
-        <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="DateChange">
-          <view class="picker">
-            {{date}}
+        <view class="sell_title">时间选择</view>
+        <picker mode="time" value='{{time}}' start="09:01" end="21:01" style="flex:1;display:flex;justify-content:flex-end" bindchange="TimeChange">
+          <view class="sell_select">
+            {{time!=""?time:"请选择时间"}}
           </view>
         </picker>
       </view>
@@ -80,5 +80,20 @@
     </view>
     <!--  -->
     <button class="sell_btn" form-type='submit'>确认发布</button>
+
+    <!--模态窗口-->
+    <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+      <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+          <view class="content">提示</view>
+          <view class="action" bindtap="hideModal">
+            <text class="cuIcon-close text-red"></text>
+          </view>
+        </view>
+        <view class="padding-xl">
+          {{warning}}
+        </view>
+      </view>
+    </view>
   </form>
 </view>

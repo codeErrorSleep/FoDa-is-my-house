@@ -9,4 +9,26 @@
   <button id="adminUA"  bindtap="adminUA">
       用户验证
   </button>
+
+<form report-submit='true' bindsubmit='formSubmit'>
+    <button class="cu-btn round bg-blue shadow lg" form-type='submit'>获取最新formid</button>
+</form>
+    <button id="1"  bindtap="sendRegistered">
+      发送注册成功模板消息
+  </button>
+    <button id="2"  bindtap="sendRegistered">
+      发送注册失败模板消息
+  </button>
+    <button id="3"  bindtap="sendExpress">
+      发送注册成功模板消息
+  </button>
+    <button id="4"  bindtap="sendExpress">
+      发送注册失败模板消息
+  </button>
+
+    <button   bindtap="testAnything">
+      测试任何东西
+  </button>
+
+
 </view>
