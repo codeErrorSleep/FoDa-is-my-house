@@ -1,6 +1,6 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">商品详细</view>
+	<view slot="content">帖子详情</view>
 </cu-custom>
 <view class="post">
     <view class="userInformation">
@@ -12,16 +12,13 @@
         </view>
     </view>
     <view class="postInformation">
-
       <text class="postTitle" decode="{{true}}" space="{{true}}">{{post_data.title}}</text>
-      <text  class="goodsPrice">¥ {{post_data.price}}</text>
-   
+      <text class="goodsPrice" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">¥ {{post_data.price}}</text>
     </view>
-
-<!-- 原价 -->
+    <!-- 原价 -->
     <view class="postInformation3">
-    <text ></text>
-   <text class="item_price_before">￥{{post_data.oriPrice}}</text>
+      <text ></text>
+      <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">￥{{post_data.oriPrice}}</text>
     </view>
 
 
@@ -33,7 +30,7 @@
 <view class="postInformation4">
   <view class="goodsImg">
     <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
-        <image src="{{goods_item_img}}" style="width=100%" mode="aspectFill" />
+        <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" />
     </view>
   </view>
 </view>

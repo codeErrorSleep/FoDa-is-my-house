@@ -22,19 +22,21 @@ Page({
 
     //快递取件地址
     express_pickUp:"",
+    express_pickUp_1: "",
+    express_pickUp_2: "",
     //可选快递取件地址
-    choosePickUp:["中门中通","商业街菜鸟驿站","南门中国邮政"],
+    choosePickUp:[["江湾","仙溪","河滨"],["中门中通","商业街菜鸟驿站","南门中国邮政"]],
     //所选快递取件地址下标
-    pickUpIndex:0,
-
+    pickUpIndex:[0,0],
     //快递收件地址
     express_destination:"",
+    express_region: "",
     express_destination_1:"",
     express_destination_2:"",
     //可选快递收件地址
-    chooseDestination:[["东区","西区"],["东一","东二","东三","东四"]],
+    chooseDestination:[["江湾","仙溪","河滨"],["东区","西区"],["东一","东二","东三","东四"]],
     //所选快递收件地址下标
-    destinationIndex:[0,0],
+    destinationIndex:[0,0,0],
 
     //详细快递收件地址
     express_destination_detail:"",
@@ -116,8 +118,38 @@ Page({
   //选择快递取件地址
   pickUpChange(e) {
     this.setData({
-      pickUpIndex: e.detail.value,
-      express_pickUp: this.data.choosePickUp[e.detail.value],
+      pickUpIndex: e.detail.value
+    })
+  },
+
+  //选择快递取件地址
+  pickUpChange_column(e) {
+    let data = {
+      choosePickUp: this.data.choosePickUp,
+      pickUpIndex: this.data.pickUpIndex
+    };
+    data.pickUpIndex[e.detail.column] = e.detail.value;
+    switch (e.detail.column) {
+      case 0:
+        switch (data.pickUpIndex[0]) {
+          case 0:
+            data.choosePickUp[1] = ["中门中通", "商业街菜鸟驿站", "南门中国邮政"];
+            break;
+          case 1:
+            data.choosePickUp[1] = ["北区", "南区"];
+            break;
+          case 2:
+            data.choosePickUp[1] = ["正门", "后门"];
+            break;
+        }
+        data.pickUpIndex[1] = 0;
+        break;
+    }
+    this.setData(data);
+    this.setData({
+      express_pickUp: this.data.choosePickUp[0][this.data.pickUpIndex[0]] + " " + this.data.choosePickUp[1][this.data.pickUpIndex[1]],
+      express_pickUp_1: this.data.choosePickUp[0][this.data.pickUpIndex[0]],
+      express_pickUp_2: this.data.choosePickUp[1][this.data.pickUpIndex[1]],
     })
   },
 
@@ -139,20 +171,63 @@ Page({
       case 0:
         switch (data.destinationIndex[0]) {
           case 0:
-            data.chooseDestination[1] = ['东一', '东二', '东三', '东四'];
+            data.chooseDestination[1] = ["东区","西区"];
+            data.chooseDestination[2] = ["东一","东二","东三","东四"];
             break;
           case 1:
-            data.chooseDestination[1] = ['西一', '西二', '西三', '西四'];
+            data.chooseDestination[1] = ["一区","二区"];
+            data.chooseDestination[2] = ["一楼","二楼","三楼","四楼"];
+            break;
+          case 2:
+            data.chooseDestination[1] = ["A区","B区"];
+            data.chooseDestination[2] = ["一栋","二栋","三栋","四栋"];
             break;
         }
         data.destinationIndex[1] = 0;
+        data.destinationIndex[2] = 0;
+        break;
+      case 1:
+        switch (data.destinationIndex[0]) {
+          case 0:
+            switch (data.destinationIndex[1]) {
+              case 0:
+                data.chooseDestination[2] = ["东一","东二","东三","东四"];
+                break;
+              case 1:
+                data.chooseDestination[2] = ["西一","西二","西三","西四"];
+                break;
+            }
+            break;
+          case 1:
+            switch (data.destinationIndex[1]) {
+              case 0:
+                data.chooseDestination[2] = ["一楼","二楼","三楼","四楼"];
+                break;
+              case 1:
+                data.chooseDestination[2] = ["五楼","六楼","七楼","八楼"];
+                break;
+            }
+            break;
+          case 2:
+            switch (data.destinationIndex[1]) {
+              case 0:
+                data.chooseDestination[2] = ["一栋","二栋","三栋","四栋"];
+                break;
+              case 1:
+                data.chooseDestination[2] = ["五栋","六栋","七栋","八栋"];
+                break;
+            }
+            break;
+        }
+        data.destinationIndex[2]=0;
         break;
     }
     this.setData(data);
     this.setData({
-      express_destination: this.data.chooseDestination[0][this.data.destinationIndex[0]] + " " + this.data.chooseDestination[1][this.data.destinationIndex[1]],
-      express_destination_1: this.data.chooseDestination[0][this.data.destinationIndex[0]],
-      express_destination_2: this.data.chooseDestination[1][this.data.destinationIndex[1]],
+      express_destination: this.data.chooseDestination[0][this.data.destinationIndex[0]] + " " + this.data.chooseDestination[1][this.data.destinationIndex[1]] + " " + this.data.chooseDestination[2][this.data.destinationIndex[2]],
+      express_region: this.data.chooseDestination[0][this.data.destinationIndex[0]],
+      express_destination_1: this.data.chooseDestination[1][this.data.destinationIndex[1]],
+      express_destination_2: this.data.chooseDestination[2][this.data.destinationIndex[2]],
     });
   },
 
@@ -203,7 +278,8 @@ Page({
     console.log(this.data.express_num)
     console.log(this.data.express_weight)
     console.log(this.data.express_pay)
-    console.log(this.data.express_pickUp)
+    console.log(this.data.express_pickUp_2)
+    console.log(this.data.express_region)
     console.log(this.data.express_destination_1)
     console.log(this.data.express_destination_2)
     console.log(this.data.express_destination_detail)
@@ -234,13 +310,17 @@ Page({
       this.setData({
         warning: "请输入报酬金额"
       })
-    } else if (this.data.express_pickUp == "") {
+    } else if (this.data.express_pickUp_2 == "") {
       this.setData({
         warning: "请选择快递取件地址"
       })
-    } else if (this.data.express_destination_1 == "" || this.express_destination_2 == "") {
+    } else if (this.data.express_region == "" || this.data.express_destination_1 == "" || this.express_destination_2 == "") {
       this.setData({
         warning: "请选择快递收件地址"
+      })
+    } else if (this.data.express_region != this.data.express_pickUp_1) {
+      this.setData({
+        warning: "取件地址必须与收件地址的校区一致"
       })
     } else if (this.data.express_destination_detail == "") {
       this.setData({
@@ -253,6 +333,10 @@ Page({
     } else if (this.data.express_time == "") {
       this.setData({
         warning: "请选择送达时间"
+      })
+    } else if (new Date(this.data.express_date + " " + this.data.express_time).getTime() < new Date().getTime()) {
+      this.setData({
+        warning: "确保送达时间晚于现在时间"
       })
     } else if (this.data.express_time == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
       this.setData({
@@ -280,7 +364,8 @@ Page({
         "num": this.data.express_num,
         "weight": this.data.express_weight,
         "price": this.data.express_pay,
-        "pickUp": this.data.express_pickUp,
+        "pickUp": this.data.express_pickUp_2,
+        "region": this.data.express_region,
         "destination_1": this.data.express_destination_1,
         "destination_2": this.data.express_destination_2,
         "destination_detail": this.data.express_destination_detail,
@@ -291,7 +376,6 @@ Page({
         "phone": this.data.express_phone,
         "note": this.data.express_note,
         "date": date,
-        "receiver_openid": "",
       },
       success(res) {
         console.log("插入成功")

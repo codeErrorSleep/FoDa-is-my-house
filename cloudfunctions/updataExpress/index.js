@@ -7,12 +7,14 @@ const db = cloud.database()
 
 
 exports.main = async (event, context) => {
-  var receiver_openid=event.receiver_openid
-  var express_id=event.express_id
+  // var receiver_wechat_id=event.receiver_wechat_id
+  // var receiver_phone=event.receiver_phone
+  // var express_id=event.express_id
   try {
-    return await db.collection('express').doc(express_id).update({
+    return await db.collection('express').doc(event.express_id).update({
       data: {
-        receiver_openid:receiver_openid
+        receiver_wechat_id:event.receiver_wechat_id,
+        receiver_phone:event.receiver_phone
       }
     })
   } catch (e) {

@@ -42,12 +42,8 @@ Page({
 
     console.log(this.data.post_data)
     console.log(this.data.user_id)
-    
-
 
     this.getUserData()
-
-
   },
 
   // 获取物品主人的信息
@@ -128,7 +124,18 @@ Page({
         });
       }
     });
-  }
+  },
+
+
+  //用户点击放大图片
+  handleImagePreview:function(e) {
+    var index = e.target.dataset.index
+    var images = this.data.post_data.imgs
+    wx.previewImage({
+      current: images[index],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
 
 
 })

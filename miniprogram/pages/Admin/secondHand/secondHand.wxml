@@ -28,7 +28,8 @@
                 </view>
                 <!-- </navigator> -->
             </view>
-            <view class="post-remover" data-idx="{{idx}}" bindtap="removeImage">删除</view>
+            <view class="bg-red padding-sm margin-xs radius" data-idx="{{idx}}" bindtap="removePost">删除</view>
+
         </block>
     </scroll-view>
 </view>

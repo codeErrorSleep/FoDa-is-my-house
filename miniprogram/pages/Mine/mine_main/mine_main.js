@@ -25,7 +25,6 @@ Page({
     })
 
 
-
   },
 
   onShow: function (options) {
@@ -54,7 +53,7 @@ Page({
     })
   },
 
-
+  
 
 
   //跳转到个人信息页面
@@ -71,6 +70,16 @@ Page({
     })
 
   },
+
+  // 跳转我的页面
+  showMyGoods:function(e){
+    console.log(e.currentTarget.id)
+    wx.navigateTo({
+      url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
+    })
+
+  },
+
 
   // 跳转管理员页面
   administrator:function(){

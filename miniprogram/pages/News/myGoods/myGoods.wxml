@@ -9,15 +9,16 @@
 
 <import src="../../../templates/oneCol-template/oneCol-template.wxml" />
 <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
+<import src="../../../templates/express-template/express-template.wxml" />
 
 <view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, myPage,windowHeight}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=1}}">
-  <text>快递</text>
+  <template is="express" data="{{feed,myPage}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData, myPage}}"></template>
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate,windowHeight}}"></template>
 </view>

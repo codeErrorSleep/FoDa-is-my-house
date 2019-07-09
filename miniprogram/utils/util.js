@@ -43,6 +43,8 @@ function dbLoad(database, that, limit) {
     icon: 'loading',
     duration: 500
   })
+  var tempFeed = that.data.feed
+  var tempNextPage = that.data.nextPage 
   const db = wx.cloud.database()
   //查询所有用户的闲置二手信息
   db.collection(database)
@@ -62,8 +64,8 @@ function dbLoad(database, that, limit) {
         that.setData({
           //feed: JSON.stringify(res.data, null, 2)
           //feed:res.data
-          feed: that.data.feed.concat(res.data),
-          nextPage: that.data.nextPage + 10
+          feed: tempFeed.concat(res.data),
+          nextPage: tempNextPage + 10
         })
         console.log('[数据库] [查询记录] 成功: ', that.data.feed)
       },
@@ -92,6 +94,11 @@ function getDate(date){
   return date
 }
 
+
+
+
+
+
 // // 将时间戳转换为 具体时间 yyyy-mm-dd hh:mm
 // function getDeadLine(date){
 //   var date = new Date(date);
@@ -103,7 +110,6 @@ function getDate(date){
 //   date=Y+M+D+h+m
 //   return date
 // }
-
 
 module.exports.getDate = getDate;
 module.exports.dbLoad = dbLoad;

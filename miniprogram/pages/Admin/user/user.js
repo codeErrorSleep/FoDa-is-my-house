@@ -21,7 +21,7 @@ Page({
    */
   onLoad: function (options) {
     const db = wx.cloud.database()
-    
+
     console.log('onLoad')
     var that = this
     // 改变选项卡的值
@@ -54,49 +54,48 @@ Page({
   // 通过用户信息验证
   updateUser: function (e) {
     console.log(this.data.feed)
-
+    var that = this
     const idx = e.target.dataset.idx
     //获得用户记录id 不是oppenid
     var user_id = this.data.feed[idx]._id
-    var user_openid=this.data.feed[idx]._openid
+    var user_openid = this.data.feed[idx]._openid
     var users_Name = this.data.feed[idx].nick_name
-    var formId=this.data.feed[idx].formId
+    var formId = this.data.feed[idx].formId
 
     // 更新数据库 用户消息
     wx.showModal({
       title: '认证通过',
       content: users_Name,
       success(res) {
-
-                // 调用云函数修改用户信息
+        if (res.confirm) {
+        // 调用云函数修改用户信息
         wx.cloud.callFunction({
-        name:'approvePass',
-        data:{
-          user_id:user_id,
-          approve:true,
-          al_approve: true
-        },success:function(res){
-        console.log("修改成功"+ res)
-        },fail:function(res){
-        console.log(res)
-        }
+          name: 'approvePass',
+          data: {
+            user_id: user_id,
+            approve: true,
+            al_approve: true
+          }, success: function (res) {
+            console.log("修改成功" + res)
+          }, fail: function (res) {
+            console.log(res)
+          }
         })
-
-
+        // 调用模板消息发送消息
+        that.sendTemplate(true, user_openid, formId)
       }
+    }
     })
 
-    // 调用模板消息发送消息
-    this.sendTemplate(true,user_openid,formId)
 
 
 
 
-    
+
   },
 
   // 发送模板消息
-  sendTemplate:function(approve,user_openid,formId){
+  sendTemplate: function (approve, user_openid, formId) {
     console.log(user_openid)
     wx.cloud.init()
     wx.cloud.callFunction({
@@ -104,8 +103,8 @@ Page({
       data: {
         action: 'sendTemplateMessage',
         formId: formId,
-        approve:approve,
-        user_openid:user_openid
+        approve: approve,
+        user_openid: user_openid
       },
       success: res => {
         console.warn('[云函数] [openapi] templateMessage.send 调用成功：', res)
@@ -129,32 +128,36 @@ Page({
   removeUser: function (e) {
     const idx = e.target.dataset.idx
     //获得帖子id
+    var that = this
     var user_id = this.data.feed[idx]._id
     var users_Name = this.data.feed[idx].nick_name
     wx.showModal({
       title: '认证不通过',
       content: users_Name,
       success(res) {
-        // 通过用户验证
-        const db = wx.cloud.database()
-        wx.cloud.callFunction({
-          name:'approvePass',
-          data:{
-            user_id:user_id,
-            approve:false,
-            al_approve: true
-          },success:function(res){
-          console.log("修改成功"+ res)
-          },fail:function(res){
-          console.log(res)
-          }
+        if (res.confirm) {
+          // 通过用户验证
+          const db = wx.cloud.database()
+          wx.cloud.callFunction({
+            name: 'approvePass',
+            data: {
+              user_id: user_id,
+              approve: false,
+              al_approve: true
+            }, success: function (res) {
+              console.log("修改成功" + res)
+            }, fail: function (res) {
+              console.log(res)
+            }
           })
-
-
+          // 调用模板消息发送消息
+          that.sendTemplate(false, user_openid, formId)
+        }
       }
+
     })
-    // 调用模板消息发送消息
-    this.sendTemplate(false,user_openid,formId)
+
+
 
   },
 

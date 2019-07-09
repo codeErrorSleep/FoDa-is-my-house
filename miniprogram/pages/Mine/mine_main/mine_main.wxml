@@ -1,18 +1,16 @@
 <!-- pages/mine_main/mine_main.wxml -->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
-	<view slot="content">佛大叮当</view>
+  <view slot="content">佛大叮当</view>
 </cu-custom>
 <view class="mine_top">
-
-    <view class="mine_avatar_bd">
-      <view wx:if="{{userData.head_index != null}}" class="mine_cell">
-        <image class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
-      </view>
-      <view wx:else class="mine_cell">
-        <image class="cu-avatar xl round margin-left" src="/images/per1.png" bindtap="registered"/>
-      </view>
+  <view class="mine_avatar_bd">
+    <view wx:if="{{userData.head_index != null}}" class="mine_cell">
+      <image class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
     </view>
-
+    <view wx:else class="mine_cell">
+      <image class="cu-avatar xl round margin-left" src="/images/per1.png" bindtap="registered" />
+    </view>
+  </view>
   <view wx:if="{{userData.nick_name.length}}" class="mine_nickName">
     <view style="display:flex;justify-content:center">
       <text style="font-weight:bold">{{userData.nick_name}}</text>
@@ -25,53 +23,53 @@
   </view>
 </view>
 
-<view class="mine_cells2">
-
-  <view class="mine_cell" bindtap="checkUser">
-    <image class="mine_icon" src="/images/my/geren.png" />
-    <text class="mine_title">个人信息</text>
-    <view class="mine_arrow"></view>
+<view class="cu-list menu margin-top-sm shadow-lg">
+  <view class="cu-item arrow">
+    <view class='content' bindtap="checkUser">
+      <text class='cuIcon-my text-grey'></text>
+      <text class='text-grey'>个人信息</text>
+    </view>
   </view>
-</view>
-
-
-
-<view class='mine_cells2'>
-  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
-    <image class="mine_icon" src="/images/my/xianzhi.png" />
-    <text class="mine_title">我的闲置</text>
-    <view class="mine_arrow"></view>
-  </navigator>
-  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
-    <image class="mine_icon" src="/images/my/kuaidi.png" />
-    <text class="mine_title">我的快递</text>
-    <view class="mine_arrow"></view>
-  </navigator>
-  <navigator url="../../News/myGoods/myGoods" class="mine_cell">
-    <image class="mine_icon" src="/images/my/suoshi.png" />
-    <text class="mine_title">我的琐事</text>
-    <view class="mine_arrow"></view>
-  </navigator>
-</view>
-
-<view class='mine_cells2'>
-
-  <navigator url="../feedback/feedback" class="mine_cell">
-    <image class="mine_icon" src="/images/my/yijian.png" />
-    <text class="mine_title">意见</text>
-    <view class="mine_arrow"></view>
-  </navigator>
-  <navigator url="../setting/setting" class="mine_cell">
-    <image class="mine_icon" src="/images/my/shezhi.png" />
-    <text class="mine_title">设置</text>
-    <view class="mine_arrow"></view>
-  </navigator>
-
-  <view wx:if="{{admin}}">
-    <navigator url="../../Admin/admin_main/admin_main" class="mine_cell">
-      <image class="mine_icon" src="/images/my/shezhi.png" />
-      <text class="mine_title">管理员页面</text>
-      <view class="mine_arrow"></view>
-    </navigator>
+  <view class="cu-item arrow margin-top-sm">
+    <view class='content' bindtap='showMyGoods' id="0" hover-class='none'>
+      <text class='cuIcon-goods text-green'></text>
+      <text class='text-grey'>我的闲置</text>
+    </view>
+  </view>
+  <view class="cu-item arrow ">
+    <view class='content' bindtap='showMyGoods' id="1" hover-class='none'>
+      <text class='cuIcon-expressman text-yellow'></text>
+      <text class='text-grey'>我的快递</text>
+    </view>
+  </view>
+    <view class="cu-item arrow ">
+    <view class='content' bindtap='showMyGoods' id="2" hover-class='none'>
+      <text class='cuIcon-discover text-blue'></text>
+      <text class='text-grey'>我的发现</text>
+    </view>
+  </view>
+  <view class="cu-item arrow  margin-top-sm">
+    <view class='content' >
+      <text class='cuIcon-refund text-red'></text>
+      <text class='text-grey'>打赏支持</text>
+    </view>
+  </view>
+  <view class="cu-item arrow ">
+    <button class='cu-btn content' open-type='feedback'>
+      <text class='cuIcon-writefill text-cyan'></text>
+      <text class='text-grey'>意见反馈</text>
+    </button>
+  </view>
+  <view class="cu-item arrow">
+    <view class='content'  hover-class='none'>
+      <text class='cuIcon-creativefill text-orange'></text>
+      <text class='text-grey'>联系客服</text>
+    </view>
+  </view>
+  <view wx:if="{{admin}}" class="cu-item arrow  margin-top-sm">
+    <view class='content' bindtap="administrator">
+      <text class='cuIcon-settings text-gary'></text>
+      <text class='text-grey'>后台管理</text>
+    </view>
   </view>
 </view>

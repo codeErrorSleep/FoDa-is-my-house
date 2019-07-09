@@ -88,29 +88,11 @@ Page({
     }
     wx.navigateTo({
       url:"../goods/goods?tab_id=" + tab_id
-      //url:"../../BackUp/test/test" 
-      // url:"../goods/goods"
+      // url:"../../BackUp/test2/test2" 
+      // url:"../../BackUp/test/test" 
     })
   },
 
-  addtest: function(e){
-    var date=new Date()
-    const db = wx.cloud.database()
-    db.collection("post").add({
-      data:{
-        "content":"asefasefsefasefasef",
-        "imgs":["cloud://fdimh-eqlws.6664-fdimh-eqlws/微信图片_20190321230032.jpg"],
-        "price":322,
-        "title":"但是分撒的方法",
-        "type":"sasdf",
-        "date":date
-      },
-      success(res){
-        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log("插入成功")
-      }
-    })
-  },
 
   // 发布二手交易信息
   publishPost:function(){

@@ -38,7 +38,7 @@
         <!--快递取件地址-->
         <view class="sell_cell">
           <text class="sell_title">取件地址</text>
-          <picker name="express_pickUp" style="flex:1;display:flex;justify-content:flex-end" bindchange="pickUpChange" value="{{pickUpIndex}}" range="{{choosePickUp}}">
+          <picker mode="multiSelector" name="express_pickUp" style="flex:1;display:flex;justify-content:flex-end" bindchange="pickUpChange" bindcolumnchange="pickUpChange_column" value="{{pickUpIndex}}" range="{{choosePickUp}}">
             <text class="sell_select">{{express_pickUp!=""?express_pickUp:"请选择快递取件地址"}}</text>
           </picker>
         </view>

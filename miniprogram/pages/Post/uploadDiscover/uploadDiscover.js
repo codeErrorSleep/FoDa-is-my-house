@@ -9,7 +9,7 @@ Page({
    */
   data: {
     //选择物品类型
-    types:["求助","找队友","失物认领"],
+    types:["求助","找队友","寻物"],
     type_index:0,
     inputLength: 0, //文字输入框字数
 
@@ -98,29 +98,35 @@ Page({
     }
   },
 
+
   //检查提交信息
   checkInfo() {
     if (this.data.type=="") {
       this.setData({
-        warning: "请选择求助分类类型",
+        warning: "请选择分类类型",
       })
     } else if (this.data.title=="") {
       this.setData({
-        warning: "请输入求助标题",
+        warning: "请输入标题",
       })
-    } else if (this.data.price == "") {
-      this.setData({
-        warning: "请输入求助价格",
-      })
-    } else if (this.data.date == "") {
-      this.setData({
-        warning: "请输入求助截止日期",
-      })
-    } else if (this.data.time == "") {
-      this.setData({
-        warning: "请输入求助截止时间",
-      })
-    }else {
+    }  else if (this.data.type=="求助"){
+      // 如果是求助类型的判断 有无输入时间和价钱
+      if (this.data.price == "") {
+        this.setData({
+          warning: "请输入求助价格",
+        })
+      
+      } else if (this.data.date == "") {
+        this.setData({
+          warning: "请输入求助截止日期",
+        })
+      } else if (this.data.time == "") {
+        this.setData({
+          warning: "请输入求助截止时间",
+        })
+      }
+      // 都填完后就提示成功
+    } else {
       this.setData({
         warning: "发布成功",
         mode: true,

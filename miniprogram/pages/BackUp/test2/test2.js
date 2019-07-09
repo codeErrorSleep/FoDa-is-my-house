@@ -1,139 +1,140 @@
-// pages/test2/test2.js
+var util = require('../../../utils/util.js')
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //验证按钮状态
-    hidden: true,
-    btnValue: '',
-    btnDisabled: false,
-    //手机验证信息
-    code:'',
-    rightcode:'',
-    //用户信息
-    phone:'',
-    name:'',
-    real_name:'',
-    wechat_id:''
+    //主导航栏
+    navbar: ["闲置", "快递", "发现"],
+    //闲置分类导航栏
+    categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+    //主导航栏下标
+    currentIndex: 0,
+    //分类导航栏下标
+    currentData: 0,
+    //所要读取的数据库
+    database: 'post',
+    //数据库数据
+    feed: [],
+    //下拉更新数据库数据个数
+    nextPage: 0,
+    //我的页面
+    myPage: false,
+    // 现在的时间戳 (暂时,添加到全局变量)
+    nowDate: 0,
+    // 可用屏幕高度
+    windowHeight:0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  //页面加载时读取数据库
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  //手机号输入
-  bindPhoneInput(e) {
-    var val = e.detail.value;
     this.setData({
-      phone: val
+      currentIndex: options.tab_id,
+      nowDate: Number(new Date().getTime())
     })
-    this.setData({
-      hidden: false,
-      btnValue: '获取验证码'
-    })
+    this.navbarTab();
+    // 添加到全局变量 (时间戳)
+    app.globalData.nowDate = this.data.nowDate
   },
 
+  onShow:function(res){
+    try {
+      const res = wx.getSystemInfoSync()
+      console.log(res.windowHeight)
 
-
-  //调用云函数,获取短信验证码
-  getCode(e) {
-    var Num = "";
-    //生成随机验证码
-    for (var i = 0; i < 6; i++) {
-      Num += Math.floor(Math.random() * 10);
-    }
-    this.setData({
-      rightcode: Num
-    })
-    console.log('获取验证码');
-    var that = this;
-    //云函数
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'zhenzisms',
-      // 传给云函数的参数
-      data: {
-        $url: 'send',
-         apiUrl: 'https://sms_developer.zhenzikj.com',
-        appId: '101695',
-        appSecret: 'b45001fd-1825-4b6a-a189-4d88f41065b4',
-        message: '你的验证码为:'+this.data.rightcode,
-        number: this.data.phone,
-        messageId: ''
-      },
-      success(res) {
-        console.log(res.result.body)
-      },
-      fail: console.error
-    })
-  },
-
-  getUserData:function(e){
-    //得到用户填写的信息
-    this.setData({
-      name:e.detail.value.name,
-      real_name:e.detail.value.real_name,
-      wechat_id:e.detail.value.wechat_id,
-      code:e.detail.value.code
-    })
-
-    if(this.data.code !=this.data.rightcode){
-      wx.showToast({
-        title: '验证码错误',
-        icon: 'none',
-        duration: 1000
+      this.setData({
+        windowHeight:0.8*res.windowHeight-10
       })
-    }else{
-      console.log("shangchuang")
-      this.uploadUser()
+    } catch (e) {
+      // Do something when catch error
     }
-    
+    console.log(this.data.windowHeight)
 
   },
 
 
-  uploadUser:function(){
-    console.log("shangchuang")
-    const db = wx.cloud.database()
-    db.collection("users").add({
-      data:{
-        "name":this.data.name,
-        "real_name":this.data.real_name,
-        "wechat_id":this.data.wechat_id,
-        "phone_num":this.data.phone
-      },
-      success(res){
-        //成功上传后提示信息
-        console.log("上传成功")
-        wx.showToast({
-          title: '成功上传',
-          icon: 'success',
-          duration: 1000
-        })
+  //点击更新主导航栏下标
+  navbarTab: function (e) {
+    if (e) {
+      this.setData({
+        currentIndex: e.currentTarget.dataset.index
+      });
+    }
+    console.log(this.data.currentIndex)
+    var that = this;
+    if (that.data.currentIndex == 0) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        database: 'post',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 1) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部"],
+        database: 'express',
+        currentData: 0,
+      })
+    } else if (that.data.currentIndex == 2) {
+      that.setData({
+        feed: [],
+        nextPage: 0,
+        categories: ["全部", "求助", "寻物", "找队友"],
+        database: 'discover',
+        currentData: 0,
+      })
+    };
+    this.dbLoad();
+  },
 
-      }
+  //点击更新闲置分类导航栏下标
+  categoriesTab: function (e) {
+    this.setData({
+      currentData: e.currentTarget.dataset.index
     })
+  },
+
+  //滑动更新闲置分类导航栏下标
+  categoriesChange: function (e) {
+    this.setData({
+      currentData: e.detail.current
+    })
+  },
+
+  // 拖到最下面更新数据
+  lower: function (e) {
+    wx.showNavigationBarLoading();
+    var that = this;
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
+    that.dbLoad();
+    console.log("lower")
+  },
+
+  // 调用util.js中读取数据库函数
+  dbLoad: function () {
+    var that = this;
+    console.log('ask:', that.data.database);
+    util.dbLoad(that.data.database, that, '.');
+  },
+
+  //跳转到点击页面
+  jumpToPost: function (e) {
+    var id = e.currentTarget.id
+    console.log(e.currentTarget.id)
+    console.log(this.data.feed[id])
+    var post_data = JSON.stringify(this.data.feed[id])
+    wx.navigateTo({
+      // url: '../posttest/posttest?post_data=' + post_data
+      url: '../contact/contact?post_data=' + post_data
+
+    })
+  },
 
 
-  }
-
-})    
+})

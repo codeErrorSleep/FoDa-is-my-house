@@ -5,24 +5,32 @@
   <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
     <block wx:for="{{categories}}" wx:for-item="category" wx:key="key">
       <swiper-item>
-        <scroll-view scroll-y="true"  class="container" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+        <scroll-view scroll-y="true"  class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+          <view class="item_container">
           <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
             <view wx:if="{{category==('全部')||item.type==category}}">
-            <view wx:if="{{(category==('全部')||category==('求助'))&&item.timeStamp>nowDate}}">
-              <view class="cu-card article" id='{{idx}}' bindtap="jumpToPost">
-                <view class="cu-item shadow">
+            <view>
+            <!-- 此行用于不显示已经超时的求助 -->
+            <!-- <view wx:if="{{(category==('全部')||category==('求助'))&&item.timeStamp>nowDate}}"> -->
+              <view class="cu-card article" >
+                <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
                   <view class="title">
                     <view class="flex justify-between">
                       <text class="text-cut">{{item.title}}</text>
-                      <text class="text-price">{{item.price}}</text>
+                      <view wx:if="{{item.type== ('求助')}}">
+                        <text class="text-price">{{item.price}}</text>
+                      </view>
+                      <view wx:elif="{{item.type=='寻物'}}"><text class="text-yellow">寻物</text></view>
+                      <view wx:else><text class="text-blue">找队友</text></view>
                     </view>
                   </view>
                   <view class="content">
-                    <image src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                      <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
                     <view class="desc">
                       <view class="text-content">{{item.content}}</view>
                       <view>
-                        <view wx:if="{{category==('全部')||category==('求助')}}">
+                        <!-- <view wx:if="{{category==('全部')||category==('求助')}}"> -->
+                        <view wx:if="{{item.type== ('求助')}}">
                           <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
                         </view>
                       </view>
@@ -31,9 +39,13 @@
                   </view>
                 </view>
               </view>
-              <button class="delete" bindtap="deleteDiscover" id='{{idx}}' hidden="{{!mypage}}">删除</button>
+              <view class="delete flex flex-direction" hidden="{{!myPage}}">
+                <button class="cu-btn bg-red lg" bindtap="deleteDiscover" id='{{idx}}'>删除</button>
+              </view>
             </view>
           </block>
+              </view>
+
         </scroll-view>
       </swiper-item>
     </block>

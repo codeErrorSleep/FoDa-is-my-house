@@ -103,7 +103,7 @@ flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-background-color: #6fdfe7;
+background-color: #86e262;
 }
 .section_container2 {
 display: flex;
@@ -112,7 +112,7 @@ flex: 1;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-background-color: #86e262;
+background-color: #6fdfe7;
 }
 .section_container3 {
 display: flex;
@@ -181,3 +181,5 @@ background-color: #ffce46;
   background: #578ef5;
   color: #fff;
 }
+
+

@@ -1,23 +1,26 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">{{navbar[currentIndex]}}</view>
+  <view slot="backText">返回</view>
+  <view slot="content">{{navbar[currentIndex]}}</view>
 </cu-custom>
-<!--主导航栏-->
-<view class="navbar"> 
-  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text> 
+
+<!-- 主导航栏 -->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text>
 </view>
 
 <import src="../../../templates/oneCol-template/oneCol-template.wxml" />
 <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
+<import src="../../../templates/express-template/express-template.wxml" />
+
 
 <view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, myPage,windowHeight}}"></template>
 </view>
+
 
 <view hidden="{{currentIndex!=1}}">
-  <text>快递</text>
+  <template is="express" data="{{feed, categories, currentData, price, allRegion1, allRegion2, allRegion3, region1, region2, allTime1, allTime2, time1, selectTime, selectRegion,windowHeight}}"></template>
 </view>
-
 <view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate}}"></template>
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate,windowHeight}}"></template>
 </view>

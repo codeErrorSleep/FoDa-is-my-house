@@ -20,8 +20,12 @@
                     </view>
                 </view>
             </view>
-            <view class="post-remover" data-idx="{{idx}}" bindtap="updateUser">通过</view>
-            <view class="post-remover" data-idx="{{idx}}" bindtap="removeUser">不通过</view>
+            <!-- <view class="post-remover" data-idx="{{idx}}" bindtap="updateUser">通过</view>
+            <view class="post-remover" data-idx="{{idx}}" bindtap="removeUser">不通过</view> -->
+            <view class="flex solid-bottom padding justify-between">
+                <view class="bg-green padding-sm margin-xs radius" data-idx="{{idx}}" bindtap="updateUser">通过</view>
+                <view class="bg-red padding-sm margin-xs radius" data-idx="{{idx}}" bindtap="removeUser">不通过</view>
+            </view>
         </block>
     </scroll-view>
 </view>

@@ -1,41 +1,15 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">快递</view>
-</cu-custom>
-      <swiper-item>
-        <scroll-view scroll-y="true"  class="container" >
-              <view class="cu-card article"  bindtap="jumpToPost">
-                <view class="cu-item shadow">
-                  <view class="title">
-                    <view class="flex justify-between">
-                      <text class="text-cut">西四502</text>
-                      <text class="text-price">3</text>
+<view>scroll-view 横向</view>
 
-                    </view>
-                  </view>
-                  <view style="width:900px;height:1px;margin:0px auto;padding:0px;background-color:rgb(241,241,241);overflow:hidden;">
-                  </view>
-                  <view class="content">
+<button class='button' type='primary' size='mini' bindtap='scrollToRed'>点我滚动到绿色</button>
+
+<button class='button' type='primary' size='mini' bindtap='scrollTo100'>点我滚动100rpx距离</button>
 
 
-
-                    <view class="desc">
-                    
-                      <view class="text-content">快递点: 大成楼</view>
-                      <view class="block1">
-                      <view class="text-content">快递件数: 1件</view>
-                      <view class="text-content2">重量：较重</view>
-                      </view>
-                      <view class="text-content">截止时间: 2019-03-12 12:12</view>
-
-                      <view class="text-content3">备注: 我是你爸爸阿法很多粉红色···</view>
-                      <!-- 备注限制12个字 -->
-                  <view class="condition">
-                      <image class="cond" src="/images/yijie.png" />
-                  </view>
-                      </view>
-                    </view>
-                  </view>
-            </view>
-        </scroll-view>
-      </swiper-item>
+<view>scroll-view 纵向</view>
+<scroll-view scroll-y="true" style="height:{{windowHeight}}px;;">
+  <view class="scroll-y" >
+    <view wx:for-items="{{scrolls}}" wx:key="name">
+      <view class="{{item.tag}}">{{item.name}}</view>
+    </view>
+  </view>
+</scroll-view>

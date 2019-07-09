@@ -104,8 +104,9 @@ Page({
     wx.cloud.callFunction({
       name:'updataExpress',
       data:{
-        receiver_openid:"oUzBK5CvrGZQIVt75cQbJgJZfS_M",
         express_id:"f1006ad85d1dd4ab00bda96764f958ba",
+        receiver_wechat_id:"sfeefse",
+        receiver_phone:"123145432",
       },success:function(res){
       console.log("修改成功"+ res)
       },fail:function(res){

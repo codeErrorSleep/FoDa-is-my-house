@@ -1,0 +1,87 @@
+<template name="express">
+  <view class="select_field">
+    <!--下拉菜单-->
+    <view wx:for="{{categories}}" data-index="{{index}}" wx:for-item="item" class="select_box" bindtap="menusTap">
+      <text class="select_text {{currentData==index?'active':''}}">{{item}}</text>
+      <text class="select_img {{currentData==index?'active cuIcon-triangleupfill':'cuIcon-triangledownfill'}}"></text>
+    </view>
+  </view>
+  <!--酬金高低-->
+  <view class="select_oneCol" hidden="{{currentData!=0}}">
+    <view wx:for="{{price}}" bindtap="selectByPrice" data-price='{{item}}'>
+        {{item}}
+    </view>
+  </view>
+  <!--宿舍筛选-->
+  <view class="select_threeCol" hidden="{{currentData!=1}}">
+    <view class="col_detail" style="background: #c5c5c5;">
+        <view class="{{region1 == index ? 'current1' : ''}}" wx:for="{{allRegion1}}" bindtap="selectByRegion1" data-region1='{{index}}'>
+            {{index}}
+        </view>
+    </view>
+    <view class="col_detail" style="background: #e0e0e0;">
+        <view class="{{region2 == index ? 'current2' : ''}}" wx:for="{{allRegion2}}" bindtap="selectByRegion2" data-region2='{{index}}'>
+            {{index}}
+        </view>
+    </view>
+    <view class="col_detail" style="background: #fff;">
+        <view wx:for="{{allRegion3}}" data-region3="{{item}}" bindtap="selectByRegion3">
+            {{item}}
+        </view>
+    </view>
+  </view>
+  <!--时间筛选-->
+  <view class="select_threeCol" hidden="{{currentData!=2}}">
+    <view class="col_detail" style="background: #c5c5c5;">
+      <view class="{{time1 == item ? 'current1' : ''}}" wx:for="{{allTime1}}" bindtap="selectByTime1" wx:for-item='item' data-time1='{{item}}'>
+          {{item}}
+      </view>
+    </view>
+    <view class="col_detail" style="background: #e0e0e0;">
+      <view wx:for="{{allTime2}}" data-time2='{{item}}' bindtap="selectByTime2">
+          {{item}}
+      </view>
+    </view>
+    <view class="col_detail" style="background: #e0e0e0;">
+    </view>
+  </view>
+  <scroll-view scroll-y="true"  class="container swiper" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+    <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+      <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
+        <view wx:if="{{selectTime==0||selectTime>item.deadline_timeStamp}}">
+          <view class="express-card article" bindtap="jumpToPost">
+            <view class="express-item shadow">
+              <view class="title">
+                <view class="flex justify-between">
+                  <text class="text-cut">{{item.region}}  {{item.destination_1}}  {{item.destination_2}}</text>
+                  <text class="text-price">{{item.price}}</text>
+                </view>
+              </view>
+              <view style="width:900px;height:1px;margin:0px auto;padding:0px;background-color:rgb(241,241,241);overflow:hidden;"></view>
+              <view class="content">
+                <view class="desc">
+                  <view class="text-content">快递点: {{item.pickUp}}</view>
+                  <view class="block1">
+                    <view class="text-content">快递件数: {{item.num}}</view>
+                    <view class="text-content2">重量：{{item.weight}}</view>
+                  </view>
+                  <view class="text-content">截止时间: {{item.deadline_date}} {{item.deadline_time}}</view>
+                  <view class="text-content3">备注: {{item.note}}</view>
+                  <!-- 备注限制12个字 -->
+                  <view class="condition" wx:if="{{item.receiver_phone}}">
+                    <image class="cond" src="/images/yijie.png" />
+                  </view>
+                  <view class="condition" wx:else>
+                    <image class="cond" src="/images/weijie.png" />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+
+</template>

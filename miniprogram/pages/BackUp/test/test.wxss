@@ -1,115 +1,36 @@
-
-/* 发现页面 */
-/* ==================
-         卡片
- ==================== */
-
- .cu-card {
-  display: block;
-  overflow: hidden;
+.button
+{
+  margin: 20rpx;
 }
-
-.cu-card>.cu-item {
-  display: block;
-  background-color: var(--white);
-  overflow: hidden;
-  border-radius: 25rpx;
-  margin: 10rpx 20rpx;
-}
-
-.cu-card.article {
-  display: block;
-}
-
-.cu-card.article>.cu-item {
-  padding-bottom: 30rpx;
-}
-
-.cu-card.article>.cu-item .title .text-cut{
-  font-size: 40rpx;
-  font-weight: 350;
-  color: var(--black);
-  line-height: 100rpx;
-  padding: 0 0 0 0;
-}
-
-.cu-card.article>.cu-item .title .text-price{
-  font-size: 40rpx;
-  font-weight: 350;
-  line-height: 100rpx;
-  padding: 0 30rpx;
-  color: red;
-}
-
-
-.cu-card.article>.cu-item .content {
+.scroll-x {
   display: flex;
-  padding: 15rpx 30rpx;
+  flex-direction: row; 
 }
-
-
-.cu-card.article>.cu-item .content .desc {
-  flex: 1;
+.scroll-y {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* 截止日期与备注的间距 */
-  line-height: 10rpx;
+  flex-direction: column; 
 }
-
-.cu-card.article>.cu-item .content .text-content {
-  font-size: 30rpx;
-  color: #888;
-  height: 1.4em;
-  overflow: hidden;
+.green
+{
+  display: flex;
+  align-items: center;
+  width: 400rpx;
+  height: 400rpx;
+  background: green;
 }
-.cu-card.article>.cu-item .content .text-content2 {
-  font-size: 30rpx;
-  color: #888;
-  height: 1.4em;
-  overflow: hidden;
-  padding: 20rpx 40rpx;
+.red
+{
+  display: flex;
+  align-items: center;
+  width: 400rpx;
+  height: 400rpx;
+  background: red;
 }
-.cu-card.article>.cu-item .content .text-content3 {
-  font-size: 30rpx;
-  padding: 35rpx 0 10rpx 0;
-  color:rgb(27, 149, 212) 
-
-}
-
-.cu-tag.sm {
-font-size: 40rpx;
-}
-.block1{
-  /* flex-direction: row; */
-      display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    background:#fff;
-    border-radius: 0;
-    /* margin: 2.5rpx 15rpx 0 15rpx; */
-    justify-content: flex-start;
-    height: 80rpx;
-    /* padding: 15rpx 15rpx; */
-    align-items: center;
-}
-.text-yellow{
-	color: var(--yellow);
-  height: 5.5em;
-}
-.condition{
- /* padding:0 10rpx 0 50rpx */
- /* display: float; */
- /* float: right; */
- /* margin: 0 10rpx 0 50rpx;  */
- 
-	position: absolute;/*这里一定要设置*/
-	margin-top: 10rpx;
-	margin-left: 463rpx; 
-}
-.cond{
-  width: 215rpx;
-  height: 215rpx;
-  /* float: right; */
-  transform:rotate(-15deg);
+.yellow
+{
+  display: flex;
+  align-items: center;
+  width: 400rpx;
+  height: 400rpx;
+  background: yellow;
 }

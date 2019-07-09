@@ -36,7 +36,6 @@
           <view class="section_img">
             <image src="/images/my/3.png" style="width:100rpx;height:100rpx;display:flex"></image>
           </view>
-
         </view>
       </view>
       <view class="section">

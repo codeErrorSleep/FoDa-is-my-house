@@ -2,13 +2,13 @@
   <view class='categories'>
     <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique">{{item}}</text>
   </view>
-  <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
+  <swiper current="{{currentData}}" class="swiper" scroll-y="true" duration="300" bindchange="categoriesChange">
     <block wx:for="{{categories}}" wx:for-item="category">
       <swiper-item>
-        <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
+        <scroll-view scroll-y="true" class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower"  bindscrolltoupper="upper" upper-threshold="10" >
           <view class="item_container">
             <view class="item_each" wx:for="{{feed}}" wx:for-index="idx" wx:if="{{category==('全部')||item.type==category}}">
-              <view bindtap='jumpToPost' id='{{idx}}'>     
+              <view bindtap='jumpToPost' id='{{idx}}'>
                 <view class="item_cell">
                   <text class="item_text text-bold">{{item.title}}</text>
                   <text class="cu-tag round text-bold line-red">{{item.region}}</text>
@@ -24,8 +24,8 @@
                   <text class="item_price_before">￥{{item.oriPrice}}</text>
                 </view>
               </view>
-              <view class="item.cell" hidden="{{!myPage}}">
-                <button class="delete" bindtap="deleteGood" id='{{idx}}'>删除</button>
+              <view class="item_cell" hidden="{{!myPage}}">
+                <button class="cu-btn line-red round lg shadow" bindtap="deleteGood" id='{{idx}}'>删除</button>
               </view>
             </view>
           </view>
