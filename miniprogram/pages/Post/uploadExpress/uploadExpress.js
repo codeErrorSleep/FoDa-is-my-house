@@ -55,9 +55,15 @@ Page({
 
     //快递取件人姓名
     express_name: "",
+    ori_express_name: "",
+
+    //快递取件人微信号
+    express_wechat: "",
+    ori_express_wechat: "",
 
     //快递取件人手机号
     express_phone: "",
+    ori_express_phone: "",
 
     //详细说明
     express_note:"",
@@ -78,7 +84,11 @@ Page({
     endDate.setDate(startDate.getDate() + 2)
     this.setData({
       express_name: app.globalData.userCloudData.real_name,
+      express_wechat: app.globalData.userCloudData.wechat_id,
       express_phone: app.globalData.userCloudData.phone,
+      ori_express_name: app.globalData.userCloudData.real_name,
+      ori_express_wechat: app.globalData.userCloudData.wechat_id,
+      ori_express_phone: app.globalData.userCloudData.phone,
       startDate: util.getDate(startDate),
       endDate: util.getDate(endDate),
     })
@@ -259,11 +269,29 @@ Page({
       this.setData({
         express_name: e.detail.value.express_name
       })
+    }else{
+      this.setData({
+        express_name: this.data.ori_express_name
+      })
+    }
+
+    if (e.detail.value.express_wechat != "") {
+      this.setData({
+        express_wechat: e.detail.value.express_wechat
+      })
+    }else{
+      this.setData({
+        express_wechat: this.data.ori_express_wechat
+      })
     }
 
     if (e.detail.value.express_phone != "") {
       this.setData({
         express_phone: e.detail.value.express_phone
+      })
+    }else{
+      this.setData({
+        express_phone: this.data.ori_express_phone
       })
     }
 
@@ -286,6 +314,7 @@ Page({
     console.log(this.data.express_date)
     console.log(this.data.express_time)
     console.log(this.data.express_name)
+    console.log(this.data.express_wechat)
     console.log(this.data.express_phone)
     console.log(this.data.express_note)
 
@@ -338,7 +367,15 @@ Page({
       this.setData({
         warning: "确保送达时间晚于现在时间"
       })
-    } else if (this.data.express_time == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
+    } else if (this.data.express_name == "") {
+      this.setData({
+        warning: "姓名不能为空",
+      })
+    } else if (this.data.express_wechat == "" || (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.express_wechat)))) {
+      this.setData({
+        warning: "请输入正确的微信号",
+      })
+    } else if (this.data.express_phone == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
       this.setData({
         warning: "请输入正确的手机号码"
       })
@@ -373,9 +410,11 @@ Page({
         "deadline_time": this.data.express_time,
         "deadline_timeStamp": deadline_timeStamp,
         "real_name": this.data.express_name,
+        "wechat_id": this.data.express_wechat,
         "phone": this.data.express_phone,
         "note": this.data.express_note,
         "date": date,
+        'accepter_openid': "",
       },
       success(res) {
         console.log("插入成功")

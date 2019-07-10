@@ -78,13 +78,19 @@
       <!--快递取件人姓名-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">姓名</text>
-        <input name="express_name" class="sell_input" placeholder="{{express_name}}" placeholder-class='placeholder'/>
+        <input name="express_name" class="sell_input" placeholder="{{ori_express_name}}" placeholder-class='placeholder'/>
+      </view>
+
+      <!--快递微信号-->
+      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text class="sell_title">微信号</text>
+        <input name="express_wechat" class="sell_input" placeholder="{{ori_express_wechat}}" placeholder-class='placeholder'/>
       </view>
 
       <!--快递手机号-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">手机号</text>
-        <input name="express_phone" class="sell_input" placeholder="{{express_phone}}" placeholder-class='placeholder'/>
+        <input name="express_phone" class="sell_input" placeholder="{{ori_express_phone}}" placeholder-class='placeholder'/>
       </view>
 
       <!--详细-->

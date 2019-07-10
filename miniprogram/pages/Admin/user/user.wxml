@@ -2,6 +2,12 @@
 	<view slot="backText">返回</view>
 	<view slot="content">用户验证</view>
 </cu-custom>
+
+
+<view wx:if="{{feed.length==0}}" class="solid-bottom text-xl padding">
+<text class="text-black text-bold">暂时没有注册的人,不过等一下应该就会有的,自信点</text>
+</view>
+
 <view class='list'>
     <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
         <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">

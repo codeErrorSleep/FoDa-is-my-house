@@ -49,7 +49,7 @@
     <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
       <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
         <view wx:if="{{selectTime==0||selectTime>item.deadline_timeStamp}}">
-          <view class="express-card article" bindtap="jumpToPost">
+          <view class="express-card article" id='{{idx}}' bindtap="jumpToExpress">
             <view class="express-item shadow">
               <view class="title">
                 <view class="flex justify-between">
@@ -68,7 +68,7 @@
                   <view class="text-content">截止时间: {{item.deadline_date}} {{item.deadline_time}}</view>
                   <view class="text-content3">备注: {{item.note}}</view>
                   <!-- 备注限制12个字 -->
-                  <view class="condition" wx:if="{{item.receiver_phone}}">
+                  <view class="condition" wx:if="{{item.accepter_openid!=''}}">
                     <image class="cond" src="/images/yijie.png" />
                   </view>
                   <view class="condition" wx:else>

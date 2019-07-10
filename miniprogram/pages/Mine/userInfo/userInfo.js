@@ -9,16 +9,24 @@ Page({
     head_index: "",
     //昵称
     nick_name: "",
+    //原昵称
+    ori_nick_name: "",
     //姓名
     real_name: "",
+    //原姓名
+    ori_real_name: "",
     //校区索引
     region_index: null,
     //校区选择
     choose: ["江湾", "仙溪", "河滨"],
     //微信号
     wechat_id: "",
+    //原微信号
+    ori_wechat_id: "",
     //手机号码
     phone: "",
+    //原手机号码
+    ori_phone: "",
     //验证码
     code: "",
     //正确验证码
@@ -44,10 +52,14 @@ Page({
       swiperList: app.globalData.swiperList,
       head_index: app.globalData.userCloudData.head_index,
       nick_name: app.globalData.userCloudData.nick_name,
+      ori_nick_name: app.globalData.userCloudData.nick_name,
       real_name: app.globalData.userCloudData.real_name,
+      ori_real_name: app.globalData.userCloudData.real_name,
       region_index: app.globalData.userCloudData.region_index,
       wechat_id: app.globalData.userCloudData.wechat_id,
+      ori_wechat_id: app.globalData.userCloudData.wechat_id,
       phone: app.globalData.userCloudData.phone,
+      ori_phone: app.globalData.userCloudData.phone,
       imgList: app.globalData.userCloudData.approve_img,
       approve_img: app.globalData.userCloudData.approve_img,
       formId: app.globalData.userCloudData.formId,
@@ -172,22 +184,20 @@ Page({
   },
   //获取手机号
   getPhone(e) {
-    var data = e.detail.value;
-    this.setData({
-      phone: data,
-      editPhone: true,
-    })
-  },
-  //获取验证码
-  getCode(e) {
     var Num = "";
     //生成随机验证码
     for (var i = 0; i < 6; i++) {
       Num += Math.floor(Math.random() * 10);
     }
+    var data = e.detail.value;
     this.setData({
+      phone: data,
+      editPhone: true,
       rightcode: Num
     })
+  },
+  //获取验证码
+  getCode(e) {
     console.log('获取验证码');
     var that = this;
     //云函数
@@ -293,6 +303,10 @@ Page({
       this.setData({
         warning: "微信号不能为空",
       })
+    } else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
+      this.setData({
+        warning: "请输入正确的微信号",
+      })
     } else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
       this.setData({
         warning: "微信号已被注册",
@@ -300,6 +314,10 @@ Page({
     } else if (this.data.phone == "") {
       this.setData({
         warning: "手机号码不能为空",
+      })
+    } else if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.phone))) {
+      this.setData({
+        warning: "请输入正确的手机号",
       })
     } else if (await this.checkDB('phone', this.data.phone)) {
       this.setData({
@@ -332,22 +350,42 @@ Page({
       this.setData({
         nick_name: e.detail.value.nick_name
       })
+    }else {
+      this.setData({
+        nick_name: this.data.ori_nick_name
+      })
     }
+
     if (e.detail.value.real_name != "") {
       this.setData({
         real_name: e.detail.value.real_name
       })
+    }else {
+      this.setData({
+        real_name: this.data.ori_real_name
+      })
     }
+
     if (e.detail.value.wechat_id != "") {
       this.setData({
         wechat_id: e.detail.value.wechat_id
       })
+    }else {
+      this.setData({
+        wechat_id: this.data.ori_wechat_id
+      })
     }
+
     if (e.detail.value.phone != "") {
       this.setData({
         phone: e.detail.value.phone
       })
+    }else {
+      this.setData({
+        phone: this.data.ori_phone
+      })
     }
+
     if (this.data.imgList != app.globalData.userCloudData.approve_img) {
       this.setData({
         approve: false,
@@ -368,6 +406,7 @@ Page({
     console.log(this.data.phone);
     console.log(this.data.code);
     console.log(this.data.imgList[0]);
+    console.log(app.globalData.userCloudData.approve_img);
     console.log(this.data.formId);
 
     this.checkInfo()

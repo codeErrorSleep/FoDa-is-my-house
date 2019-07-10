@@ -152,6 +152,16 @@ Page({
     })
   },
 
+  //快递跳转到点击页面
+  jumpToExpress: function(e) {
+    var id = e.currentTarget.id
+    var express_data = JSON.stringify(this.data.feed[id])
+    wx.navigateTo({
+      url: '../contact_express/contact_express?express_data=' + express_data
+
+    })
+  },
+
   //更新下拉菜单下标
   menusTap: function(e) {
     if (this.data.currentData == e.currentTarget.dataset.index) {
@@ -183,14 +193,9 @@ Page({
 
   //根据酬金筛选
   selectByPrice: function(e){
+    this.dbLoad();
     if (e.target.dataset.price == '全部') {
       this.data.categories[0]="酬金高低"
-      this.setData({
-        feed: [],
-        nextPage: 0,
-        database: 'express',
-      })
-      this.dbLoad()
     } else {
       this.data.categories[0]=e.target.dataset.price.substring(2,6);
       if (this.data.categories[0] == '由低到高'){
@@ -215,6 +220,7 @@ Page({
       region2:'',
     });
     if (e.target.dataset.region1 == '全部'){
+      this.dbLoad();
       this.data.categories[1]="宿舍筛选"
       this.setData({
         selectRegion: "",
@@ -229,6 +235,7 @@ Page({
       region2: e.target.dataset.region2,
     });
     if (e.target.dataset.region2 == '全部'){
+      this.dbLoad();
       this.data.categories[1]=this.data.region1
       this.setData({
         selectRegion: "",
@@ -238,6 +245,7 @@ Page({
     }
   },
   selectByRegion3: function(e){
+    this.dbLoad();
     if (e.target.dataset.region3 == '全部'){
       this.data.categories[1]=this.data.region1 + this.data.region2
     }else {
@@ -253,6 +261,7 @@ Page({
   //选择时间
   selectByTime1: function(e){  
     if (e.target.dataset.time1 == '全部') {
+      this.dbLoad();
       this.data.categories[2]="时间筛选"
       this.setData({
         categories: this.data.categories,
@@ -269,6 +278,7 @@ Page({
     }
   },
   selectByTime2: function(e){
+    this.dbLoad();
     if (e.target.dataset.time2 == '全部'){
       if (this.data.time1 == '今天') {
         this.data.selectTime = Number(new Date((util.getDate(new Date()))).getTime()) + 1 * 86400000

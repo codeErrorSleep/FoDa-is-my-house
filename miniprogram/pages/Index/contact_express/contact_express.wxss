@@ -1,0 +1,280 @@
+.userInformation{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  overflow: hidden;
+  border-radius:25rpx;
+  margin: 20rpx 20rpx 0 20rpx;
+  padding: 15rpx 60rpx;
+}
+.text-user{
+  font-size: 40rpx;
+  color: rgb(110, 110, 110);
+  height: 1.7em;
+  overflow: hidden;
+}
+.post .postInformation{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background:#fff;
+  margin: 20rpx 20rpx 0 20rpx;
+  height: 170rpx;
+  align-items: center;
+  border-radius: 25rpx 25rpx 0 0;
+}
+.text-campus{
+  font-size: 55rpx;
+  color: #1b95d4;
+  overflow: hidden;
+  margin: 5rpx 60rpx;
+  position: absolute;
+}
+.goodsPrice{
+  padding: 30rpx 20rpx 20rpx 480rpx;
+  display: inline-block;
+  color: #b8b8b8;
+  font-size:35rpx;
+}
+.red{
+  margin-top: 11rpx;
+  color:  rgb(229, 77, 66);
+  display: inline-block;
+  font-size:70rpx;
+}
+.cu-item {
+  display: block;
+  background-color: var(--white);
+  overflow: hidden;
+  border-radius: 0 0 25rpx 25rpx;
+  margin: 1.5rpx 20rpx 0 20rpx;
+}
+.content {
+  display: flex;
+  padding: 15rpx 60rpx;
+}
+.desc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* 截止日期与备注的间距 */
+  line-height: 10rpx;
+}
+
+.text-content {
+  font-size: 35rpx;
+  color: rgb(187, 186, 193);
+  height: 1.4em;
+  overflow: hidden;
+}
+.text-content2 {
+  font-size: 35rpx;
+  color: rgb(187, 186, 193);
+  height: 2.4em;
+  overflow: hidden;
+  padding: 43rpx 0 0 130rpx;
+}
+.text-content3 {
+  font-size: 30rpx;
+  padding: 35rpx 0 10rpx 0;
+  color:rgb(27, 149, 212) 
+
+}
+.text-content4{
+  font-size: 50rpx;
+  color: rgb(87, 84, 84);
+  height: 1.4em;
+  overflow: hidden;
+  padding: 20rpx 40rpx;
+}
+.text-content5{
+  font-size: 50rpx;
+  color: rgb(87, 84, 84);
+  height: 1.4em;
+  overflow: hidden;
+  padding: 20rpx 105rpx;
+}
+.text-site1{
+  padding: 50rpx 0 50rpx 50rpx;
+  font-size: 65rpx;
+  color: rgb(87, 84, 84);
+  display: inline-block;
+}
+.text-site2{
+  padding: 0 0 0 65rpx;
+  font-size: 65rpx;
+  color: rgb(87, 84, 84);
+  display: inline-block;
+}
+.text-time{
+  padding: 50rpx 0 50rpx 50rpx;
+  font-size: 40rpx;
+  color: rgb(87, 84, 84);
+}
+.remark{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background:#fff;
+  margin: 0 10rpx 0 10rpx;
+  padding: 30rpx 0 50rpx 20rpx;
+  line-height:50rpx;
+}
+.text-remark{
+  font-size: 35rpx;
+  color: rgb(87, 84, 84);
+}
+.block1{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:rgb(255, 255, 255);
+    border-radius: 0;
+    justify-content: flex-start;
+    height: 80rpx;
+    align-items: center;
+}
+.block2{
+  display: flex;  
+  flex-direction: row;
+  flex-wrap: wrap;
+  background:#fff;
+  border-radius: 0;
+  justify-content: flex-start;
+  height: 120rpx;
+  align-items: center;
+}
+.block3{
+  height: 200rpx;
+  background:rgb(241, 241, 241)
+}
+.block4{
+  height: 380rpx;
+  background:rgb(255, 255, 255);
+  margin: 1.5rpx 20rpx 0 20rpx;
+  align-items: center;
+  border-radius: 25rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background:#fff;
+  padding: 60rpx 40rpx 10rpx 60rpx;
+  line-height:50rpx;
+  
+}
+.tag1{
+  margin:55rpx 40rpx 1rpx 102rpx;
+  font-size: 40rpx;
+  color: rgb(245, 186, 26);
+}
+.tag{
+  font-size: 35rpx;
+  color:  rgb(245, 186, 26);
+  padding: 10rpx 20rpx 70rpx 20rpx;
+}
+
+.lighting{
+	position: absolute;/*这里一定要设置*/
+	margin-top: 105rpx;
+	margin-left: 100rpx; 
+}
+.light{
+  width: 70rpx;
+  height: 70rpx;
+}
+.cu-btn1 {
+	position: relative;
+	border: 0rpx;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: 0 30rpx;
+	font-size: 35rpx;
+	height: 84rpx;
+    width: 150rpx;
+	line-height: 1;
+	text-align: center;
+	text-decoration: none;
+	overflow: visible;
+	margin-left: 55rpx;
+	transform: translate(0rpx, 0rpx);
+
+}
+.cu-btn2 {
+	position: relative;
+	border: 0rpx;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: 0 30rpx;
+	font-size: 35rpx;
+	height: 84rpx;
+    width: 150rpx;
+	line-height: 1;
+	text-align: center;
+	text-decoration: none;
+	overflow: visible;
+	transform: translate(0rpx, 0rpx);
+	margin-right: 25rpx;
+}
+.btn1 {
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 20rpx;
+  color: #999999;
+  border-radius: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  background-color: transparent;   /*按钮透明*/  
+ 
+}
+.btn1::after {
+  border: none; 
+ 
+}
+.btn2 {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100%;
+  margin-top: 20rpx;
+  color: #999999;
+  background-color: transparent;   /*按钮透明*/  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+ }
+.btn2::after {
+  border: none;   
+}
+.floatbutton{
+  margin:10rpx 10rpx 20rpx 30rpx;
+  position:fixed; 
+  bottom: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.circle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30rpx;
+  width: 70px;
+  height:70px;
+  background: rgb(229, 77, 66);
+  border-radius: 100%;
+  margin:0 290rpx;
+}
+.want{
+  color: #ffffff;
+}

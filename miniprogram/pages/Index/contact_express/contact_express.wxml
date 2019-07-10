@@ -1,0 +1,98 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">商品详细</view>
+</cu-custom>
+<view class="post">
+
+    <view wx:if="{{express_data.accepter_openid==user_openid}}" class="userInformation">
+      <text  class="text-user"> 姓名: {{express_data.real_name}}</text>
+      <text  class="text-user"> 微信号：{{express_data.wechat_id}}</text>
+      <text  class="text-user"> 手机电话: {{express_data.phone}}</text>
+    </view>
+
+    <view class="postInformation">
+      <view class="text-campus">{{express_data.region}}校区</view>
+       <text  class="goodsPrice"> 酬金</text>
+        <span class="red">¥{{express_data.price}}</span>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <view class="desc">
+          <view class="text-content">快递点</view>
+           <view class="text-site1">{{express_data.pickUp}}</view> 
+            <view class="text-content">目的地</view>
+            <view class="site">
+             <view class="text-site1">{{express_data.destination_1}}</view> 
+             <view class="text-site2">{{express_data.destination_2}}</view> 
+             </view>
+             <view wx:if="{{express_data.accepter_openid==user_openid}}" class="userInformation">
+                <view class="text-site1">{{express_data.destination_detail}}</view> 
+             </view>
+             <view class="text-site1" wx:else>*****</view>
+            <view class="block1">
+              <view class="text-content">快递件数</view>
+              <view class="text-content2">重量</view>
+            </view>
+             <view class="block2">
+              <view class="text-content4">{{express_data.num}}件</view>
+              <view class="text-content5">{{express_weight}}</view>
+            </view>
+              <view class="text-content">截止时间</view>
+              <view class="text-time">{{express_data.deadline_date}} {{express_data.deadline_time}}之前</view> 
+              <view class="text-content">备注</view>
+              <view class="remark">
+              <view class="text-remark">
+              <text >{{express_data.note}}</text>
+              </view> 
+              </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{express_data.accepter_openid==''}}" class="postlight">
+        <view class="lighting">
+            <image class="light" src="/images/light.png" />
+        </view>
+        <view class="block4">
+            <text class="tag1">温馨提示</text>
+            <view class="tag">
+                <text >点击“接单”按钮即可抢单，订单详细信息请在“我的”页面“我的快递”中查看</text>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{express_data.accepter_openid!=''}}" class="postlight">
+        <view class="block4">
+            <text class="tag1 "style="margin:10rpx 20rpx 30rpx 30rpx;">温馨提示：该订单已经被接啦！</text>
+        </view>
+    </view>
+    <view class="block3">
+    </view>
+    <view wx:if="{{express_data.accepter_openid==''}}" class="floatbutton">
+        <button  class="circle" bindtap="showModal" data-target="Modal">
+            <view class="want">接单</view>
+        </button>
+    </view>
+    <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+        <view class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content">是否确定接单</view>
+                <view class="action" bindtap="hideModal">
+                    <text class="cuIcon-close text-red"></text>
+                </view>
+            </view>
+            <view class="padding-xl">
+                <view style="width:520rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+                    <button id="wechatButton" class='cu-btn1 bg-green' bindtap="accept">
+                        <view>确定</view>
+                    </button>  
+                    <button id="phoneButton" class='cu-btn2 bg-red' bindtap="hideModal">
+                        <view>取消</view>
+                    </button>  
+                </view>
+            </view>
+        </view>
+    </view> 
+<!-- post -->
+</view>
+
+
+

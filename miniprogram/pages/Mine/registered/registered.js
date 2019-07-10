@@ -158,21 +158,19 @@ Page({
   },
   //获取手机号
   getPhone(e) {
-    var data = e.detail.value;
-    this.setData({
-      phone: data
-    })
-  },
-  //获取验证码
-  getCode(e) {
     var Num = "";
     //生成随机验证码
     for (var i = 0; i < 6; i++) {
       Num += Math.floor(Math.random() * 10);
     }
+    var data = e.detail.value;
     this.setData({
+      phone: data,
       rightcode: Num
     })
+  },
+  //获取验证码
+  getCode(e) {
     console.log('获取验证码');
     var that = this;
     //云函数
@@ -272,6 +270,10 @@ Page({
       this.setData({
         warning: "微信号不能为空",
       })
+    } else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
+      this.setData({
+        warning: "请输入正确的微信号",
+      })
     } else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
       this.setData({
         warning: "微信号已被注册",
@@ -279,6 +281,10 @@ Page({
     } else if (this.data.phone == "") {
       this.setData({
         warning: "手机号码不能为空",
+      })
+    } else if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.phone))) {
+      this.setData({
+        warning: "请输入正确的手机号",
       })
     } else if (await this.checkDB('phone', this.data.phone)) {
       this.setData({

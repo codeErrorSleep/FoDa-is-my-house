@@ -18,7 +18,8 @@
     "pages/BackUp/test/test",
     "pages/BackUp/test2/test2",
     "pages/BackUp/posttest/posttest",
-    "pages/Mine/userInfo/userInfo"
+    "pages/Mine/userInfo/userInfo",
+    "pages/Index/contact_express/contact_express"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",

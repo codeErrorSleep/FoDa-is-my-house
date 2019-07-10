@@ -20,11 +20,11 @@
   </view>
 	<view class="cu-form-group margin-top">
 		<view class="title">昵称</view>
-		<input name="nick_name" placeholder="{{nick_name}}"></input>
+		<input name="nick_name" placeholder="{{ori_nick_name}}"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">姓名</view>
-		<input name="real_name" placeholder="{{real_name}}"></input>
+		<input name="real_name" placeholder="{{ori_real_name}}"></input>
 	</view>
   <view class="cu-form-group">
 		<view class="title">校区</view>
@@ -36,11 +36,11 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">微信号</view>
-		<input name="wechat_id" placeholder="{{wechat_id}}"></input>
+		<input name="wechat_id" placeholder="{{ori_wechat_id}}"></input>
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
-		<input name="phone" placeholder="{{phone}}" type="number" maxlength="11" bindinput="getPhone"></input>
+		<input name="phone" placeholder="{{ori_phone}}" type="number" maxlength="11" bindinput="getPhone"></input>
 		<view class="cu-capsule radius">
 			<view class="cu-tag bg-yellow">
 				+86

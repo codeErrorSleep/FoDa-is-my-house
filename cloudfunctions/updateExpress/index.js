@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('express').doc(event.express_id).update({
       data: {
-        accepter_openid:event.user_openid,
+        accepter_openid: event.user_openid,
       }
     })
   } catch (e) {
