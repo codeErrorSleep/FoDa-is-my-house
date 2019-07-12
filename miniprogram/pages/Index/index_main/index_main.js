@@ -83,8 +83,8 @@ Page({
           tab_id=1;
           break; 
       case "trifles":
-        tab_id=2;
-        break; 
+          tab_id=2;
+          break; 
     }
     wx.navigateTo({
       url:"../goods/goods?tab_id=" + tab_id

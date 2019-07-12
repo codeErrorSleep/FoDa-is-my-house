@@ -12,13 +12,13 @@
 <import src="../../../templates/express-template/express-template.wxml" />
 
 <view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage,windowHeight}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, myPage, windowHeight}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=1}}">
-  <template is="express" data="{{feed,myPage}}"></template>
+  <template is="express" data="{{feed, feed1, categories, currentData, myPage, nowDate, user_openid, windowHeight}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate,windowHeight}}"></template>
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate, windowHeight}}"></template>
 </view>

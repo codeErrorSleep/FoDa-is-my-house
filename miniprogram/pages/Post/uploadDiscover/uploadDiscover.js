@@ -20,7 +20,8 @@ Page({
     content:"",
     //照片在云的位置
     discover_imgs:[],
-
+    // 登记用户的formId在帖子数据库上
+    formId:"",
     //存放照片在手机中的位置
     images:[],
 
@@ -74,7 +75,7 @@ Page({
 
   //处理用户填写信息并准备上传
   uploadPost:function(e){
-
+    console.log(e.detail.formId)
     //得到用户填写的信息
     this.setData({
       title:e.detail.value.title,
@@ -82,8 +83,10 @@ Page({
       content:e.detail.value.content,
       warning:"",
       mode: false,
+      formId:e.detail.formId
     })
 
+    
     //检查提交信息
     this.checkInfo()
 
@@ -105,11 +108,13 @@ Page({
       this.setData({
         warning: "请选择分类类型",
       })
-    } else if (this.data.title=="") {
+    } 
+    else if (this.data.title=="") {
       this.setData({
         warning: "请输入标题",
       })
-    }  else if (this.data.type=="求助"){
+    }  
+    else if (this.data.type=="求助"){
       // 如果是求助类型的判断 有无输入时间和价钱
       if (this.data.price == "") {
         this.setData({
@@ -119,14 +124,21 @@ Page({
       } else if (this.data.date == "") {
         this.setData({
           warning: "请输入求助截止日期",
-        })
+        }) 
       } else if (this.data.time == "") {
         this.setData({
           warning: "请输入求助截止时间",
         })
+      } // 多个 if else if else等嵌套,注意逻辑
+        else {
+        this.setData({
+          warning: "发布成功",
+          mode: true,
+        })
       }
       // 都填完后就提示成功
-    } else {
+    } 
+    else {
       this.setData({
         warning: "发布成功",
         mode: true,
@@ -166,6 +178,7 @@ Page({
         "date":date,
         "timeStamp":this.data.timeStamp,
         "deadline":this.data.deadline,
+        "formId":this.data.formId
       },
       success(res){
         //成功上传后提示信息
@@ -176,6 +189,11 @@ Page({
           icon: 'success',
           duration: 1000
         })
+
+        wx.navigateTo({
+          url:"../../Index/goods/goods?tab_id=" + 2
+        })
+
       }
     })
 

@@ -17,14 +17,20 @@ Page({
     currentData: 0,
     //所要读取的数据库
     database: 'post',
+    //数据库数量
+    count: "",
     //数据库数据
     feed: [],
+    feed1: [],
     //下拉更新数据库数据个数
     nextPage: 0,
+    nextPage1: 0,
     //我的页面
     myPage: true,
     // 可用屏幕高度
-    windowHeight:0
+    windowHeight:0,
+    //用户openid
+    user_openid: "",
 
   },
 
@@ -32,7 +38,10 @@ Page({
   onLoad: function (options) {
     this.setData({
       currentIndex: options.tab_id,
+      user_openid: app.globalData.userCloudData._openid,
     })
+    var that = this
+    util.countNoAccExpress(that);
     this.navbarTab();
   },
 
@@ -69,8 +78,11 @@ Page({
     } else if (that.data.currentIndex == 1) {
       that.setData({
         feed: [],
+        feed1: [],
+        count: 0,
         nextPage: 0,
-        categories: ["全部"],
+        nextPage1: 0,
+        categories: ["我的发布", "我的接单"],
         database: 'express',
         currentData: 0,
       })
@@ -112,8 +124,14 @@ Page({
   // 调用util.js中读取数据库函数
   dbLoad: function () {
     var that = this;
-    console.log('ask:', that.data.database);
-    util.dbLoad(that.data.database, that, app.globalData.userCloudData._openid);
+    if (that.data.currentIndex==1){
+      util.countNoAccExpress(that);
+      util.noAccExpress(that, app.globalData.userCloudData._openid);
+      util.accExpress(that, app.globalData.userCloudData._openid);
+    }else{
+      console.log('ask:', that.data.database);
+      util.dbLoad(that.data.database, that, '.');
+    }
   },
 
   //跳转到点击页面
@@ -225,6 +243,24 @@ Page({
           })
         }
       }
+    })
+  },
+
+  //快递跳转到点击页面
+  jumpToExpress: function(e) {
+    var id = e.currentTarget.id
+    var express_data = JSON.stringify(this.data.feed[id])
+    wx.navigateTo({
+      url: '../../Index/contact_express/contact_express?express_data=' + express_data
+    })
+  },
+
+  //快递跳转到点击页面
+  jumpToExpress1: function(e) {
+    var id = e.currentTarget.id
+    var express_data = JSON.stringify(this.data.feed1[id])
+    wx.navigateTo({
+      url: '../../Index/contact_express/contact_express?express_data=' + express_data
     })
   },
 

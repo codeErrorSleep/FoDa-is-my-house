@@ -8,6 +8,12 @@ Page({
     express_weight: "",
     //用户openid
     user_openid: "",
+    //接收者真实姓名
+    accepter_real_name: "",
+    //接收者微信
+    accepter_wechat_id: "",
+    //接收者电话号码
+    accepter_phone: "",
   },
 
   onLoad: function (options) {
@@ -19,6 +25,7 @@ Page({
     this.setData({
       express_weight: this.data.express_data.weight.split('(')[0]
     })
+    this.getAccepter()
   },
 
   showModal(e) {
@@ -59,4 +66,31 @@ Page({
     })
     wx.navigateBack({})
   },
+
+  //获取接收者信息
+  async getAccepter(){
+    console.log('fuck',this.data.express_data.accepter_openid)
+    var that=this
+    if (this.data.express_data.accepter_openid!=""){
+      const db = wx.cloud.database()
+      await db.collection('users').where({
+        _openid: this.data.express_data.accepter_openid,
+      }).get({
+        success: async function(res) {
+          console.log(res.data[0])
+          await that.setData({
+            accepter_real_name: res.data[0].real_name,
+            accepter_wechat_id: res.data[0].wechat_id,
+            accepter_phone: res.data[0].phone,
+          })
+        }
+      })
+    }else {
+      that.setData({
+        accepter_real_name: "",
+        accepter_wechat_id: "",
+        accepter_phone: "",
+      })
+    }
+  }
 })

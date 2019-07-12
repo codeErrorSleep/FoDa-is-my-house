@@ -50,9 +50,6 @@
     </view>
   </view>
 
-
-  <button bindtap='publishExpress'>test</button>
-
   <view class='but'>
     <button class='butt' style="display:block;margin:0 auto" bindtap="showModal" data-target="Modal">
       <image class='btnImg1' src='/images/tabbar/add.png'></image>
@@ -75,7 +72,16 @@
               发布任务
             </view>
           </view>
-
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+          <view class="sectionmodal">
+            <view class="section_container5" bindtap='publishExpress'>
+              <image src="/images/directions.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              发布快递
+            </view>
+          </view>
         </view>
       </view>
     </view>

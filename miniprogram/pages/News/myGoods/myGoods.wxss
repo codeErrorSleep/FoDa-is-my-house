@@ -206,7 +206,7 @@
 
 
 
- /* 快递页面 */
+/* 快递页面 */
  
   .express-card {
    display: block;
@@ -276,10 +276,13 @@
    padding: 20rpx 40rpx;
  }
  .express-card.article>.express-item .content .text-content3 {
-   font-size: 30rpx;
-   padding: 35rpx 0 10rpx 0;
-   color:rgb(27, 149, 212) 
- 
+    font-size: 30rpx;
+    padding: 35rpx 0 10rpx 0;
+    color:rgb(27, 149, 212) ;
+    width:250px; 
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
  }
  
  .express-card .express-item .content .desc .block1{

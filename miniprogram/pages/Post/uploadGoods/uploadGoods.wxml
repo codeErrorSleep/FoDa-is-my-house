@@ -4,7 +4,7 @@
 	<view slot="content">发布闲置</view>
 </cu-custom>
 <view class="page">
-  <form bindsubmit='uploadPost'>
+  <form report-submit='true' bindsubmit='uploadPost'>
 
     <!--分类-->
     <view class='sell_cells'>
@@ -71,7 +71,7 @@
     <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">价格</text>
-        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />/////xdff//
+        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
 
       <view class="sell_cell">
@@ -81,7 +81,7 @@
     </view>
     <!---->
 
-    <button class="sell_btn" form-type='submit'>确认发布</button>
+    <button class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
     <view class="cu-modal {{modalName=='Modal'?'show':''}}">

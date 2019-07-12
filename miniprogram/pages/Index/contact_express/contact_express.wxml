@@ -4,10 +4,15 @@
 </cu-custom>
 <view class="post">
 
-    <view wx:if="{{express_data.accepter_openid==user_openid}}" class="userInformation">
+    <view wx:if="{{express_data.accepter_openid==user_openid&&express_data._openid!=user_openid}}" class="userInformation">
       <text  class="text-user"> 姓名: {{express_data.real_name}}</text>
       <text  class="text-user"> 微信号：{{express_data.wechat_id}}</text>
       <text  class="text-user"> 手机电话: {{express_data.phone}}</text>
+    </view>
+    <view wx:if="{{express_data.accepter_openid!=''&&express_data._openid==user_openid}}" class="userInformation">
+        <text  class="text-user"> 姓名: {{accepter_real_name}}</text>
+        <text  class="text-user"> 微信号：{{accepter_wechat_id}}</text>
+        <text  class="text-user"> 手机电话: {{accepter_phone}}</text>
     </view>
 
     <view class="postInformation">
@@ -25,10 +30,8 @@
              <view class="text-site1">{{express_data.destination_1}}</view> 
              <view class="text-site2">{{express_data.destination_2}}</view> 
              </view>
-             <view wx:if="{{express_data.accepter_openid==user_openid}}" class="userInformation">
-                <view class="text-site1">{{express_data.destination_detail}}</view> 
-             </view>
-             <view class="text-site1" wx:else>*****</view>
+             <view wx:if="{{express_data.accepter_openid==user_openid}}" class="text-site1">{{express_data.destination_detail}}</view> 
+             <view wx:else class="text-site1">******</view>
             <view class="block1">
               <view class="text-content">快递件数</view>
               <view class="text-content2">重量</view>

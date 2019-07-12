@@ -14,13 +14,13 @@
 
 
 <view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage,windowHeight}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, myPage, windowHeight}}"></template>
 </view>
 
 
 <view hidden="{{currentIndex!=1}}">
-  <template is="express" data="{{feed, categories, currentData, price, allRegion1, allRegion2, allRegion3, region1, region2, allTime1, allTime2, time1, selectTime, selectRegion,windowHeight}}"></template>
+  <template is="express" data="{{feed, feed1, categories, currentData, myPage, nowDate, user_openid, price, allRegion1, allRegion2, allRegion3, region1, region2, allTime1, allTime2, time1, selectTime, selectRegion, windowHeight}}"></template>
 </view>
 <view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate,windowHeight}}"></template>
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate, windowHeight}}"></template>
 </view>

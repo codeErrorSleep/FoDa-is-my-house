@@ -27,7 +27,8 @@ Page({
     goods_content:"",
     //照片在云的位置
     goods_imgs:[],
-
+    // 登记用户的formId在帖子数据库上
+    formId:"",
     //存放照片在手机中的位置
     images:[],
 
@@ -87,7 +88,6 @@ Page({
       goods_region: this.data.regions[e.detail.value]
     })
   },
-
   //处理用户填写信息并准备上传
   uploadPost:function(e){
     //得到用户填写的信息
@@ -98,6 +98,7 @@ Page({
       oriPrice:e.detail.value.oriPrice,
       warning:"",
       mode: false,
+      formId:e.detail.formId,
     })
 
     //检查提交信息
@@ -170,7 +171,8 @@ Page({
         "type":this.data.goods_type,
         "region":this.data.goods_region,
         "oriPrice":this.data.oriPrice,
-        "date":date
+        "date":date,
+        "formId":this.data.formId,
       },
       success(res){
         //成功上传后提示信息
@@ -180,6 +182,10 @@ Page({
           title: '成功上传',
           icon: 'success',
           duration: 1000
+        })
+
+        wx.navigateTo({
+          url:"../../Index/goods/goods?tab_id=" + 0
         })
       }
     })

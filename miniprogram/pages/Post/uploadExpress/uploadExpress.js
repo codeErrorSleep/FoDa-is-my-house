@@ -65,6 +65,8 @@ Page({
     express_phone: "",
     ori_express_phone: "",
 
+    // 登记用户的formId在帖子数据库上
+    formId:"",
     //详细说明
     express_note:"",
 
@@ -301,22 +303,23 @@ Page({
       express_note:e.detail.value.express_note,
       warning:"",
       mode: false,
+      formId:e.detail.formId
     })
 
-    console.log(this.data.express_num)
-    console.log(this.data.express_weight)
-    console.log(this.data.express_pay)
-    console.log(this.data.express_pickUp_2)
-    console.log(this.data.express_region)
-    console.log(this.data.express_destination_1)
-    console.log(this.data.express_destination_2)
-    console.log(this.data.express_destination_detail)
-    console.log(this.data.express_date)
-    console.log(this.data.express_time)
-    console.log(this.data.express_name)
-    console.log(this.data.express_wechat)
-    console.log(this.data.express_phone)
-    console.log(this.data.express_note)
+    // console.log(this.data.express_num)
+    // console.log(this.data.express_weight)
+    // console.log(this.data.express_pay)
+    // console.log(this.data.express_pickUp_2)
+    // console.log(this.data.express_region)
+    // console.log(this.data.express_destination_1)
+    // console.log(this.data.express_destination_2)
+    // console.log(this.data.express_destination_detail)
+    // console.log(this.data.express_date)
+    // console.log(this.data.express_time)
+    // console.log(this.data.express_name)
+    // console.log(this.data.express_wechat)
+    // console.log(this.data.express_phone)
+    // console.log(this.data.express_note)
 
     this.checkInfo();
 
@@ -415,6 +418,7 @@ Page({
         "note": this.data.express_note,
         "date": date,
         'accepter_openid': "",
+        formId:this.data.formId,
       },
       success(res) {
         console.log("插入成功")
@@ -423,6 +427,11 @@ Page({
           icon: 'success',
           duration: 1000
         })
+
+        wx.navigateTo({
+          url:"../../Index/goods/goods?tab_id=" + 1
+        })
+
       }
     })
   },

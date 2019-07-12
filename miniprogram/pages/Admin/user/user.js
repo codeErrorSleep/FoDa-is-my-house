@@ -45,7 +45,7 @@ Page({
     const db = wx.cloud.database()
     db.collection('users')
       .where({
-        "al_approve": false
+        "al_approve": true
       })
       .orderBy('date', 'desc')
       .skip(that.data.nextPage)

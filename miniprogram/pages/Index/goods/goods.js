@@ -17,10 +17,14 @@ Page({
     currentData: 0,
     //所要读取的数据库
     database: 'post',
+    //数据库数量
+    count: "",
     //数据库数据
     feed: [],
+    feed1: [],
     //下拉更新数据库数据个数
     nextPage: 0,
+    nextPage1: 0,
     //我的页面
     myPage: false,
     // 现在的时间戳 (暂时,添加到全局变量)
@@ -50,7 +54,9 @@ Page({
     //筛选时间
     selectTime: 0,
     // 可用屏幕高度
-    windowHeight: 0
+    windowHeight: 0,
+    //数据库待接单数量
+    expressCount: 0,
   },
 
   //页面加载时读取数据库
@@ -67,6 +73,8 @@ Page({
       nowDate: Number(new Date().getTime()),
       windowHeight: windowHeight
     })
+    var that = this
+    util.countUnAccExpress(that);
     this.navbarTab();
     // 添加到全局变量 (时间戳)
     app.globalData.nowDate = this.data.nowDate
@@ -92,37 +100,82 @@ Page({
     } else if (that.data.currentIndex == 1) {
       that.setData({
         feed: [],
+        feed1: [],
+        expressCount: 0,
         nextPage: 0,
+        nextPage1: 0,
         categories: ["酬金高低", "宿舍筛选", "时间筛选"],
         database: 'express',
         currentData: 3,
       })
     } else if (that.data.currentIndex == 2) {
+      var database = "recourse"
       that.setData({
         feed: [],
         nextPage: 0,
-        categories: ["全部", "求助", "寻物", "找队友"],
-        database: 'discover',
+        categories: ["求助", "寻物", "找队友"],
+        database: "recourse",
         currentData: 0,
       })
     };
     this.dbLoad();
   },
 
-  //点击更新闲置分类导航栏下标
+  //滑动更新主导航栏下标
   categoriesTab: function (e) {
     this.setData({
+      // currentIndex: e.currentTarget.dataset.index
       currentData: e.currentTarget.dataset.index
     })
+    console.log(this.data.currentData)
+
+    // 判断如果为寻物和找队友则更改搜索的数据库
+    if (this.data.currentIndex == "2") {
+      // 根据所选tab更改查找的数据库
+      this.discoverType()
+    }
   },
 
-  //滑动更新闲置分类导航栏下标
+  //更新副导航栏下标
   categoriesChange: function (e) {
-    this.setData({
-      currentData: e.detail.current
-    })
+    let current = e.detail.current;
+    let source = e.detail.source
+    //console.log(source);
+    // 这里的source是判断是否是手指触摸 触发的事件
+    if (source === 'touch') {
+      this.setData({
+        currentData: current
+      })
+      console.log(this.data.currentData)
+      // 判断如果为寻物和找队友则更改搜索的数据库
+      if (this.data.currentIndex == "2") {
+        // 根据所选tab更改查找的数据库
+        this.discoverType()
+      }
+    }
   },
 
+
+  // 判断发现 的分类(求助 寻物 找队友)
+  discoverType: function () {
+    this.setData({
+      feed: [],
+      nextPage: 0,
+    })
+    if (this.data.currentData == "0") {
+      this.setData({
+        database: "recourse",
+      })
+      this.dbLoad();
+    } else if (this.data.currentData == "1") {
+      util.discoverLoad("寻物", this);
+    }
+    else {
+      util.discoverLoad("找队友", this);
+    }
+  },
+
+  
   // 拖到最下面更新数据
   lower: function (e) {
     wx.showNavigationBarLoading();
@@ -135,8 +188,15 @@ Page({
   // 调用util.js中读取数据库函数
   dbLoad: function () {
     var that = this;
-    console.log('ask:', that.data.database);
-    util.dbLoad(that.data.database, that, '.');
+    if (that.data.currentIndex==1){
+      util.countUnAccExpress(that);
+      // util.unAccExpress(that, '.');
+      // util.accExpress(that, '.');
+      util.experssLoad(that, '.');
+    }else{
+      console.log('ask:', that.data.database);
+      util.dbLoad(that.data.database, that, '.');
+    }
   },
 
   //跳转到点击页面
@@ -158,7 +218,15 @@ Page({
     var express_data = JSON.stringify(this.data.feed[id])
     wx.navigateTo({
       url: '../contact_express/contact_express?express_data=' + express_data
+    })
+  },
 
+  //快递跳转到点击页面
+  jumpToExpress1: function(e) {
+    var id = e.currentTarget.id
+    var express_data = JSON.stringify(this.data.feed1[id])
+    wx.navigateTo({
+      url: '../contact_express/contact_express?express_data=' + express_data
     })
   },
 
@@ -200,12 +268,15 @@ Page({
       this.data.categories[0]=e.target.dataset.price.substring(2,6);
       if (this.data.categories[0] == '由低到高'){
         this.data.feed.sort((a, b) => parseInt(a.price) - parseInt(b.price))
+        this.data.feed1.sort((a, b) => parseInt(a.price) - parseInt(b.price))
       }else {
         this.data.feed.sort((b, a) => parseInt(a.price) - parseInt(b.price))
+        this.data.feed1.sort((b, a) => parseInt(a.price) - parseInt(b.price))
       }
     }
     this.setData({
       feed: this.data.feed,
+      feed1: this.data.feed1,
       categories: this.data.categories,
       currentData: 3
     })
