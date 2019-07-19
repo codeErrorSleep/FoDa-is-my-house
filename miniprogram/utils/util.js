@@ -189,7 +189,7 @@ function accExpress(that,limit){
       icon: 'loading',
       duration: 500
     })
-    var tempFeed1=that.data.feed1
+    var tempaccFeed=that.data.accFeed
     var tempNextPage1 = that.data.nextPage1
     const db = wx.cloud.database()
     const _ = db.command
@@ -206,10 +206,10 @@ function accExpress(that,limit){
     .get({
       success: function(res) {
         that.setData({
-          feed1: tempFeed1.concat(res.data),
+          accFeed: tempaccFeed.concat(res.data),
           nextPage1: tempNextPage1 + 10
         })
-        console.log('[数据库] [查询记录] 成功 feed1: ', that.data.feed1)
+        console.log('[数据库] [查询记录] 成功 accFeed: ', that.data.accFeed)
       },
       fail: err => {
         wx.showToast({

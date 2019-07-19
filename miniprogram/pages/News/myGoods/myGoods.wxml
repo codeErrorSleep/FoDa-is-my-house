@@ -16,7 +16,7 @@
 </view>
 
 <view hidden="{{currentIndex!=1}}">
-  <template is="express" data="{{feed, feed1, categories, currentData, myPage, nowDate, user_openid, windowHeight}}"></template>
+  <template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid, windowHeight}}"></template>
 </view>
 
 <view hidden="{{currentIndex!=2}}">

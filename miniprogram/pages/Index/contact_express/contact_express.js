@@ -41,12 +41,13 @@ Page({
   },
 
   //接收快递任务
-  accept(){
+  accept:function(){
     wx.cloud.callFunction({
-      name: 'updateExpress',
+      name: 'updateAccepter',
       data: {
         express_id: this.data.express_data._id,
-        user_openid: this.data.user_openid
+        user_openid: this.data.user_openid,
+        database:"express"
       },
       success: res => {
         console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)

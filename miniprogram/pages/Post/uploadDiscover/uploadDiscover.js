@@ -158,6 +158,8 @@ Page({
 
   //将帖子信息上传到数据库
   uploadData:function(){
+    // 分辨数据库位置
+    var database="recourse"
     // 发帖时间
     var date=new Date()
     // 求助截止时间
@@ -167,8 +169,13 @@ Page({
       timeStamp:new Date(deadline).getTime(),
       deadline:deadline
     })
+
+    if(this.data.type!="求助"){
+      database="discover"
+    }
+
     const db = wx.cloud.database()
-    db.collection("discover").add({
+    db.collection(database).add({
       data:{
         "content":this.data.content,
         "imgs":this.data.discover_imgs,
@@ -178,7 +185,8 @@ Page({
         "date":date,
         "timeStamp":this.data.timeStamp,
         "deadline":this.data.deadline,
-        "formId":this.data.formId
+        "formId":this.data.formId,
+        'accepter_openid': "",
       },
       success(res){
         //成功上传后提示信息

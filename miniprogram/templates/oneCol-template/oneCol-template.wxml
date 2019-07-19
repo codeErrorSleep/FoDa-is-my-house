@@ -25,6 +25,15 @@
                     </view>
                   </view>
                   <view class="content">
+                    <!-- 判断是否显示 已接未接 图标 -->
+                    <view  wx:if="{{item.type=='求助'}}">
+                      <view class="condition" wx:if="{{item.accepter_openid!=''}}">
+                        <image class="cond" src="/images/yijie.png" />
+                      </view>
+                      <view class="condition" wx:else>
+                        <image class="cond" src="/images/weijie.png" />
+                      </view>
+                    </view>
                       <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
                     <view class="desc">
                       <view class="text-content">{{item.content}}</view>
@@ -36,9 +45,15 @@
                       </view>
                       </view>
                     </view>
+                    </view>
+
+
+
                   </view>
                 </view>
-              </view>
+
+
+
               <view class="delete flex flex-direction" hidden="{{!myPage}}">
                 <button class="cu-btn bg-red lg" bindtap="deleteDiscover" id='{{idx}}'>删除</button>
               </view>

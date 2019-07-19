@@ -1,71 +1,69 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">帖子详情</view>
+  <view slot="backText">返回</view>
+  <view slot="content">帖子详情</view>
 </cu-custom>
 <view class="post">
-    <view class="userInformation">
-        <view class="userImg">
-            <image src="{{swiperList[user_data.head_index].url}}" lazy-load />
-        </view>
-        <view class="userName">
-            <text>{{user_data.nick_name}}</text>
-        </view>
+  <view class="userInformation">
+    <view class="userImg">
+      <image src="{{swiperList[user_data.head_index].url}}" lazy-load />
     </view>
-    <view class="postInformation">
-      <text class="postTitle" decode="{{true}}" space="{{true}}">{{post_data.title}}</text>
-      <text class="goodsPrice" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">¥ {{post_data.price}}</text>
-    </view>
-    <!-- 原价 -->
-    <view class="postInformation3">
-      <text ></text>
-      <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">￥{{post_data.oriPrice}}</text>
-    </view>
-
-
-<view class="postInformation2">
- <view class="postContent">
-  <text >{{post_data.content}}</text>
- </view>
-</view>
-<view class="postInformation4">
-  <view class="goodsImg">
-    <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
-        <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" />
+    <view class="userName">
+      <text>{{user_data.nick_name}}</text>
     </view>
   </view>
-</view>
-<view class="block1">
-</view>
-<!-- 图片自适应 -->
-<!-- style="width:100%" mode="aspectFill"style="width=100%" mode="aspectFill" -->
-<view class="floatbutton">
-  <button  class="circle" bindtap="showModal" data-target="Modal">
-<view class="want">想要</view>
-</button>
-</view>
-<view class="cu-modal {{modalName=='Modal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">联系方式</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
+  <view class="postInformation">
+    <text class="postTitle" decode="{{true}}" space="{{true}}">{{post_data.title}}</text>
+    <text class="goodsPrice" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">
+      ¥ {{post_data.price}}
+    </text>
+  </view>
+  <!-- 原价 -->
+  <view class="postInformation3">
+    <text></text>
+    <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">
+      ￥{{post_data.oriPrice}}
+    </text>
+  </view>
+  <view class="postInformation2">
+    <view class="postContent">
+      <text>{{post_data.content}}</text>
+    </view>
+  </view>
+  <view class="postInformation4">
+    <view class="goodsImg">
+      <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+        <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" />
       </view>
     </view>
-    <view class="padding-xl">
-       <view style="width:520rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
-    <button id="wechatButton" class='btn1' bindtap="showConnect">
-    <image class='btnImg' src='../../../images/wechat.png'></image>
- <view>微信联系</view>
- </button>  
-  <button id="phoneButton" class='btn2' bindtap="showConnect">
-   <image class='btnImg' src='../../../images/phone.png'></image>
-    <view>手机联系</view>
- </button>  
- </view>
+  </view>
+  <view class="block1"></view>
+  <!-- 图片自适应 -->
+  <!-- style="width:100%" mode="aspectFill"style="width=100%" mode="aspectFill" -->
+  <view class="floatbutton">
+    <button class="circle" bindtap="showModal" data-target="Modal">
+      <view class="want">想要</view>
+    </button>
+  </view>
+  <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">联系方式</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view style="width:520rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
+          <button id="wechatButton" class='btn1' bindtap="showConnect">
+            <image class='btnImg' src='../../../images/wechat.png'></image>
+            <view>微信联系</view>
+          </button>
+          <button id="phoneButton" class='btn2' bindtap="showConnect">
+            <image class='btnImg' src='../../../images/phone.png'></image>
+            <view>手机联系</view>
+          </button>
+        </view>
+      </view>
     </view>
   </view>
-</view> 
 </view>
-
-
-

@@ -21,7 +21,7 @@ Page({
     count: "",
     //数据库数据
     feed: [],
-    feed1: [],
+    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
     nextPage1: 0,
@@ -78,7 +78,7 @@ Page({
     } else if (that.data.currentIndex == 1) {
       that.setData({
         feed: [],
-        feed1: [],
+        accFeed: [],
         count: 0,
         nextPage: 0,
         nextPage1: 0,
@@ -258,7 +258,7 @@ Page({
   //快递跳转到点击页面
   jumpToExpress1: function(e) {
     var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.feed1[id])
+    var express_data = JSON.stringify(this.data.accFeed[id])
     wx.navigateTo({
       url: '../../Index/contact_express/contact_express?express_data=' + express_data
     })

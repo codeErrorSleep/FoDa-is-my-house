@@ -195,6 +195,35 @@
  }
  
  
+ .cu-card  .condition{
+   display: inline-block; 
+      position: absolute;
+      margin-top: 10rpx;
+      margin-left: 463rpx; 
+}
+.cu-card  .condition .cond{
+  width: 215rpx;
+  height: 215rpx;
+  /* float: right; */
+  transform:rotate(-15deg);
+}
+
+.cu-card .condition{
+  position: absolute;
+  margin-top: 0rpx;   
+  margin-left: 443rpx; 
+}
+
+.cu-card .cond{
+  width: 215rpx;
+  height: 215rpx;
+  transform:rotate(-15deg);
+}
+
+
+
+
+
  
  /* 快递页面 */
  

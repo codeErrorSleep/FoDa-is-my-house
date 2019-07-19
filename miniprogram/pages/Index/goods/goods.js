@@ -21,7 +21,8 @@ Page({
     count: "",
     //数据库数据
     feed: [],
-    feed1: [],
+    // 快递中已接单的帖子
+    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
     nextPage1: 0,
@@ -100,7 +101,7 @@ Page({
     } else if (that.data.currentIndex == 1) {
       that.setData({
         feed: [],
-        feed1: [],
+        accFeed: [],
         expressCount: 0,
         nextPage: 0,
         nextPage1: 0,
@@ -204,12 +205,23 @@ Page({
     var id = e.currentTarget.id
     console.log(e.currentTarget.id)
     console.log(this.data.feed[id])
-    var post_data = JSON.stringify(this.data.feed[id])
-    wx.navigateTo({
-      // url: '../posttest/posttest?post_data=' + post_data
-      url: '../contact/contact?post_data=' + post_data
 
-    })
+    var post_data = JSON.stringify(this.data.feed[id])
+
+    if(this.data.feed[id].type=="求助"){
+      wx.navigateTo({
+        // url: '../posttest/posttest?post_data=' + post_data
+        url: '../contact_recourse/contact_recourse?post_data=' + post_data
+      })
+    }else{
+      wx.navigateTo({
+        // url: '../posttest/posttest?post_data=' + post_data
+        url: '../contact/contact?post_data=' + post_data
+      })
+    }
+
+
+
   },
 
   //快递跳转到点击页面
@@ -224,7 +236,7 @@ Page({
   //快递跳转到点击页面
   jumpToExpress1: function(e) {
     var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.feed1[id])
+    var express_data = JSON.stringify(this.data.accFeed[id])
     wx.navigateTo({
       url: '../contact_express/contact_express?express_data=' + express_data
     })
@@ -268,15 +280,15 @@ Page({
       this.data.categories[0]=e.target.dataset.price.substring(2,6);
       if (this.data.categories[0] == '由低到高'){
         this.data.feed.sort((a, b) => parseInt(a.price) - parseInt(b.price))
-        this.data.feed1.sort((a, b) => parseInt(a.price) - parseInt(b.price))
+        this.data.accFeed.sort((a, b) => parseInt(a.price) - parseInt(b.price))
       }else {
         this.data.feed.sort((b, a) => parseInt(a.price) - parseInt(b.price))
-        this.data.feed1.sort((b, a) => parseInt(a.price) - parseInt(b.price))
+        this.data.accFeed.sort((b, a) => parseInt(a.price) - parseInt(b.price))
       }
     }
     this.setData({
       feed: this.data.feed,
-      feed1: this.data.feed1,
+      accFeed: this.data.accFeed,
       categories: this.data.categories,
       currentData: 3
     })
