@@ -74,10 +74,22 @@ Page({
   // 跳转我的页面
   showMyGoods:function(e){
     console.log(e.currentTarget.id)
-    wx.navigateTo({
-      url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
-    })
-
+    if(e.currentTarget.id=="2"){
+      wx.navigateTo({
+        // url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
+        url:"../../News/myDiscover/myDiscover?tab_id=" +e.currentTarget.id
+      })
+    }else if(e.currentTarget.id=="1"){
+      wx.navigateTo({
+        // url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
+        url:"../../News/myExpress/myExpress?tab_id=" +e.currentTarget.id
+      })
+    }else if(e.currentTarget.id=="0"){
+      wx.navigateTo({
+        // url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
+        url:"../../News/myGoods/myGoods?tab_id=" +e.currentTarget.id
+      })
+    }
   },
 
 

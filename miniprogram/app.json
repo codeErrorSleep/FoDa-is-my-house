@@ -7,6 +7,8 @@
     "pages/Index/contact_recourse/contact_recourse",
     "pages/News/news_main/news_main",
     "pages/News/myGoods/myGoods",
+    "pages/News/myDiscover/myDiscover",
+    "pages/News/myExpress/myExpress",
     "pages/Mine/mine_main/mine_main",
     "pages/Mine/feedback/feedback",
     "pages/Mine/setting/setting",

@@ -200,6 +200,19 @@
  
  
 
+ .cu-card .condition{
+  position: absolute;
+  margin-top: 0rpx;   
+  margin-left: 443rpx; 
+}
+
+.cu-card .cond{
+  width: 215rpx;
+  height: 215rpx;
+  transform:rotate(-15deg);
+}
+
+
 
 
 

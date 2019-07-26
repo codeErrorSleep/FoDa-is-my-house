@@ -55,7 +55,7 @@
 
 
               <view class="delete flex flex-direction" hidden="{{!myPage}}">
-                <button class="cu-btn bg-red lg" bindtap="deleteDiscover" id='{{idx}}'>删除</button>
+                <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
               </view>
             </view>
           </block>

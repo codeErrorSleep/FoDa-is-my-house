@@ -70,7 +70,7 @@
     </view>
     <view class="block3">
     </view>
-    <view wx:if="{{express_data.accepter_openid==''}}" class="floatbutton">
+    <view wx:if="{{express_data.accepter_openid=='' && express_data._openid!=user_openid}}" class="floatbutton">
         <button  class="circle" bindtap="showModal" data-target="Modal">
             <view class="want">接单</view>
         </button>
