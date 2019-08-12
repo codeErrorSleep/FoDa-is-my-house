@@ -1,25 +1,87 @@
-<!--pages/News/myDiscover/myDiscover.wxml-->
+<!-- pages/News/myDiscover/myDiscover.wxml -->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">我的{{navbar[currentIndex]}}</view>
+  <view slot="backText">返回</view>
+  <view slot="content">我的{{navbar[currentIndex]}}</view>
 </cu-custom>
-<!--主导航栏-->
-<view class="navbar"> 
-  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text> 
+
+
+<!-- <import src="../../../templates/oneCol-template/oneCol-template.wxml" />
+
+  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate, windowHeight}}"></template> -->
+
+
+<!-- 主导航栏 -->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}
+  </text>
 </view>
 
-<import src="../../../templates/oneCol-template/oneCol-template.wxml" />
-<import src="../../../templates/twoCol-template/twoCol-template.wxml" />
-<import src="../../../templates/express-template/express-template.wxml" />
 
-<view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage, windowHeight}}"></template>
-</view>
+<swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
+  <!-- <block wx:for="{{categories}}" wx:for-item="category" wx:key="key"> -->
+  <block>
+    <swiper-item>
+      <scroll-view scroll-y="true" class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+        <view class="item_container">
+          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+            <view wx:if="{{item.type==navbar[currentIndex]}}">
+              <!-- <view> -->
+              <view >
+                <template is="recourse_cells" data="{{feed, categories, currentData, myPage, nowDate, windowHeight,item}}"></template>
+              </view>
+              <view class="delete flex flex-direction" hidden="{{!myPage}}">
+              <view wx:if="{{currentIndex!=0}}" class="delete flex flex-direction">
+                  <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
+                  </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </block>
+</swiper>
 
-<view hidden="{{currentIndex!=1}}">
-  <template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid, windowHeight}}"></template>
-</view>
 
-<view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, categories, currentData, myPage, nowDate, windowHeight}}"></template>
-</view>
+
+<template name="recourse_cells">
+  <view class="cu-card article">
+    <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
+      <view class="title">
+        <view class="flex justify-between">
+          <text class="text-cut">{{item.title}}</text>
+          <view wx:if="{{item.type== ('求助')}}">
+            <text class="text-price">{{item.price}}</text>
+          </view>
+          <view wx:elif="{{item.type=='寻物'}}">
+            <text class="text-yellow">寻物</text>
+          </view>
+          <view wx:else>
+            <text class="text-blue">找队友</text>
+          </view>
+        </view>
+      </view>
+      <view class="content">
+        <!-- 判断是否显示 已接未接 图标 -->
+        <view wx:if="{{item.type=='求助'}}">
+          <view class="condition" wx:if="{{item.accepter_openid!=''}}">
+            <image class="cond" src="/images/yijie.png" />
+          </view>
+          <view class="condition" wx:else>
+            <image class="cond" src="/images/weijie.png" />
+          </view>
+        </view>
+        <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-content">{{item.content}}</view>
+          <view>
+            <!-- <view wx:if="{{category==('全部')||category==('求助')}}"> -->
+            <view wx:if="{{item.type== ('求助')}}">
+              <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

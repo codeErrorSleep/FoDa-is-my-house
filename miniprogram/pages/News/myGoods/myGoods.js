@@ -7,12 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //主导航栏
-    navbar: ["闲置", "快递", "发现"],
     //闲置分类导航栏
     categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
-    //主导航栏下标
-    currentIndex: 0,
     //分类导航栏下标
     currentData: 0,
     //所要读取的数据库
@@ -21,10 +17,8 @@ Page({
     count: "",
     //数据库数据
     feed: [],
-    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
-    nextPage1: 0,
     //我的页面
     myPage: true,
     // 可用屏幕高度
@@ -37,12 +31,9 @@ Page({
   //页面加载时读取数据库
   onLoad: function (options) {
     this.setData({
-      currentIndex: options.tab_id,
       user_openid: app.globalData.userCloudData._openid,
     })
     var that = this
-    // 统计快递未接单的量
-    util.countUnAccExpress(that);
     // 根据电机查找数据库
     this.navbarTab();
   },
@@ -57,11 +48,6 @@ Page({
         windowHeight:0.8*res.windowHeight-10
       })
     } catch (e) {}
-    var that = this
-    // 统计快递未接单的量
-    util.countUnAccExpress(that);
-    // 根据电机查找数据库
-    this.navbarTab();
 
   },
 
@@ -73,34 +59,13 @@ Page({
       });
     }
     var that = this;
-    if (that.data.currentIndex == 0) {
-      that.setData({
-        feed: [],
-        nextPage: 0,
-        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
-        database: 'post',
-        currentData: 0,
-      })
-    } else if (that.data.currentIndex == 1) {
-      that.setData({
-        feed: [],
-        accFeed: [],
-        count: 0,
-        nextPage: 0,
-        nextPage1: 0,
-        categories: ["我的发布", "我的接单"],
-        database: 'express',
-        currentData: 0,
-      })
-    } else if (that.data.currentIndex == 2) {
-      that.setData({
-        feed: [],
-        nextPage: 0,
-        categories: ["求助", "寻物", "找队友"],
-        database: "recourse",
-        currentData: 0,
-      })
-    };
+    that.setData({
+      feed: [],
+      nextPage: 0,
+      categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+      currentData: 0,
+    })
+
     this.dbLoad();
   },
 
@@ -111,12 +76,6 @@ Page({
       currentData: e.currentTarget.dataset.index
     })
     console.log(this.data.currentData)
-
-    // 判断如果为寻物和找队友则更改搜索的数据库
-    if (this.data.currentIndex == "2") {
-      // 根据所选tab更改查找的数据库
-      this.discoverType()
-    }
   },
 
   //更新副导航栏下标
@@ -130,33 +89,10 @@ Page({
         currentData: current
       })
       console.log(this.data.currentData)
-      // 判断如果为寻物和找队友则更改搜索的数据库
-      if (this.data.currentIndex == "2") {
-        // 根据所选tab更改查找的数据库
-        this.discoverType()
-      }
     }
   },
 
 
-  // 判断发现 的分类(求助 寻物 找队友)
-  discoverType: function () {
-    this.setData({
-      feed: [],
-      nextPage: 0,
-    })
-    if (this.data.currentData == "0") {
-      this.setData({
-        database: "recourse",
-      })
-      this.dbLoad();
-    } else if (this.data.currentData == "1") {
-      util.discoverLoad("寻物", this);
-    }
-    else {
-      util.discoverLoad("找队友", this);
-    }
-  },
 
 
   // 拖到最下面更新数据
@@ -221,54 +157,12 @@ Page({
     })
   },
 
-
-
-
-
-  //删除快递
-  deleteExpress: function(e) {
-    var id = e.currentTarget.id
-    //获得帖子id
-    var express_id = this.data.feed[id]._id
-    var deadline_date = this.data.feed[id].deadline_date
-
-    console.log(express_id)
-    console.log(deadline_date)
-
-    wx.showModal({
-      title: '删除快递信息',
-      content:"是否删除 "+deadline_date+" 的快递信息",
-      success(res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection('express').doc(express_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-            }
-          })
-        }
-      }
-    })
-  },
-
   //删除发现
   deletePost: function(e) {
     var id = e.currentTarget.id
     //获得帖子id
     var post_id = this.data.feed[id]._id
     var post_name = this.data.feed[id].title
-
-    var database="recourse"
-    if(this.data.feed[id].type!="求助"){
-      database="discover"
-    }
 
     console.log(post_id)
     console.log(post_name)
@@ -295,25 +189,5 @@ Page({
       }
     })
   },
-
-  //快递跳转到点击页面
-  jumpToExpress: function(e) {
-    var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.feed[id])
-    wx.navigateTo({
-      url: '../../Index/contact_express/contact_express?express_data=' + express_data
-    })
-  },
-
-  //快递跳转到点击页面
-  jumpToExpress1: function(e) {
-    var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.accFeed[id])
-    wx.navigateTo({
-      url: '../../Index/contact_express/contact_express?express_data=' + express_data
-    })
-  },
-
-  
 
 })
