@@ -36,7 +36,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">微信号</view>
-		<input name="wechat_id" placeholder="请输入您的微信号（确保真实）"></input>
+		<input name="wechat_id" placeholder="请输入您的微信号(可用手机号代替)"></input>
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>

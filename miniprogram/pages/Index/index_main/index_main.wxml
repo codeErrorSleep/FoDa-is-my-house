@@ -43,7 +43,7 @@
       </view>
       <view class="section">
         <view class="section_container4" bindtap='jumpToList' id="trifles">
-          <text class="section_name">日签</text>
+          <text class="section_name">优惠券</text>
           <view class="section_img">
             <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
           </view>
@@ -81,7 +81,7 @@
         <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishExpress'>
-              <image src="/images/directions.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              <image src="/images/express.png" style="width:110rpx;height:110rpx;display:flex"></image>
               发布快递
             </view>
           </view>

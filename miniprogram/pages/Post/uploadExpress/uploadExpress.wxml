@@ -126,12 +126,12 @@
         </view>
         <view class="padding-xl">
           <view wx:if='{{warning==""}}'>
-            <text class="payNote">1.轻小件一件建议4元起</text>
-            <text class="payNote">2.中件一件建议7元起</text>
-            <text class="payNote">3.大件一件建议9元起</text>
-            <text class="payNote">4.超大件一件建议12元起</text>
-            <text class="payNote">5.如果一次需拿多几件，可以在建议价上每件适当减少2-3元</text>
-            <text class="payNote">6.恶劣天气发布快递可稍稍提升你给予的报酬哟</text>
+            <text class="payNote">1.轻小件一件建议2元起</text>
+            <text class="payNote">2.中件一件建议4元起</text>
+            <text class="payNote">3.大件一件建议6元起</text>
+            <text class="payNote">4.超大件一件建议10元起</text>
+            <text class="payNote">5.如果一次需拿多几件，可以适当增加报酬</text>
+            <text class="payNote">6.恶劣天气可以适当增加报酬</text>
           </view>
           <view wx:else>
             {{warning}}
