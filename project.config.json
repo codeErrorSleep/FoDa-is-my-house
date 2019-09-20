@@ -4,18 +4,32 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
+		"enhance": false,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"checkInvalidKey": true
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
-	"appid": "wx96f11c1fc6be678a",
+	"appid": "wx02341bbd54fe2a1a",
 	"projectname": "%E4%BA%91%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95",
-	"libVersion": "2.7.7",
+	"libVersion": "2.8.3",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"search": {
 			"current": -1,

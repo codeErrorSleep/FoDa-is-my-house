@@ -31,6 +31,12 @@ Page({
     formId: "",
     //警告
     warning: "",
+    //验证码限时
+    second: 60,
+    //验证码按钮内容
+    btnValue: '验证码',
+    //验证码按钮状态
+    btnDisabled: false,
   },
   onLoad() {
     this.setData({
@@ -69,6 +75,20 @@ Page({
       current: e.currentTarget.dataset.url
     });
   },
+
+
+
+  //用户点击放大图片
+  handleImagePreview: function (e) {
+    var index = e.target.dataset.index
+    var images = this.data.images
+    wx.previewImage({
+      current: images[index],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
+
+
   //删除图片
   DelImg(e) {
     wx.showModal({
@@ -169,6 +189,35 @@ Page({
       rightcode: Num
     })
   },
+
+ //验证码限时
+ timer: function () {
+  console.log('get in');
+  let promise = new Promise((resolve, reject) => {
+    let setTimer = setInterval(
+      () => {
+        var second = this.data.second - 1;
+        this.setData({
+          second: second,
+          btnValue: second + '秒',
+          btnDisabled: true
+        })
+        if (this.data.second <= 0) {
+          this.setData({
+            second: 60,
+            btnValue: '验证码',
+            btnDisabled: false
+          })
+          resolve(setTimer)
+        }
+      }
+      , 1000)
+  })
+  promise.then((setTimer) => {
+    clearInterval(setTimer)
+  })
+},
+
   //获取验证码
   getCode(e) {
     console.log('获取验证码');
@@ -189,6 +238,10 @@ Page({
       },
       success(res) {
         console.log(res.result.body)
+        if (res.result.body.code == 0) {
+          that.timer();
+          return;
+        }
       },
       fail: console.error
     })
@@ -270,11 +323,14 @@ Page({
       this.setData({
         warning: "微信号不能为空",
       })
-    } else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
-      this.setData({
-        warning: "请输入正确的微信号",
-      })
-    } else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
+    } 
+    // 先不让用户输入微信号（此段代码在userinfo中也与快递那里都有，修改一同修改）
+    // else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
+    //   this.setData({
+    //     warning: "请输入正确的微信号",
+    //   })
+    // } 
+    else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
       this.setData({
         warning: "微信号已被注册",
       })

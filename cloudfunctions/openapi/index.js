@@ -16,6 +16,9 @@ exports.main = async (event, context) => {
     case 'sendExpressTemplate': {
       return sendExpressTemplate(event)
     }
+    case 'sendRecourseTemplate':{
+      return sendRecourseTemplate(event)
+    }
     default: {
       return
     }
@@ -26,7 +29,7 @@ exports.main = async (event, context) => {
 async function sendExpressTemplate(event) {
   // const { OPENID } = cloud.getWXContext()
   // 模板id
-  var templateId ="GRUqcpmLhbPq4PGr2mqPGsnyffwGFk-0xlsF6ClGpYs"
+  var templateId ="E5GPYPj3zOLuV9mGJPfIcTqbns4N83LZaBF7CRQ0O1k"
 
 
   // 根据验证是否通过来发送信息
@@ -57,11 +60,47 @@ async function sendExpressTemplate(event) {
   return sendResult
 }
 
+// 发送求助成功的模板信息
+async function sendRecourseTemplate(event) {
+  // const { OPENID } = cloud.getWXContext()
+  // 模板id
+  var templateId ="_EBC_UIgFrzGjCifzGHpJh5Ipah3R6C_WhsB1onRe2k"
 
+
+  // 根据验证是否通过来发送信息
+  var orders=event.orders
+  if(orders=="求助成功"){
+    note="已有人愿意提供帮助,可主动联系帮助者"
+  }
+  else{
+    orders="求助失败"
+    note="很遗憾,暂时还未帮你找到帮助者,请再次发出求助或提高酬金"
+  }
+  var wechat_id=event.wechat_id
+  var phone=event.phone
+  const sendResult = await cloud.openapi.templateMessage.send({
+    touser: event.user_openid,
+    templateId,
+    formId: event.formId,
+    data: {
+      keyword1: {
+        value: orders,
+      },
+      keyword2: {
+        value: note,
+      },
+    },
+    emphasisKeyword: 'keyword1.DATA'
+  })
+  return sendResult
+
+}
+
+// 发送验证成功的模板信息
 async function sendTemplateMessage(event) {
   // const { OPENID } = cloud.getWXContext()
   // 模板id
-  var templateId ="BnaH1SWP6RP7kTUl8oIKGKqPfwYYFhZNRgmY6I16MTE"
+  var templateId ="uUx3rFnxGTofSq8_GGdvC9vYSzmAecPR1R3ZUscfWKs"
 
 
   // 根据验证是否通过来发送信息
@@ -72,7 +111,7 @@ async function sendTemplateMessage(event) {
   else{
     approve="认证不成功"
     note="请重新上传图片进行验证"
-    templateId="mbj0IsNRrzfETfMsZZROgszZoHDS2mIbjevr8KjXu_4"
+    templateId="lzOtWOZ6guKvbAiplT3t4jiOsMJQenu_fJ2S_BPuogU"
   }
 
 

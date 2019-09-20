@@ -107,7 +107,7 @@ Page({
     //     currentData: 0,
     //   })
     // };
-    // this.dbLoad();
+    // this.userLoad();
   },
 
   //滑动更新主导航栏下标
@@ -157,7 +157,7 @@ Page({
         database: "recourse",
         categories: ["我的发布", "我的接单"],
       })
-      this.dbLoad();
+      this.userLoad();
     } else if (this.data.currentIndex == "1") {
       util.discoverLoad("寻物", this);
 
@@ -172,19 +172,19 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
-    that.dbLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.userLoad();}, 1000);
+    that.userLoad();
     console.log("lower")
   },
 
   // 调用util.js中读取数据库函数
-  dbLoad: function () {
+  userLoad: function () {
     var that = this;
     if (that.data.currentIndex==1){
       util.experssLoad(that, '.');
     }else{
       console.log('ask:', that.data.database);
-      util.dbLoad(that.data.database, that, '.');
+      util.userLoad(that);
     }
   },
 
@@ -194,6 +194,9 @@ Page({
     console.log(e.currentTarget.id)
     console.log(this.data.feed[id])
     var post_data = JSON.stringify(this.data.feed[id])
+
+
+
     wx.navigateTo({
       // url: '../posttest/posttest?post_data=' + post_data
       url: '../../Index/contact/contact?post_data=' + post_data

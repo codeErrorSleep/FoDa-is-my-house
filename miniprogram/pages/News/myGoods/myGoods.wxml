@@ -1,6 +1,6 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">我的{{navbar[currentIndex]}}</view>
+	<view slot="content">我的闲置</view>
 </cu-custom>
 <!--主导航栏-->
 <!-- <view class="navbar"> 
@@ -9,4 +9,4 @@
 
 <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
 
-  <template is="twoCol" data="{{feed, categories, currentData, myPage, windowHeight}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, user_openid, myPage, windowHeight}}"></template>

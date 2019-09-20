@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
 
 
   try {
-    return await db.collection(event.database).doc(event._id).update({
+    return await db.collection(event.database).doc(event.express_id).update({
       data: {
         accepter_openid: event.user_openid,
       }

@@ -75,7 +75,7 @@ Page({
       windowHeight: windowHeight
     })
     var that = this
-    util.countUnAccExpress(that);
+    util.countUnAccExpress(that, '.');
     this.navbarTab();
     // 添加到全局变量 (时间戳)
     app.globalData.nowDate = this.data.nowDate
@@ -119,7 +119,7 @@ Page({
         currentData: 0,
       })
     };
-    this.dbLoad();
+    this.allLoad();
   },
 
   //滑动更新主导航栏下标
@@ -167,7 +167,7 @@ Page({
       this.setData({
         database: "recourse",
       })
-      this.dbLoad();
+      this.allLoad();
     } else if (this.data.currentData == "1") {
       util.discoverLoad("寻物", this);
     }
@@ -181,22 +181,22 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
-    that.dbLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.allLoad();}, 1000);
+    that.allLoad();
     console.log("lower")
   },
 
   // 调用util.js中读取数据库函数
-  dbLoad: function () {
+  allLoad: function () {
     var that = this;
     if (that.data.currentIndex==1){
-      util.countUnAccExpress(that);
+      util.countUnAccExpress(that, '.');
       // util.unAccExpress(that, '.');
       // util.accExpress(that, '.');
       util.experssLoad(that, '.');
     }else{
       console.log('ask:', that.data.database);
-      util.dbLoad(that.data.database, that, '.');
+      util.allLoad(that);
     }
   },
 
@@ -273,7 +273,7 @@ Page({
 
   //根据酬金筛选
   selectByPrice: function(e){
-    this.dbLoad();
+    this.allLoad();
     if (e.target.dataset.price == '全部') {
       this.data.categories[0]="酬金高低"
     } else {
@@ -303,7 +303,7 @@ Page({
       region2:'',
     });
     if (e.target.dataset.region1 == '全部'){
-      this.dbLoad();
+      this.allLoad();
       this.data.categories[1]="宿舍筛选"
       this.setData({
         selectRegion: "",
@@ -318,7 +318,7 @@ Page({
       region2: e.target.dataset.region2,
     });
     if (e.target.dataset.region2 == '全部'){
-      this.dbLoad();
+      this.allLoad();
       this.data.categories[1]=this.data.region1
       this.setData({
         selectRegion: "",
@@ -328,7 +328,7 @@ Page({
     }
   },
   selectByRegion3: function(e){
-    this.dbLoad();
+    this.allLoad();
     if (e.target.dataset.region3 == '全部'){
       this.data.categories[1]=this.data.region1 + this.data.region2
     }else {
@@ -344,7 +344,7 @@ Page({
   //选择时间
   selectByTime1: function(e){  
     if (e.target.dataset.time1 == '全部') {
-      this.dbLoad();
+      this.allLoad();
       this.data.categories[2]="时间筛选"
       this.setData({
         categories: this.data.categories,
@@ -361,7 +361,7 @@ Page({
     }
   },
   selectByTime2: function(e){
-    this.dbLoad();
+    this.allLoad();
     if (e.target.dataset.time2 == '全部'){
       if (this.data.time1 == '今天') {
         this.data.selectTime = Number(new Date((util.getDate(new Date()))).getTime()) + 1 * 86400000

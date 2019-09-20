@@ -16,8 +16,6 @@ Page({
     currentData: 0,
     //所要读取的数据库
     database: 'express',
-    //数据库数量
-    count: "",
     //数据库数据
     feed: [],
     accFeed: [],
@@ -30,6 +28,8 @@ Page({
     windowHeight:0,
     //用户openid
     user_openid: "",
+    //数据库待接单数量
+    expressCount: 0,
 
   },
 
@@ -46,39 +46,32 @@ Page({
     this.setData({
       user_openid: app.globalData.userCloudData._openid,
     })
-    // 根据电机查找数据库
-    this.navbarTab();
+    var that = this
+    util.countUnAccExpress(that, that.data.user_openid);
+    // 根据点击查找数据库
+    this.categoriesTab();
   },
 
   onShow:function(res){
   },
 
   //点击更新主导航栏下标
-  navbarTab: function (e) {
+  categoriesTab: function (e) {
     if (e) {
       this.setData({
-        currentIndex: e.currentTarget.dataset.index
+        currentData: e.currentTarget.dataset.index
       });
     }
     var that = this;
     that.setData({
       feed: [],
-      count: 0,
+      nextPage: 0,
       nextPage1: 0,
+      expressCount: 0,
       database: 'express',
-      currentData: 0,
-    })
-    this.dbLoad();
-  },
-
-  //点击更新主导航栏下标
-  categoriesTab: function (e) {
-    this.setData({
-      // currentIndex: e.currentTarget.dataset.index
-      currentData: e.currentTarget.dataset.index
     })
     console.log(this.data.currentData)
-
+    this.userLoad();
   },
 
   //更新副导航栏下标
@@ -105,19 +98,20 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
-    that.dbLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.userLoad();}, 1000);
+    that.userLoad();
     console.log("lower")
   },
 
   // 调用util.js中读取数据库函数
-  dbLoad: function () {
+  userLoad: function () {
     var that = this;
-    if (that.data.currentIndex==1){
-      util.experssLoad(that, '.');
+    if (that.data.currentData==0){
+      util.countUnAccExpress(that, that.data.user_openid);
+      util.experssLoad(that, that.data.user_openid);
     }else{
-      console.log('ask:', that.data.database);
-      util.dbLoad(that.data.database, that, '.');
+      util.accLoad(that);
+
     }
   },
 

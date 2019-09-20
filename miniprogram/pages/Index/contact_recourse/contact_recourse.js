@@ -97,6 +97,11 @@ Page({
           content: '成功更新信息',
           showCancel: false,
         })
+
+
+        // 成功后发送求助的模板信息
+        this.sendRecourse("求助成功")
+
       },
       fail: err => {
         wx.showToast({
@@ -108,6 +113,31 @@ Page({
     })
     wx.navigateBack({})
   },
+
+
+
+  // 发送求助模板消息
+  sendRecourse: function (orders) {
+    var orders = orders
+    wx.cloud.init()
+    wx.cloud.callFunction({
+      name: 'openapi',
+      data: {
+        action: 'sendRecourseTemplate',
+        formId: this.data.post_data.formId,
+        orders: orders,
+        user_openid: this.data.post_data._openid
+      },
+      success: res => {
+        console.warn('[云函数] [openapi] sendRecourseTemplate 调用成功：', res)
+      },
+      fail: err => {
+        console.error('[云函数] [openapi] sendRecourseTemplate 调用失败：', err)
+      }
+    })
+  },
+
+
 
   //获取接收者信息
   async getAccepter(){

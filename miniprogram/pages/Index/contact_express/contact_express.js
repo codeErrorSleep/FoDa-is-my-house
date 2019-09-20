@@ -26,6 +26,9 @@ Page({
       express_weight: this.data.express_data.weight.split('(')[0]
     })
     this.getAccepter()
+
+
+
   },
 
   showModal(e) {
@@ -42,6 +45,10 @@ Page({
 
   //接收快递任务
   accept:function(){
+
+    console.log(this.data.express_data._id)
+    console.log(this.data.user_openid)
+
     wx.cloud.callFunction({
       name: 'updateAccepter',
       data: {
@@ -56,6 +63,11 @@ Page({
           content: '成功更新信息',
           showCancel: false,
         })
+
+        // 发送接单成功的模板信息
+        this.sendExpress("true")
+
+
       },
       fail: err => {
         wx.showToast({
@@ -67,6 +79,36 @@ Page({
     })
     wx.navigateBack({})
   },
+
+
+
+  // 发送快递模板消息
+  sendExpress: function (id) {
+    if (id == "true") {
+      var orders = "快递代收成功"
+    } else if (id == "false") {
+      var orders = "快递代收失败"
+    }
+
+    wx.cloud.init()
+    wx.cloud.callFunction({
+      name: 'openapi',
+      data: {
+        action: 'sendExpressTemplate',
+        formId: this.data.express_data.formId,
+        orders: orders,
+        user_openid: this.data.express_data._openid
+      },
+      success: res => {
+        console.warn('[云函数] [openapi] sendExpressTemplate 调用成功：', res)
+      },
+      fail: err => {
+        console.error('[云函数] [openapi] sendExpressTemplate 调用失败：', err)
+      }
+    })
+  },
+
+
 
   //获取接收者信息
   async getAccepter(){

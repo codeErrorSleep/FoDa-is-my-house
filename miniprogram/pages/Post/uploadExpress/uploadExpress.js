@@ -13,7 +13,7 @@ Page({
     //快递总重量
     express_weight:"",
     //可选快递总重量
-    chooseWeight:["轻小件(如衣服，小盒子等)","中件(大于鞋盒)","大件(需要两手扛的)","超大件(壮汉或两人扛)"],
+    chooseWeight:["轻小件","中件","大件","超大件"],
     //所选快递总重量下标
     weightIndex:0,
 
@@ -21,18 +21,18 @@ Page({
     express_pay:"",
 
     //快递取件地址
-    express_pickUp:"",
-    express_pickUp_1: "",
-    express_pickUp_2: "",
+    express_pickUp:"江湾 中门中通",
+    express_pickUp_1: "江湾",
+    express_pickUp_2: "中门中通",
     //可选快递取件地址
     choosePickUp:[["江湾","仙溪","河滨"],["中门中通","商业街菜鸟驿站","南门中国邮政"]],
     //所选快递取件地址下标
     pickUpIndex:[0,0],
     //快递收件地址
-    express_destination:"",
-    express_region: "",
-    express_destination_1:"",
-    express_destination_2:"",
+    express_destination:"江湾 东区 东一",
+    express_region: "江湾",
+    express_destination_1:"东区",
+    express_destination_2:"东一",
     //可选快递收件地址
     chooseDestination:[["江湾","仙溪","河滨"],["东区","西区"],["东一","东二","东三","东四"]],
     //所选快递收件地址下标
@@ -374,11 +374,14 @@ Page({
       this.setData({
         warning: "姓名不能为空",
       })
-    } else if (this.data.express_wechat == "" || (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.express_wechat)))) {
-      this.setData({
-        warning: "请输入正确的微信号",
-      })
-    } else if (this.data.express_phone == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
+    } 
+    // 先不检验微信号的正确性（注册于个人信息那里需要修改）
+    // else if (this.data.express_wechat == "" || (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.express_wechat)))) {
+    //   this.setData({
+    //     warning: "请输入正确的微信号",
+    //   })
+    // }
+     else if (this.data.express_phone == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
       this.setData({
         warning: "请输入正确的手机号码"
       })
@@ -428,7 +431,7 @@ Page({
           duration: 1000
         })
 
-        wx.navigateTo({
+        wx.redirectTo({
           url:"../../Index/goods/goods?tab_id=" + 1
         })
 

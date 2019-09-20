@@ -23,7 +23,7 @@ Page({
     console.log('onLoad')
 
     //调用获取用户信息数据
-    this.dbLoad();
+    this.allLoad();
   },
 
 
@@ -32,20 +32,20 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
-    that.dbLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.allLoad();}, 1000);
+    that.allLoad();
     console.log("lower")
   },
 
   // 在云数据库上查找数据(查找10条)
-  dbLoad: function () {
+  allLoad: function () {
     var that = this;
-    // util.dbLoad('users', that, '.');
+    // util.allLoad('users', that, '.');
     //查询所有用户
     const db = wx.cloud.database()
     db.collection('users')
       .where({
-        "al_approve": true
+        "al_approve": false
       })
       .orderBy('date', 'desc')
       .skip(that.data.nextPage)
@@ -101,7 +101,7 @@ Page({
             }
           })
           // 调用模板消息发送消息
-          that.sendTemplate(true, user_openid, formId)
+          that.sendTemplate("认证成功", user_openid, formId)
         }
       }
     })
@@ -170,7 +170,7 @@ Page({
             }
           })
           // 调用模板消息发送消息
-          that.sendTemplate(false, user_openid, formId)
+          that.sendTemplate("认证不成功", user_openid, formId)
         }
       }
 

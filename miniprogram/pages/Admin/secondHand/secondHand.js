@@ -15,7 +15,9 @@ Page({
     //下拉继续读取数据
     nextPage: 0,
     //用户id openid
-    openid: ""
+    openid: "",
+    //读取的数据库
+    database: 'post',
 
   },
 
@@ -32,7 +34,7 @@ Page({
       openid: app.globalData.openid
     })
     //调用获取二手商品数据
-    this.dbLoad();
+    this.allLoad();
   },
 
   // 完成选项卡的跳转
@@ -61,15 +63,15 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.dbLoad();}, 1000);
-    that.dbLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.allLoad();}, 1000);
+    that.allLoad();
     console.log("lower")
   },
 
   // 在云数据库上查找数据(查找10条)
-  dbLoad: function () {
+  allLoad: function () {
     var that = this;
-    util.dbLoad('post', that, '.');
+    util.allLoad(that);
   },
 
   //跳转到点击页面

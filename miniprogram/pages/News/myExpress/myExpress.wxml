@@ -1,7 +1,7 @@
 <!--pages/News/myExpress/myExpress.wxml-->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">我的{{navbar[currentIndex]}}</view>
+	<view slot="content">我的快递</view>
 </cu-custom>
 
 

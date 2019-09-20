@@ -321,7 +321,7 @@
  .express-card .express-item .content .desc .condition{
    position: absolute;/*这里一定要设置*/
    margin-top: 10rpx;
-   margin-left: 463rpx; 
+   margin-left: 433rpx; 
  }
  .express-card .express-item .content .desc .condition .cond{
    width: 215rpx;

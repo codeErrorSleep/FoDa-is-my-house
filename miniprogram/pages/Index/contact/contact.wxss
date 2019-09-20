@@ -189,8 +189,11 @@
 }
 
 .post .postInformation2 .postContent{
-    font-size:33rpx;
-    color: rgb(117, 117, 117);
+  font-size:33rpx;
+  color: rgb(117, 117, 117);
+  text-align: justify;
+  text-justify: newspaper;
+  word-break: break-all;
 }
 
  .goodsImg{

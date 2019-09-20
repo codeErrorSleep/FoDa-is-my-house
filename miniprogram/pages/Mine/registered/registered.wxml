@@ -53,7 +53,7 @@
 	<view class="cu-form-group">
 		<view class="title">验证码</view>
 		<input name="code" placeholder="请输入验证码"></input>
-		<button class="cu-btn round bg-blue shadow" bindtap="sendCode" data-target="Modal">验证码</button>
+		<button style="color: black;" class="cu-btn round bg-blue shadow" bindtap="sendCode" data-target="Modal"  disabled='{{btnDisabled}}'>{{btnValue}}</button>
 	</view>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
@@ -63,7 +63,7 @@
 	<view class="cu-form-group">
 		<view class="grid col-3 grid-square flex-sub">
 			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
-				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<image src='{{imgList[index]}}' mode='aspectFill'  bindtap="handleImagePreview" ></image>
 				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
 					<text class="cuIcon-close"></text>
 				</view>

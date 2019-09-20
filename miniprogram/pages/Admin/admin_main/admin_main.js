@@ -16,12 +16,15 @@ Page({
     this.userCount()
   },
 
+
+
   userCount: function (e) {
     var that = this
     const db = wx.cloud.database()
     db.collection('users').where({
       "al_approve": false
     }).count().then(res => {
+      console.log(res)
       console.log(res.total)
       that.setData({
         userNum: res.total
@@ -107,6 +110,8 @@ Page({
   sendExpress: function (id) {
     if (id == "3") {
       var orders = "快递代收成功"
+      // var orders = "求助成功"
+
     } else if (id == "4") {
       var orders = "快递代收失败"
     }
@@ -116,6 +121,8 @@ Page({
       name: 'openapi',
       data: {
         action: 'sendExpressTemplate',
+        // action: 'sendRecourseTemplate',
+
         formId: app.globalData.userCloudData.formId,
         orders: orders,
         user_openid: app.globalData.userCloudData._openid

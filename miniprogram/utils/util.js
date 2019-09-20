@@ -32,12 +32,49 @@ function isRegistered(){
 
 }
 
+//在云数据库上查找所有数据
+function allLoad(that) {
+  wx.showToast({
+    title: '加载中',
+    icon: 'loading',
+    duration: 500
+  })
+  var tempFeed = that.data.feed
+  var tempNextPage = that.data.nextPage
+  const db = wx.cloud.database()
+  //查询所有用户的闲置二手信息
+  db.collection(that.data.database)
+    .orderBy('date', 'desc')
+    .skip(that.data.nextPage)
+    .limit(10) // 限制返回数量为 10 条
+    .get({
+      //成功读取写入数据
+      success: res => {
+        that.setData({
+          //feed: JSON.stringify(res.data, null, 2)
+          //feed:res.data
+          feed: tempFeed.concat(res.data),
+          nextPage: tempNextPage + 10
+        })
+        console.log('[数据库] [查询记录] 成功: ', that.data.feed)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    });
+  wx.showToast({
+    title: '加载成功',
+    icon: 'success',
+    duration: 1000
+  })
+}
 
-
-
-
-//在云数据库上查找数据(查找10条)
-function dbLoad(database, that, limit) {
+//在云数据库上查找指定用户数据(查找10条)
+function userLoad(that) {
   wx.showToast({
     title: '加载中',
     icon: 'loading',
@@ -47,14 +84,54 @@ function dbLoad(database, that, limit) {
   var tempNextPage = that.data.nextPage 
   const db = wx.cloud.database()
   //查询所有用户的闲置二手信息
-  db.collection(database)
+  db.collection(that.data.database)
     .where({
-      "_openid": db.RegExp({
-        regexp: limit,
-        //从搜索栏中获取的value作为规则进行匹配。
-        options: 'i',
-        //大小写不区分
-      })})
+      "_openid": that.data.user_openid
+      })
+    .orderBy('date', 'desc')
+    .skip(that.data.nextPage)
+    .limit(10) // 限制返回数量为 10 条
+    .get({
+      //成功读取写入数据
+      success: res => {
+        that.setData({
+          //feed: JSON.stringify(res.data, null, 2)
+          //feed:res.data
+          feed: tempFeed.concat(res.data),
+          nextPage: tempNextPage + 10
+        })
+        console.log('[数据库] [查询记录] 成功: ', that.data.feed)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    });
+  wx.showToast({
+    title: '加载成功',
+    icon: 'success',
+    duration: 1000
+  })
+}
+
+//在云数据库上查找用户接收数据(查找10条)
+function accLoad(that) {
+  wx.showToast({
+    title: '加载中',
+    icon: 'loading',
+    duration: 500
+  })
+  var tempFeed = that.data.feed
+  var tempNextPage = that.data.nextPage
+  const db = wx.cloud.database()
+  //查询所有用户的闲置二手信息
+  db.collection(that.data.database)
+    .where({
+      "accepter_openid": that.data.user_openid
+    })
     .orderBy('date', 'desc')
     .skip(that.data.nextPage)
     .limit(10) // 限制返回数量为 10 条
@@ -85,6 +162,8 @@ function dbLoad(database, that, limit) {
 }
 
 
+
+
 // 传入日期变转换为  "yyyy-mm-dd" 形式
 function getDate(date){
   var dateY = date.getFullYear() + '-';
@@ -113,12 +192,16 @@ function getDate(date){
 
 
 
-//统计数据库数量
-function countUnAccExpress(that){
+//统计数据库未接单数量
+function countUnAccExpress(that, limit){
   const db = wx.cloud.database()
   const _ = db.command
   db.collection('express').where({
-    accepter_openid: _.eq('')
+    accepter_openid: _.eq(''),
+    _openid: db.RegExp({
+      regexp: limit,
+      options: 'i',
+    })
   }).count({
     success: function(res) {
       that.setData({
@@ -133,7 +216,7 @@ function experssLoad(that,limit){
   if (that.data.expressCount>=that.data.feed.length){
     this.unAccExpress(that,limit)
   }
-  else if(that.data.expressCount<=that.data.feed.length){
+  if(that.data.expressCount<=that.data.feed.length){
     this.accExpress(that,limit)
   }
 }
@@ -275,7 +358,9 @@ function discoverLoad(type, that) {
 
 module.exports.discoverLoad = discoverLoad;
 module.exports.getDate = getDate;
-module.exports.dbLoad = dbLoad;
+module.exports.allLoad = allLoad;
+module.exports.userLoad = userLoad;
+module.exports.accLoad = accLoad;
 module.exports.getUserInCloud = getUserInCloud;
 module.exports.isRegistered=isRegistered;
 module.exports.countUnAccExpress=countUnAccExpress;

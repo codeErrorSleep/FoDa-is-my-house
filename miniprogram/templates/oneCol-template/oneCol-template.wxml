@@ -5,7 +5,7 @@
   <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
     <block wx:for="{{categories}}" wx:for-item="category" wx:key="key">
       <swiper-item>
-        <scroll-view scroll-y="true"  class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+        <scroll-view scroll-y="true"  class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
           <view class="item_container">
           <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
             <view wx:if="{{item.type==category}}">

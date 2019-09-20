@@ -84,18 +84,10 @@
     <button class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
-    <view class="cu-modal {{modalName=='Modal'?'show':''}}">
-      <view class="cu-dialog">
-        <view class="cu-bar bg-white justify-end">
-          <view class="content">提示</view>
-          <view class="action" bindtap="hideModal">
-            <text class="cuIcon-close text-red"></text>
-          </view>
-        </view>
-        <view class="padding-xl">
-          {{warning}}
-        </view>
+    <modal title="提示" class="modal" cancel-text="取消" hidden="{{modalName!='Modal'}}" no-cancel bindconfirm="modalChange">
+      <view style="text-align: center;" class="content">
+        {{warning}}
       </view>
-    </view>
+    </modal>
   </form>
 </view>

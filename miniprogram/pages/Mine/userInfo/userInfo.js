@@ -45,6 +45,12 @@ Page({
     al_approve: "",
     //修改了电话号码
     editPhone: false,
+    //验证码限时
+    second: 60,
+    //验证码按钮内容
+    btnValue: '验证码',
+    //验证码按钮状态
+    btnDisabled: false,
   },
   onLoad() {
     // 初始化towerSwiper 传已有的数组名即可
@@ -196,6 +202,33 @@ Page({
       rightcode: Num
     })
   },
+  //验证码限时
+  timer: function () {
+    console.log('get in');
+    let promise = new Promise((resolve, reject) => {
+      let setTimer = setInterval(
+        () => {
+          var second = this.data.second - 1;
+          this.setData({
+            second: second,
+            btnValue: second + '秒',
+            btnDisabled: true
+          })
+          if (this.data.second <= 0) {
+            this.setData({
+              second: 60,
+              btnValue: '验证码',
+              btnDisabled: false
+            })
+            resolve(setTimer)
+          }
+        }
+        , 1000)
+    })
+    promise.then((setTimer) => {
+      clearInterval(setTimer)
+    })
+  },
   //获取验证码
   getCode(e) {
     console.log('获取验证码');
@@ -216,6 +249,10 @@ Page({
       },
       success(res) {
         console.log(res.result.body)
+        if (res.result.body.code == 0) {
+          that.timer();
+          return;
+        }
       },
       fail: console.error
     })
@@ -303,11 +340,14 @@ Page({
       this.setData({
         warning: "微信号不能为空",
       })
-    } else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
-      this.setData({
-        warning: "请输入正确的微信号",
-      })
-    } else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
+    } 
+    // 先不让用户输入微信号（此段代码在registered中快递那里都也有，修改一同修改）
+    // else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
+    //   this.setData({
+    //     warning: "请输入正确的微信号",
+    //   })
+    // } 
+    else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
       this.setData({
         warning: "微信号已被注册",
       })

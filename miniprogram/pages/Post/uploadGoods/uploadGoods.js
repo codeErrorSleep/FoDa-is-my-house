@@ -152,7 +152,7 @@ Page({
   },
 
   //隐藏模态窗口
-  hideModal(e) {
+  modalChange(e) {
     this.setData({
       modalName: null
     })
@@ -184,9 +184,15 @@ Page({
           duration: 1000
         })
 
-        wx.navigateTo({
+        // wx.navigateTo({
+        //   url:"../../Index/goods/goods?tab_id=" + 0
+        // })
+
+        // 关闭当前页面，跳转到应用内的某个页面
+        wx.redirectTo({
           url:"../../Index/goods/goods?tab_id=" + 0
         })
+
       }
     })
 

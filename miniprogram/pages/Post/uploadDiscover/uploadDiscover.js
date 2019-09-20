@@ -170,6 +170,9 @@ Page({
       deadline:deadline
     })
 
+
+    console.log(database)
+
     if(this.data.type!="求助"){
       database="discover"
     }
@@ -198,7 +201,7 @@ Page({
           duration: 1000
         })
 
-        wx.navigateTo({
+        wx.redirectTo({
           url:"../../Index/goods/goods?tab_id=" + 2
         })
 

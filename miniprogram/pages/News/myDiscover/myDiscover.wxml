@@ -1,7 +1,7 @@
 <!-- pages/News/myDiscover/myDiscover.wxml -->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
   <view slot="backText">返回</view>
-  <view slot="content">我的{{navbar[currentIndex]}}</view>
+  <view slot="content">我的发现</view>
 </cu-custom>
 
 
@@ -23,11 +23,11 @@
     <swiper-item>
       <scroll-view scroll-y="true" class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
         <view class="item_container">
-          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key" >
             <view wx:if="{{item.type==navbar[currentIndex]}}">
               <!-- <view> -->
               <view >
-                <template is="recourse_cells" data="{{feed, categories, currentData, myPage, nowDate, windowHeight,item}}"></template>
+                <template is="recourse_cells" data="{{idx,feed, categories, currentData, myPage, nowDate, windowHeight,item}}"></template>
               </view>
               <view class="delete flex flex-direction" hidden="{{!myPage}}">
               <view wx:if="{{currentIndex!=0}}" class="delete flex flex-direction">
