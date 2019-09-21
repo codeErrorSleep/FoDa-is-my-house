@@ -2,11 +2,25 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{false}}">
   <view slot="content">佛大叮当</view>
 </cu-custom>
+
+
+<swiper class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+  <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
+    <view class="swiper-item">
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    </view>
+  </swiper-item>
+</swiper>
+
+
 <view>
   <view>
-    <view class="img_top">
+    <!-- <view class="img_top">
       <image src="/images/image001.png" style="width:720rpx;height:600rpx" mode="widthFix"></image>
-    </view>
+    </view> -->
+
+
     <!--显示分类-->
     <view style="width:720rpx;margin:10rpx 15rpx 7.5rpx 15rpx;display:flex">
       <view class="section">
@@ -43,7 +57,7 @@
       </view>
       <view class="section">
         <view class="section_container4" bindtap='jumpToList' id="trifles">
-          <text class="section_name">优惠券</text>
+          <text class="section_name">顺丰</text>
           <view class="section_img">
             <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
           </view>
@@ -59,36 +73,39 @@
     </button>
   </view>
 
-  <view class="cu-modal {{modalName=='Modal'?'show':''}}" bindtap="hideModal">
+ <view class="cu-modal {{modalName=='Modal'?'show':''}}" bindtap="hideModal">
     <view class="cu-dialog">
       <view class="padding-xl">
         <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishPost'>
-              <image src="/images/arriveddestination.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              <image src="/images/1.png" style="width:110rpx;height:110rpx;display:flex"></image>
               发布闲置
             </view>
           </view>
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishDiscover'>
-              <image src="/images/directions.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              <image src="/images/2.png" style="width:110rpx;height:110rpx;display:flex"></image>
               发布任务
             </view>
           </view>
         </view>
-      </view>
-      <view class="padding-xl">
         <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishExpress'>
-              <image src="/images/express.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              <image src="/images/3.png" style="width:110rpx;height:110rpx;display:flex"></image>
               发布快递
+            </view>
+          </view>
+          <view class="sectionmodal">
+            <view class="section_container5" bindtap='publishDiscover'>
+              <image src="/images/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              顺丰速递
             </view>
           </view>
         </view>
       </view>
     </view>
   </view>
-
 
 </view>

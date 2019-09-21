@@ -11,8 +11,19 @@ function getUserInCloud(openid){
     success: function(res) {
       // res.data 是包含以上定义的两条记录的数组
       // 读取第一个数据(后期修改用户上传只能上传一次,修改)
-      app.globalData.userCloudData=res.data[0]
-      console.log(app.globalData.userCloudData)
+
+      // 判断 如果是未注册并且未填写信息的用户,将approve设置为0
+      if(res.data.length==0){
+        app.globalData.userCloudData={}
+        app.globalData.userCloudData.approve="0"
+        app.globalData.userCloudData._openid=openid
+        console.log(app.globalData.userCloudData._openid  )
+        console.log(app.globalData.userCloudData.approve)
+      }
+      else{
+        app.globalData.userCloudData=res.data[0]
+        console.log(app.globalData.userCloudData)
+      }
 
     }
   })
@@ -21,11 +32,16 @@ function getUserInCloud(openid){
 // 判断是否为注册用户
 function isRegistered(){
   // 判断当前用户是否为以注册用户
-  if(!app.globalData.userCloudData.approve){
-  wx.navigateTo({
-    url: '../../Mine/registered/registered?show=true'
-  })
-  } 
+  // if(!app.globalData.userCloudData.approve){
+    // Object.keys(app.globalData.userCloudData.approve)
+  if(app.globalData.userCloudData.approve=="0"){
+    wx.navigateTo({
+      url: '../../Mine/registered/registered?show=true'
+    })
+  }
+  // else if(app.globalData.userCloudData.approve=="false" ){
+
+  // }
   else{
     return true
   }
@@ -193,10 +209,10 @@ function getDate(date){
 
 
 //统计数据库未接单数量
-function countUnAccExpress(that, limit){
+function countUnAcc(that, limit){
   const db = wx.cloud.database()
   const _ = db.command
-  db.collection('express').where({
+  db.collection(that.data.database).where({
     accepter_openid: _.eq(''),
     _openid: db.RegExp({
       regexp: limit,
@@ -205,25 +221,25 @@ function countUnAccExpress(that, limit){
   }).count({
     success: function(res) {
       that.setData({
-        expressCount: res.total
+        count: res.total
       })
     }
   })
 }
 
 // 判断读取是否已接单的数据
-function experssLoad(that,limit){
-  if (that.data.expressCount>=that.data.feed.length){
-    this.unAccExpress(that,limit)
+function accUnAccLoad(that,limit){
+  if (that.data.count >= that.data.feed.length){
+    this.unAccItem(that,limit)
   }
-  if(that.data.expressCount<=that.data.feed.length){
-    this.accExpress(that,limit)
+  if(that.data.count <= that.data.feed.length){
+    this.accItem(that,limit)
   }
 }
 
 
 //读取数据库未接单的数据
-function unAccExpress(that,limit){
+function unAccItem(that,limit){
     wx.showToast({
       title: '加载中',
       icon: 'loading',
@@ -233,7 +249,7 @@ function unAccExpress(that,limit){
     var tempNextPage = that.data.nextPage
     const db = wx.cloud.database()
     const _ = db.command
-    db.collection('express').where({
+  db.collection(that.data.database).where({
       accepter_openid: _.eq(''),
       _openid: db.RegExp({
         regexp: limit,
@@ -266,7 +282,7 @@ function unAccExpress(that,limit){
 }
 
 //读取数据库已接单的数据
-function accExpress(that,limit){
+function accItem(that,limit){
     wx.showToast({
       title: '加载中',
       icon: 'loading',
@@ -276,7 +292,7 @@ function accExpress(that,limit){
     var tempNextPage1 = that.data.nextPage1
     const db = wx.cloud.database()
     const _ = db.command
-    db.collection('express').where({
+  db.collection(that.data.database).where({
       accepter_openid: _.neq(''),
       _openid: db.RegExp({
         regexp: limit,
@@ -363,7 +379,7 @@ module.exports.userLoad = userLoad;
 module.exports.accLoad = accLoad;
 module.exports.getUserInCloud = getUserInCloud;
 module.exports.isRegistered=isRegistered;
-module.exports.countUnAccExpress=countUnAccExpress;
-module.exports.unAccExpress=unAccExpress;
-module.exports.accExpress=accExpress;
-module.exports.experssLoad=experssLoad;
+module.exports.countUnAcc=countUnAcc;
+module.exports.unAccItem=unAccItem;
+module.exports.accItem=accItem;
+module.exports.accUnAccLoad=accUnAccLoad;

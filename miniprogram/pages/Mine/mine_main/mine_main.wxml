@@ -8,7 +8,7 @@
       <image class="cu-avatar xl round margin-left" src="{{swiperList[userData.head_index].url}}" />
     </view>
     <view wx:else class="mine_cell">
-      <image class="cu-avatar xl round margin-left" src="/images/per1.png" bindtap="registered" />
+      <image class="cu-avatar xl round margin-left" src="/images/per1.png" bindtap="checkUser" />
     </view>
   </view>
   <view wx:if="{{userData.nick_name.length}}" class="mine_nickName">
@@ -18,7 +18,7 @@
   </view>
   <view wx:else class="mine_nickName">
     <view style="display:flex;justify-content:center">
-      <text style="font-weight:bold" bindtap="registered">登录/注册</text>
+      <text style="font-weight:bold" bindtap="checkUser">登录/注册</text>
     </view>
   </view>
 </view>

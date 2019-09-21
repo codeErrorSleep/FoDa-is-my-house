@@ -57,7 +57,7 @@ Page({
     // 可用屏幕高度
     windowHeight: 0,
     //数据库待接单数量
-    expressCount: 0,
+    count: 0,
   },
 
   //页面加载时读取数据库
@@ -74,8 +74,6 @@ Page({
       nowDate: Number(new Date().getTime()),
       windowHeight: windowHeight
     })
-    var that = this
-    util.countUnAccExpress(that, '.');
     this.navbarTab();
     // 添加到全局变量 (时间戳)
     app.globalData.nowDate = this.data.nowDate
@@ -102,7 +100,7 @@ Page({
       that.setData({
         feed: [],
         accFeed: [],
-        expressCount: 0,
+        count: 0,
         nextPage: 0,
         nextPage1: 0,
         categories: ["酬金高低", "宿舍筛选", "时间筛选"],
@@ -110,10 +108,12 @@ Page({
         currentData: 3,
       })
     } else if (that.data.currentIndex == 2) {
-      var database = "recourse"
       that.setData({
         feed: [],
+        accFeed: [],
+        count: 0,
         nextPage: 0,
+        nextPage1: 0,
         categories: ["求助", "寻物", "找队友"],
         database: "recourse",
         currentData: 0,
@@ -163,12 +163,15 @@ Page({
       feed: [],
       nextPage: 0,
     })
-    if (this.data.currentData == "0") {
+    if (this.data.currentData == 0) {
       this.setData({
+        accFeed: [],
+        count: 0,
+        nextPage1: 0,
         database: "recourse",
       })
       this.allLoad();
-    } else if (this.data.currentData == "1") {
+    } else if (this.data.currentData == 1) {
       util.discoverLoad("寻物", this);
     }
     else {
@@ -189,11 +192,9 @@ Page({
   // 调用util.js中读取数据库函数
   allLoad: function () {
     var that = this;
-    if (that.data.currentIndex==1){
-      util.countUnAccExpress(that, '.');
-      // util.unAccExpress(that, '.');
-      // util.accExpress(that, '.');
-      util.experssLoad(that, '.');
+    if (that.data.currentIndex == 1 || (that.data.currentIndex == 2 && that.data.currentData == 0)){
+      util.countUnAcc(that, '.');
+      util.accUnAccLoad(that, '.');
     }else{
       console.log('ask:', that.data.database);
       util.allLoad(that);
@@ -219,9 +220,20 @@ Page({
         url: '../contact/contact?post_data=' + post_data
       })
     }
+  },
 
+  //跳转到点击页面
+  jumpToPost1: function (e) {
+    var id = e.currentTarget.id
+    console.log(e.currentTarget.id)
+    console.log(this.data.accFeed[id])
 
+    var post_data = JSON.stringify(this.data.accFeed[id])
 
+    wx.navigateTo({
+      // url: '../posttest/posttest?post_data=' + post_data
+      url: '../contact_recourse/contact_recourse?post_data=' + post_data
+    })
   },
 
   //快递跳转到点击页面

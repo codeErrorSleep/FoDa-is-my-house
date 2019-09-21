@@ -26,17 +26,11 @@
   </view>
   <view class="postInformation">
     <text class="postTitle" decode="{{true}}" space="{{true}}">{{post_data.title}}</text>
-    <text class="goodsPrice" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">
+    <text class="goodsPrice" >
       ¥ {{post_data.price}}
     </text>
   </view>
-  <!-- 原价 -->
-  <view class="postInformation3">
-    <text></text>
-    <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">
-      ￥{{post_data.oriPrice}}
-    </text>
-  </view>
+
   <view class="postInformation2">
     <view class="postContent">
       <text>{{post_data.content}}</text>

@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 const app = getApp();
 Page({
 
@@ -14,6 +15,8 @@ Page({
     accepter_wechat_id: "",
     //接收者电话号码
     accepter_phone: "",
+    //接收者取件码
+    accepter_code: "",
   },
 
   onLoad: function (options) {
@@ -27,8 +30,10 @@ Page({
     })
     this.getAccepter()
 
-
-
+    console.log(express_data.accepter_openid)
+    console.log(express_data._openid)
+    console.log(this.data.user_openid)
+    
   },
 
   showModal(e) {
@@ -49,35 +54,41 @@ Page({
     console.log(this.data.express_data._id)
     console.log(this.data.user_openid)
 
-    wx.cloud.callFunction({
-      name: 'updateAccepter',
-      data: {
-        express_id: this.data.express_data._id,
-        user_openid: this.data.user_openid,
-        database:"express"
-      },
-      success: res => {
-        console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
-        wx.showModal({
-          title: '更新成功',
-          content: '成功更新信息',
-          showCancel: false,
-        })
+    // 判断当前用户是否为以注册用户
+    var isRegistered=util.isRegistered()
+    if(isRegistered){
+      wx.cloud.callFunction({
+        name: 'updateAccepter',
+        data: {
+          _id: this.data.express_data._id,
+          user_openid: this.data.user_openid,
+          database:"express"
+        },
+        success: res => {
+          console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
+          wx.showModal({
+            title: '更新成功',
+            content: '成功更新信息',
+            showCancel: false,
+          })
+  
+          // 发送接单成功的模板信息
+          this.sendExpress("true")
+  
+  
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '调用失败',
+          })
+          console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
+        }
+      })
+      wx.navigateBack({})
+    }
 
-        // 发送接单成功的模板信息
-        this.sendExpress("true")
 
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '调用失败',
-        })
-        console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
-      }
-    })
-    wx.navigateBack({})
   },
 
 
@@ -125,6 +136,7 @@ Page({
             accepter_real_name: res.data[0].real_name,
             accepter_wechat_id: res.data[0].wechat_id,
             accepter_phone: res.data[0].phone,
+            accepter_code: res.data[0].code,
           })
         }
       })
@@ -133,6 +145,7 @@ Page({
         accepter_real_name: "",
         accepter_wechat_id: "",
         accepter_phone: "",
+        accepter_code: "",
       })
     }
   }

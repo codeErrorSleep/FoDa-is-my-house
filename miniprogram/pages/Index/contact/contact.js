@@ -74,6 +74,8 @@ Page({
   showConnect: function (e) {
     // 判断当前用户是否为以注册用户
     var isRegistered=util.isRegistered()
+
+
     if(isRegistered)
     {
       // 判断微信定系手机

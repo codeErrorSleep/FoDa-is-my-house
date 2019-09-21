@@ -51,25 +51,10 @@ Page({
         util.getUserInCloud(this.data.openid);
       }
     })
+
   },
 
   
-
-
-  //跳转到个人信息页面
-  userInfo:function() {
-    wx.navigateTo({
-      url: "../userInfo/userInfo"
-    })
-  },
-
-  // 跳转到注册页面
-  registered:function(){
-    wx.navigateTo({
-      url:"../registered/registered"
-    })
-
-  },
 
   // 跳转我的页面
   showMyGoods:function(e){
@@ -101,13 +86,17 @@ Page({
 
   },
 
-  //检查用户是否已经注册
+  //检查用户是否已经注册(决定点击跳转到的页面)
   checkUser:function(){
     console.log(this.data.userData)
-    if (this.data.userData != "") {
-      this.userInfo()
+    if (app.globalData.userCloudData.approve!="0") {
+      wx.navigateTo({
+        url: "../userInfo/userInfo"
+      })
     }else {
-      this.registered()
+      wx.navigateTo({
+        url:"../registered/registered"
+      })
     }
   },
 

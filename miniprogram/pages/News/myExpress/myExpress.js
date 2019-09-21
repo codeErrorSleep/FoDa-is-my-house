@@ -29,7 +29,7 @@ Page({
     //用户openid
     user_openid: "",
     //数据库待接单数量
-    expressCount: 0,
+    count: 0,
 
   },
 
@@ -46,8 +46,6 @@ Page({
     this.setData({
       user_openid: app.globalData.userCloudData._openid,
     })
-    var that = this
-    util.countUnAccExpress(that, that.data.user_openid);
     // 根据点击查找数据库
     this.categoriesTab();
   },
@@ -65,9 +63,10 @@ Page({
     var that = this;
     that.setData({
       feed: [],
+      accFeed: [],
       nextPage: 0,
       nextPage1: 0,
-      expressCount: 0,
+      count: 0,
       database: 'express',
     })
     console.log(this.data.currentData)
@@ -107,8 +106,8 @@ Page({
   userLoad: function () {
     var that = this;
     if (that.data.currentData==0){
-      util.countUnAccExpress(that, that.data.user_openid);
-      util.experssLoad(that, that.data.user_openid);
+      util.countUnAcc(that, that.data.user_openid);
+      util.accUnAccLoad(that, that.data.user_openid);
     }else{
       util.accLoad(that);
 
@@ -146,6 +145,31 @@ Page({
     })
   },
 
-  
+  //删除商品
+  deleteExpress: function (e) {
+    var id = e.currentTarget.id
+    //获得帖子id
+    var express_id = this.data.feed[id]._id
+    wx.showModal({
+      title: '删除快递',
+      success(res) {
+        //用户点击删除就删除帖子
+        if (res.confirm) {
+          const db = wx.cloud.database()
+          db.collection('express').doc(express_id).remove({
+            //删除成功显示提示
+            success: function (res) {
+              console.log("删除成功")
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success',
+                duration: 1000
+              })
+            }
+          })
+        }
+      }
+    })
+  },
 
 })

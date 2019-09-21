@@ -60,6 +60,12 @@
 
       <!--详细地址-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text class="sell_title">取件码</text>
+        <input name="express_code" class="sell_input" type="number" placeholder="货物取件码(若无可不填)" placeholder-class='placeholder'/>
+      </view>
+
+      <!--详细地址-->
+      <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">详细地址</text>
         <input name="express_destination_detail" class="sell_input" placeholder="请输入您的详细收件地址" placeholder-class='placeholder'/>
       </view>

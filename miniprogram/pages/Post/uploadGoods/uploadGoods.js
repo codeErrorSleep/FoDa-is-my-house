@@ -106,12 +106,27 @@ Page({
 
     // 先将照片上传再上传数据库
     if (this.data.mode) {
-      this.uploadImages()
+      if (this.data.images.length === 0) {
+        console.log("没有上传图片")
+        this.setData({
+          goods_imgs:this.data.goods_imgs.concat("cloud://yf-ab2989.7966-yf-ab2989-1258230310/没有实物图.png")
+        })
+        this.uploadData()
+      } else {
+        this.uploadImages()
+      }
     }
   },
 
   //检查提交信息
-  checkInfo() {
+  checkInfo:function() {
+
+    // wx.showModal({
+    //   title: '物品图片',
+    //   content: '上传闲置图片能够更快卖出(是否确认不上传图片)',
+    // })
+
+
     if (this.data.goods_type=="") {
       this.setData({
         warning: "请选择闲置物品的分类类型",
@@ -128,11 +143,13 @@ Page({
       this.setData({
         warning: "请输入闲置物品的描述",
       })
-    } else if (this.data.images.length === 0) {
-      this.setData({
-        warning: "请输入闲置物品的图片",
-      })
-    } else if (this.data.goods_price == "") {
+    } 
+    // else if (this.data.images.length === 0) {
+    //   this.setData({
+    //     warning: "请输入闲置物品的图片",
+    //   })
+    // } 
+    else if (this.data.goods_price == "") {
       this.setData({
         warning: "请输入闲置物品的价格",
       })
@@ -179,14 +196,12 @@ Page({
         console.log("插入成功")
 
         wx.showToast({
-          title: '成功上传',
+          title: '成功发布闲置',
           icon: 'success',
           duration: 1000
         })
 
-        // wx.navigateTo({
-        //   url:"../../Index/goods/goods?tab_id=" + 0
-        // })
+
 
         // 关闭当前页面，跳转到应用内的某个页面
         wx.redirectTo({

@@ -65,6 +65,9 @@ Page({
     express_phone: "",
     ori_express_phone: "",
 
+    //快递取件码
+    express_code: "",
+
     // 登记用户的formId在帖子数据库上
     formId:"",
     //详细说明
@@ -301,6 +304,7 @@ Page({
       express_pay:e.detail.value.express_pay,
       express_destination_detail:e.detail.value.express_destination_detail,
       express_note:e.detail.value.express_note,
+      express_code: e.detail.value.express_code,
       warning:"",
       mode: false,
       formId:e.detail.formId
@@ -421,6 +425,7 @@ Page({
         "note": this.data.express_note,
         "date": date,
         'accepter_openid': "",
+        'code': this.data.express_code,
         formId:this.data.formId,
       },
       success(res) {

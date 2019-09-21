@@ -38,7 +38,7 @@ Page({
     //验证码按钮状态
     btnDisabled: false,
   },
-  onLoad() {
+  onLoad(options) {
     this.setData({
       swiperList: app.globalData.swiperList
     })
@@ -48,6 +48,18 @@ Page({
       head_index: this.data.swiperList[3].id
     })
     console.log('head_index:', this.data.head_index)
+  
+    // 如果没完成注册则提醒用户注册
+    if(options.show=="true"){
+      wx.showToast({
+        title: "请先完成注册才能完成接单等操作(以注册的等待审核通过)",
+        icon: 'none',
+        duration: 1500,
+        mask: true
+      });
+    }
+
+
   },
   //选择图片
   ChooseImage() {

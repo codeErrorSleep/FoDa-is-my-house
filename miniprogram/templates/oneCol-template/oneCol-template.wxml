@@ -1,60 +1,154 @@
 <template name="oneCol">
   <view class='categories'>
-    <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique" wx:key="key" >{{item}}</text>
+    <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}"
+      bindtap="categoriesTab" wx:key="unique" wx:key="key">{{item}}</text>
+  </view>
+  <view wx:if="{{categories1 != null}}" class='categories'>
+    <text wx:for="{{categories1}}" data-index="{{index}}" class="item {{currentData1==index?'active':''}}"
+      bindtap="categories1Tab" wx:key="unique1" wx:key="key">{{item}}</text>
   </view>
   <swiper current="{{currentData}}" class="swiper" duration="300" bindchange="categoriesChange">
     <block wx:for="{{categories}}" wx:for-item="category" wx:key="key">
       <swiper-item>
-        <scroll-view scroll-y="true"  class="container" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+        <scroll-view scroll-y="true" class="container" style="height:{{windowHeight}}px;;" lower-threshold="5"
+          bindscrolltolower="lower" bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
           <view class="item_container">
-          <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
-            <view wx:if="{{item.type==category}}">
-            <view>
-            <!-- 此行用于不显示已经超时的求助 -->
-            <!-- <view wx:if="{{(category==('全部')||category==('求助'))&&item.timeStamp>nowDate}}"> -->
-              <view class="cu-card article" >
-                <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
-                  <view class="title">
-                    <view class="flex justify-between">
-                      <text class="text-cut">{{item.title}}</text>
-                      <view wx:if="{{item.type== ('求助')}}">
-                        <text class="text-price">{{item.price}}</text>
+            <view wx:if="{{category == '求助'}}">
+              <view wx:if="{{currentData1 == null || currentData1 == 0}}">
+                <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+                  <view class="cu-card article">
+                    <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
+                      <view class="title">
+                        <view class="flex justify-between">
+                          <text class="text-cut">{{item.title}}</text>
+                          <text class="text-price">{{item.price}}</text>
+                        </view>
                       </view>
-                      <view wx:elif="{{item.type=='寻物'}}"><text class="text-yellow">寻物</text></view>
-                      <view wx:else><text class="text-blue">找队友</text></view>
-                    </view>
-                  </view>
-                  <view class="content">
-                    <!-- 判断是否显示 已接未接 图标 -->
-                    <view  wx:if="{{item.type=='求助'}}">
-                      <view class="condition" wx:if="{{item.accepter_openid!=''}}">
-                        <image class="cond" src="/images/yijie.png" />
-                      </view>
-                      <view class="condition" wx:else>
-                        <image class="cond" src="/images/weijie.png" />
-                      </view>
-                    </view>
-                      <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
-                    <view class="desc">
-                      <view class="text-content">{{item.content}}</view>
-                      <view>
-                        <!-- <view wx:if="{{category==('全部')||category==('求助')}}"> -->
-                        <view wx:if="{{item.type== ('求助')}}">
+                      <view class="content">
+                        <view class="condition" wx:if="{{item.accepter_openid!=''}}">
+                          <image class="cond" src="/images/yijie.png" />
+                        </view>
+                        <view class="condition" wx:else>
+                          <image class="cond" src="/images/weijie.png" />
+                        </view>
+                        <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                        <view class="desc">
+                          <view class="text-content">{{item.content}}</view>
                           <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
                         </view>
                       </view>
+                    </view>
+                  </view>
+                  <view class="delete flex flex-direction" hidden="{{!myPage}}">
+                    <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
+                  </view>
+                </block>
+
+                <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
+                  <view class="cu-card article">
+                    <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost1">
+                      <view class="title">
+                        <view class="flex justify-between">
+                          <text class="text-cut">{{item.title}}</text>
+                          <text class="text-price">{{item.price}}</text>
+                        </view>
+                      </view>
+                      <view class="content">
+                        <view class="condition" wx:if="{{item.accepter_openid!=''}}">
+                          <image class="cond" src="/images/yijie.png" />
+                        </view>
+                        <view class="condition" wx:else>
+                          <image class="cond" src="/images/weijie.png" />
+                        </view>
+                        <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                        <view class="desc">
+                          <view class="text-content">{{item.content}}</view>
+                          <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
+                        </view>
                       </view>
                     </view>
+                  </view>
+                </block>
+              </view>
+
+              <view wx:if="{{currentData1 == 1}}">
+                  <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+                      <view class="cu-card article">
+                        <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
+                          <view class="title">
+                            <view class="flex justify-between">
+                              <text class="text-cut">{{item.title}}</text>
+                              <text class="text-price">{{item.price}}</text>
+                            </view>
+                          </view>
+                          <view class="content">
+                            <view class="condition" wx:if="{{item.accepter_openid!=''}}">
+                              <image class="cond" src="/images/yijie.png" />
+                            </view>
+                            <view class="condition" wx:else>
+                              <image class="cond" src="/images/weijie.png" />
+                            </view>
+                            <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                            <view class="desc">
+                              <view class="text-content">{{item.content}}</view>
+                              <view class="cu-tag bg-orange light sm round">截止时间:{{item.deadline}}</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                    </block>
+              </view>
+            </view>
+
+            <view wx:if="{{category == '寻物'}}">
+              <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+                <view class="cu-card article">
+                  <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
+                    <view class="title">
+                      <view class="flex justify-between">
+                        <text class="text-cut">{{item.title}}</text>
+                        <text class="text-yellow">{{category}}</text>
+                      </view>
+                    </view>
+                    <view class="content">
+                      <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                      <view class="desc">
+                        <view class="text-content">{{item.content}}</view>
+                      </view>
                     </view>
                   </view>
                 </view>
-              <view class="delete flex flex-direction" hidden="{{!myPage}}">
-                <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
-              </view>
+                <view class="delete flex flex-direction" hidden="{{!myPage}}">
+                  <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
+                </view>
+              </block>
             </view>
-          </block>
+
+            <view wx:if="{{category == '找队友'}}">
+                <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+                  <view class="cu-card article">
+                    <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
+                      <view class="title">
+                        <view class="flex justify-between">
+                          <text class="text-cut">{{item.title}}</text>
+                          <text class="text-blue">{{category}}</text>
+                        </view>
+                      </view>
+                      <view class="content">
+                        <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill"></image>
+                        <view class="desc">
+                          <view class="text-content">{{item.content}}</view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="delete flex flex-direction" hidden="{{!myPage}}">
+                    <button class="cu-btn bg-red lg" bindtap="deletePost" id='{{idx}}'>删除</button>
+                  </view>
+                </block>
               </view>
 
+          </view>
         </scroll-view>
       </swiper-item>
     </block>

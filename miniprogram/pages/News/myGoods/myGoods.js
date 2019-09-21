@@ -108,7 +108,7 @@ Page({
   userLoad: function () {
     var that = this;
     if (that.data.currentIndex==1){
-      util.experssLoad(that, '.');
+      util.accUnAccLoad(that, '.');
     }else{
       console.log('ask:', that.data.database);
       util.userLoad(that);

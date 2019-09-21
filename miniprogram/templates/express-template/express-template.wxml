@@ -72,6 +72,9 @@
           </view>
         </view>
       </view>
+      <view class="delete flex flex-direction" hidden="{{!myPage || currentData == 1}}">
+        <button class="cu-btn bg-red lg" bindtap="deleteExpress" id='{{idx}}'>删除</button>
+      </view>
     </block>
     <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
       <view wx:if="{{!myPage}}">

@@ -83,35 +83,36 @@ Page({
     console.log(this.data.post_data._id)
     console.log(this.data.user_openid)
 
-    wx.cloud.callFunction({
-      name: 'updateAccepter',
-      data: {
-        _id: this.data.post_data._id,
-        user_openid: this.data.user_openid,
-        database:"recourse"
-      },
-      success: res => {
-        console.warn('[云函数] [updateAccepter] updateAccepter 调用成功：', res)
-        wx.showModal({
-          title: '更新成功',
-          content: '成功更新信息',
-          showCancel: false,
-        })
-
-
-        // 成功后发送求助的模板信息
-        this.sendRecourse("求助成功")
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '调用失败',
-        })
-        console.error('[云函数] [updateAccepter] updateAccepter 调用失败：', err)
-      }
-    })
-    wx.navigateBack({})
+    // 判断当前用户是否为以注册用户
+    var isRegistered=util.isRegistered()
+    if(isRegistered){
+      wx.cloud.callFunction({
+        name: 'updateAccepter',
+        data: {
+          _id: this.data.post_data._id,
+          user_openid: this.data.user_openid,
+          database:"recourse"
+        },
+        success: res => {
+          console.warn('[云函数] [updateAccepter] updateAccepter 调用成功：', res)
+          wx.showModal({
+            title: '更新成功',
+            content: '成功更新信息',
+            showCancel: false,
+          })
+          // 成功后发送求助的模板信息
+          this.sendRecourse("求助成功")
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '调用失败',
+          })
+          console.error('[云函数] [updateAccepter] updateAccepter 调用失败：', err)
+        }
+      })
+      wx.navigateBack({})
+    }
   },
 
 

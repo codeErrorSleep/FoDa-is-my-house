@@ -20,7 +20,7 @@
   <!-- 原价 -->
   <view class="postInformation3">
     <text></text>
-    <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友'}}">
+    <text class="item_price_before" wx:if="{{post_data.type!='寻物' && post_data.type!='找队友' }}">
       ￥{{post_data.oriPrice}}
     </text>
   </view>
@@ -41,7 +41,9 @@
   <!-- style="width:100%" mode="aspectFill"style="width=100%" mode="aspectFill" -->
   <view class="floatbutton">
     <button class="circle" bindtap="showModal" data-target="Modal">
-      <view class="want">想要</view>
+      <view wx:if="{{post_data.type=='寻物'}}" class="want">找到</view>
+      <view wx:elif="{{post_data.type=='找队友'}}" class="want">组队</view>
+      <view wx:else class="want">想要</view>
     </button>
   </view>
   <view class="cu-modal {{modalName=='Modal'?'show':''}}">
