@@ -21,7 +21,7 @@
                     </view>
                     <view class="item-img">
                         <view wx:for="{{item.approve_img}}" wx:for-index="img_num" wx:for-item="approve_item_img">
-                            <image src="{{approve_item_img}}" lazy-load />
+                            <image bindtap="handleImagePreview" src="{{approve_item_img}}"  data-index="{{idx}}" lazy-load />
                         </view>
                     </view>
                 </view>

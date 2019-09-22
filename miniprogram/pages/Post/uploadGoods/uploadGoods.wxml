@@ -71,17 +71,17 @@
     <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">价格</text>
-        <input name="goods_price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
+        <input name="goods_price" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
 
       <view class="sell_cell">
         <text class="sell_title">原价</text>
-        <input name="oriPrice" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
+        <input name="oriPrice" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
     </view>
     <!---->
 
-    <button class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
+    <button wx:if="{{display}}" class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
     <modal title="提示" class="modal" cancel-text="取消" hidden="{{modalName!='Modal'}}" no-cancel bindconfirm="modalChange">

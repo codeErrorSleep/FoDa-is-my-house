@@ -57,7 +57,7 @@
       </view>
       <view class="section">
         <view class="section_container4" bindtap='jumpToList' id="trifles">
-          <text class="section_name">顺丰</text>
+          <text class="section_name">(未完成)</text>
           <view class="section_img">
             <image src="/images/my/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
           </view>
@@ -79,33 +79,35 @@
         <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishPost'>
-              <image src="/images/1.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              <image src="/images/postxianzhi.png" style="width:110rpx;height:110rpx;display:flex"></image>
               发布闲置
             </view>
           </view>
           <view class="sectionmodal">
-            <view class="section_container5" bindtap='publishDiscover'>
-              <image src="/images/2.png" style="width:110rpx;height:110rpx;display:flex"></image>
-              发布任务
+            <view class="section_container5" bindtap='publishExpress'>
+              <image src="/images/postexpress.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              发布快递
             </view>
           </view>
         </view>
         <view style="width:620rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
           <view class="sectionmodal">
-            <view class="section_container5" bindtap='publishExpress'>
-              <image src="/images/3.png" style="width:110rpx;height:110rpx;display:flex"></image>
-              发布快递
+            <view class="section_container5" bindtap='publishDiscover'>
+              <image src="/images/posttask.png" style="width:120rpx;height:120rpx;display:flex"></image>
+              发布任务
             </view>
           </view>
           <view class="sectionmodal">
             <view class="section_container5" bindtap='publishDiscover'>
-              <image src="/images/4.png" style="width:110rpx;height:110rpx;display:flex"></image>
-              顺丰速递
+              <image src="/images/postshunfeng.png" style="width:110rpx;height:110rpx;display:flex"></image>
+              顺丰速递(未完成)
             </view>
           </view>
         </view>
       </view>
+     
     </view>
   </view>
+
 
 </view>

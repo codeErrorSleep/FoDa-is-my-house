@@ -89,6 +89,14 @@ Page({
 
   //更新副导航栏下标
   categoriesChange: function (e) {
+    var that = this;
+    that.setData({
+      feed: [],
+      accFeed: [],
+      nextPage: 0,
+      nextPage1: 0,
+      count: 0,
+    })
     let current = e.detail.current;
     let source = e.detail.source
     //console.log(source);

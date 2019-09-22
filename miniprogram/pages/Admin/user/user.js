@@ -24,6 +24,8 @@ Page({
 
     //调用获取用户信息数据
     this.allLoad();
+
+    console.log(this.data.feed)
   },
 
 
@@ -180,7 +182,16 @@ Page({
 
   },
 
-
+  //用户点击放大图片
+  handleImagePreview:function(e) {
+    var index = e.target.dataset.index
+    console.log(e)
+    var images = this.data.feed[index].approve_img
+    wx.previewImage({
+      current: images[index],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  }
 
 
 })

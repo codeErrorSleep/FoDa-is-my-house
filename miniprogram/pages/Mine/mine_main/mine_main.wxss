@@ -64,7 +64,3 @@
   color:#fff;
   font-size:16px;
 }
-/* 底线 */
- .mine_cell {
-  border-bottom: 1px solid rgb(241, 241, 241);
-} 

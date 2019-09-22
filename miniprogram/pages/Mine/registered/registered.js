@@ -37,6 +37,8 @@ Page({
     btnValue: '验证码',
     //验证码按钮状态
     btnDisabled: false,
+    //是否同意协议
+    agree: false,
   },
   onLoad(options) {
     this.setData({
@@ -366,7 +368,12 @@ Page({
       this.setData({
         warning: "验证码错误",
       })
-    } else {
+    } else if (!this.data.agree) {
+      this.setData({
+      warning: "未同意佛大叮当用户服务协议",
+      })
+    }
+    else {
       this.setData({
         warning: "提交成功",
       })
@@ -465,4 +472,19 @@ Page({
       })
     });
   },
+
+  //是否同意协议
+  checkboxChange() {
+    this.setData({
+    agree: !this.data.agree
+    })
+    console.log("agree?",this.data.agree)
+  },
+
+  //打开同意协议
+  agreement() {
+    wx.navigateTo({
+      url:"../../Admin/agreement/agreement"
+    })
+  }
 })

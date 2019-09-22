@@ -36,6 +36,8 @@ Page({
     warning: "",
     //检验状态
     mode: "",
+    // 辨别用户第几次点击发布
+    display:true,
   },
 
   /**
@@ -104,6 +106,7 @@ Page({
     //检查提交信息
     this.checkInfo()
 
+
     // 先将照片上传再上传数据库
     if (this.data.mode) {
       if (this.data.images.length === 0) {
@@ -161,6 +164,7 @@ Page({
       this.setData({
         warning: "发布成功",
         mode: true,
+        display:false
       })
     }
     this.setData({
@@ -195,17 +199,15 @@ Page({
         //成功上传后提示信息
         console.log("插入成功")
 
+        // 关闭当前页面，跳转到应用内的某个页面
+        wx.redirectTo({
+          url:"../../Index/goods/goods?tab_id=" + 0
+        })
+
         wx.showToast({
           title: '成功发布闲置',
           icon: 'success',
           duration: 1000
-        })
-
-
-
-        // 关闭当前页面，跳转到应用内的某个页面
-        wx.redirectTo({
-          url:"../../Index/goods/goods?tab_id=" + 0
         })
 
       }

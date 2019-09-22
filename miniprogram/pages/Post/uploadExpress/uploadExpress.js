@@ -4,45 +4,45 @@ var app = getApp()
 Page({
   data: {
     //快递数量
-    express_num:"",
+    express_num: "",
     //可选快递数量
-    chooseNum:[1,2,3,4,5,6,7,8,9],
+    chooseNum: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     //所选快递数量下标
-    numIndex:0,
+    numIndex: 0,
 
     //快递总重量
-    express_weight:"",
+    express_weight: "",
     //可选快递总重量
-    chooseWeight:["轻小件","中件","大件","超大件"],
+    chooseWeight: ["轻小件", "中件", "大件", "超大件"],
     //所选快递总重量下标
-    weightIndex:0,
+    weightIndex: 0,
 
     //快递酬金
-    express_pay:"",
+    express_pay: "",
 
     //快递取件地址
-    express_pickUp:"江湾 中门中通",
+    express_pickUp: "江湾 中门中通",
     express_pickUp_1: "江湾",
     express_pickUp_2: "中门中通",
     //可选快递取件地址
-    choosePickUp:[["江湾","仙溪","河滨"],["中门中通","商业街菜鸟驿站","南门中国邮政"]],
+    choosePickUp: [["江湾", "仙溪", "河滨"], ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"]],
     //所选快递取件地址下标
-    pickUpIndex:[0,0],
+    pickUpIndex: [0, 0],
     //快递收件地址
-    express_destination:"江湾 东区 东一",
+    express_destination: "江湾 东区 东一",
     express_region: "江湾",
-    express_destination_1:"东区",
-    express_destination_2:"东一",
+    express_destination_1: "东区",
+    express_destination_2: "东一",
     //可选快递收件地址
-    chooseDestination:[["江湾","仙溪","河滨"],["东区","西区"],["东一","东二","东三","东四"]],
+    chooseDestination: [["江湾", "仙溪", "河滨"], ["东区", "西区", "中区", "南区", "国交", "其他"], ["东一", "东二", "东三", "东四", "东五", "东六", "东七", "东八", "东九"]],
     //所选快递收件地址下标
-    destinationIndex:[0,0,0],
+    destinationIndex: [0, 0, 0],
 
     //详细快递收件地址
-    express_destination_detail:"",
+    express_destination_detail: "",
 
     //送达起始日期
-    startDate:"",
+    startDate: "",
 
     //送达终点日期
     endDate: "",
@@ -51,7 +51,7 @@ Page({
     express_date: "",
 
     //送达时间
-    express_time:"",
+    express_time: "",
 
     //快递取件人姓名
     express_name: "",
@@ -69,16 +69,17 @@ Page({
     express_code: "",
 
     // 登记用户的formId在帖子数据库上
-    formId:"",
+    formId: "",
     //详细说明
-    express_note:"",
+    express_note: "",
 
     //警告
-    warning:"",
+    warning: "",
 
     //验证状态
     mode: "",
-
+    // 辨别用户第几次点击发布
+    display:true,
   },
 
   onLoad: function (options) {
@@ -119,7 +120,7 @@ Page({
   payNote(e) {
     this.setData({
       warning: "",
-      modalName:"Modal",
+      modalName: "Modal",
     })
   },
 
@@ -148,7 +149,7 @@ Page({
       case 0:
         switch (data.pickUpIndex[0]) {
           case 0:
-            data.choosePickUp[1] = ["中门中通", "商业街菜鸟驿站", "南门中国邮政"];
+            data.choosePickUp[1] = ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"];
             break;
           case 1:
             data.choosePickUp[1] = ["北区", "南区"];
@@ -186,16 +187,16 @@ Page({
       case 0:
         switch (data.destinationIndex[0]) {
           case 0:
-            data.chooseDestination[1] = ["东区","西区"];
-            data.chooseDestination[2] = ["东一","东二","东三","东四"];
+            data.chooseDestination[1] = ["东区", "西区"];
+            data.chooseDestination[2] = ["东区", "西区", "中区", "南区", "国交", "其他"];
             break;
           case 1:
-            data.chooseDestination[1] = ["一区","二区"];
-            data.chooseDestination[2] = ["一楼","二楼","三楼","四楼"];
+            data.chooseDestination[1] = ["一区", "二区"];
+            data.chooseDestination[2] = ["一楼", "二楼", "三楼", "四楼"];
             break;
           case 2:
-            data.chooseDestination[1] = ["A区","B区"];
-            data.chooseDestination[2] = ["一栋","二栋","三栋","四栋"];
+            data.chooseDestination[1] = ["A区", "B区"];
+            data.chooseDestination[2] = ["一栋", "二栋", "三栋", "四栋"];
             break;
         }
         data.destinationIndex[1] = 0;
@@ -206,35 +207,47 @@ Page({
           case 0:
             switch (data.destinationIndex[1]) {
               case 0:
-                data.chooseDestination[2] = ["东一","东二","东三","东四"];
+                data.chooseDestination[2] = ["东一", "东二", "东三", "东四", "东五", "东六", "东七", "东八", "东九"];
                 break;
               case 1:
-                data.chooseDestination[2] = ["西一","西二","西三","西四"];
+                data.chooseDestination[2] = ["全部", "西一", "西二", "西三", "西四", "研究生A栋", "研究生B栋", "研究生C栋", "研究生D栋", "英语村"];
+                break;
+              case 2:
+                data.chooseDestination[2]=[]
+                break;
+              case 3:
+                data.chooseDestination[2]=[]
+                break;
+              case 4:
+                data.chooseDestination[2]=[]
+                break;
+              case 5:
+                data.chooseDestination[2]=[]
                 break;
             }
             break;
           case 1:
             switch (data.destinationIndex[1]) {
               case 0:
-                data.chooseDestination[2] = ["一楼","二楼","三楼","四楼"];
+                data.chooseDestination[2] = ["一楼", "二楼", "三楼", "四楼"];
                 break;
               case 1:
-                data.chooseDestination[2] = ["五楼","六楼","七楼","八楼"];
+                data.chooseDestination[2] = ["五楼", "六楼", "七楼", "八楼"];
                 break;
             }
             break;
           case 2:
             switch (data.destinationIndex[1]) {
               case 0:
-                data.chooseDestination[2] = ["一栋","二栋","三栋","四栋"];
+                data.chooseDestination[2] = ["一栋", "二栋", "三栋", "四栋"];
                 break;
               case 1:
-                data.chooseDestination[2] = ["五栋","六栋","七栋","八栋"];
+                data.chooseDestination[2] = ["五栋", "六栋", "七栋", "八栋"];
                 break;
             }
             break;
         }
-        data.destinationIndex[2]=0;
+        data.destinationIndex[2] = 0;
         break;
     }
     this.setData(data);
@@ -270,11 +283,11 @@ Page({
 
   //提交表单
   uploadPost(e) {
-    if (e.detail.value.express_name!="") {
+    if (e.detail.value.express_name != "") {
       this.setData({
         express_name: e.detail.value.express_name
       })
-    }else{
+    } else {
       this.setData({
         express_name: this.data.ori_express_name
       })
@@ -284,7 +297,7 @@ Page({
       this.setData({
         express_wechat: e.detail.value.express_wechat
       })
-    }else{
+    } else {
       this.setData({
         express_wechat: this.data.ori_express_wechat
       })
@@ -294,20 +307,20 @@ Page({
       this.setData({
         express_phone: e.detail.value.express_phone
       })
-    }else{
+    } else {
       this.setData({
         express_phone: this.data.ori_express_phone
       })
     }
 
     this.setData({
-      express_pay:e.detail.value.express_pay,
-      express_destination_detail:e.detail.value.express_destination_detail,
-      express_note:e.detail.value.express_note,
+      express_pay: e.detail.value.express_pay,
+      express_destination_detail: e.detail.value.express_destination_detail,
+      express_note: e.detail.value.express_note,
       express_code: e.detail.value.express_code,
-      warning:"",
+      warning: "",
       mode: false,
-      formId:e.detail.formId
+      formId: e.detail.formId
     })
 
     // console.log(this.data.express_num)
@@ -338,7 +351,7 @@ Page({
       this.setData({
         warning: "请选择快递件数"
       })
-    } else if (this.data.express_weight == ""){
+    } else if (this.data.express_weight == "") {
       this.setData({
         warning: "请选择快递总重量"
       })
@@ -378,21 +391,23 @@ Page({
       this.setData({
         warning: "姓名不能为空",
       })
-    } 
+    }
     // 先不检验微信号的正确性（注册于个人信息那里需要修改）
     // else if (this.data.express_wechat == "" || (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.express_wechat)))) {
     //   this.setData({
     //     warning: "请输入正确的微信号",
     //   })
     // }
-     else if (this.data.express_phone == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
+    else if (this.data.express_phone == "" || (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.express_phone)))) {
       this.setData({
         warning: "请输入正确的手机号码"
       })
-    } else{
+    } else {
       this.setData({
         warning: "发布成功",
         mode: true,
+        display:false
+
       })
     }
     this.setData({
@@ -426,7 +441,7 @@ Page({
         "date": date,
         'accepter_openid': "",
         'code': this.data.express_code,
-        formId:this.data.formId,
+        formId: this.data.formId,
       },
       success(res) {
         console.log("插入成功")
@@ -437,7 +452,7 @@ Page({
         })
 
         wx.redirectTo({
-          url:"../../Index/goods/goods?tab_id=" + 1
+          url: "../../Index/goods/goods?tab_id=" + 1
         })
 
       }

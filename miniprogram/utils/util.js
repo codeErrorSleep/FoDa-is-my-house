@@ -34,14 +34,16 @@ function isRegistered(){
   // 判断当前用户是否为以注册用户
   // if(!app.globalData.userCloudData.approve){
     // Object.keys(app.globalData.userCloudData.approve)
-  if(app.globalData.userCloudData.approve=="0"){
-    wx.navigateTo({
+  if(app.globalData.userCloudData.approve==="0"){
+    wx.redirectTo({
       url: '../../Mine/registered/registered?show=true'
     })
   }
-  // else if(app.globalData.userCloudData.approve=="false" ){
-
-  // }
+  else if(!app.globalData.userCloudData.approve){
+    wx.redirectTo({
+      url: '../../Mine/userInfo/userInfo?show=true'
+    })
+  }
   else{
     return true
   }
@@ -339,7 +341,8 @@ function discoverLoad(type, that) {
   //查询所有用户的闲置二手信息
   db.collection("discover")
     .where({
-      "type": type
+      "_openid": that.data.user_openid,
+      "type": type,
     })
     .orderBy('date', 'desc')
     .skip(that.data.nextPage)

@@ -37,12 +37,17 @@ Page({
     warning:"",
     //检验状态
     mode:"",
+    // 辨别用户第几次点击发布
+    display:true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // 判断当前用户是否为以注册用户
+    util.isRegistered()
+
     // 对求助开始时间和结束时间的处理
     var startDate=new Date()
     var endDate=new Date()
@@ -51,8 +56,6 @@ Page({
       startDate:util.getDate(startDate),
       endDate:util.getDate(endDate)
     })
-    // console.log(this.data.startDate)
-    // console.log(this.data.endDate)
   },
 
 
@@ -142,6 +145,7 @@ Page({
       this.setData({
         warning: "发布成功",
         mode: true,
+        display:false
       })
     }
     this.setData({

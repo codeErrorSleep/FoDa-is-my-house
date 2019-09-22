@@ -1,7 +1,7 @@
 <!-- pages/update/update.wxml -->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">上传消息</view>
+	<view slot="content">发布任务</view>
 </cu-custom>
 <view class="page">
   <form report-submit='true' bindsubmit='uploadPost'>
@@ -79,7 +79,7 @@
 
     </view>
     <!--  -->
-    <button class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
+    <button  wx:if="{{display}}" class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
     <view class="cu-modal {{modalName=='Modal'?'show':''}}">

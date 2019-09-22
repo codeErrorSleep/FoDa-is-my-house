@@ -89,13 +89,13 @@ Page({
   //检查用户是否已经注册(决定点击跳转到的页面)
   checkUser:function(){
     console.log(this.data.userData)
-    if (app.globalData.userCloudData.approve!="0") {
+    if (app.globalData.userCloudData.approve==="0") {
       wx.navigateTo({
-        url: "../userInfo/userInfo"
+        url:"../registered/registered"
       })
     }else {
       wx.navigateTo({
-        url:"../registered/registered"
+        url: "../userInfo/userInfo"
       })
     }
   },

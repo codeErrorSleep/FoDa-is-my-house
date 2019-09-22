@@ -52,7 +52,7 @@ Page({
     //验证码按钮状态
     btnDisabled: false,
   },
-  onLoad() {
+  onLoad(options) {
     // 初始化towerSwiper 传已有的数组名即可
     this.setData({
       swiperList: app.globalData.swiperList,
@@ -74,6 +74,19 @@ Page({
     })
 
     this.towerSwiper('swiperList');
+
+
+    // 提示已注册但未通过的用户
+    if(options.show=="true"){
+      wx.showToast({
+        title: "请耐心等待管理员的信息验证",
+        icon: 'none',
+        duration: 1500,
+        mask: true
+      });
+    }
+
+
   },
   //选择图片
   ChooseImage() {

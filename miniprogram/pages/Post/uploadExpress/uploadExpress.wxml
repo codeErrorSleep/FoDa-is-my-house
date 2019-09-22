@@ -31,7 +31,7 @@
         <!--总报酬金额-->
         <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
           <text class="sell_title">总报酬金额(元)</text>
-          <input name="express_pay" class="sell_input price" type="number" placeholder="请输入报酬金额(2元起)" placeholder-class='placeholder' maxlength='3'/>
+          <input name="express_pay" class="sell_input price" type="digit" placeholder="请输入报酬金额(2元起)" placeholder-class='placeholder' maxlength='3'/>
           <button class="cu-btn round line-yellow text-bold" bindtap="payNote">?</button>
         </view>
         
@@ -119,7 +119,7 @@
     </view>
 
     <!--提交表单按钮-->
-    <button class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
+    <button  wx:if="{{display}}" class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
     <view class="cu-modal {{modalName=='Modal'?'show':''}}">

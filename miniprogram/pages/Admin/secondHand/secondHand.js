@@ -90,12 +90,17 @@ Page({
   // 删除云上的图片
   removeImage: function (post_imgs) {
     console.log(post_imgs)
-    wx.cloud.deleteFile({
-      fileList: post_imgs
-    }).then(res => {
-      console.log(res.fileList)
-    }).catch(error => {
-    })
+    // 不删除默认图片
+    if(post_imgs[0]!="cloud://yf-ab2989.7966-yf-ab2989-1258230310/没有实物图.png"){
+      wx.cloud.deleteFile({
+        fileList: post_imgs
+      }).then(res => {
+        console.log(res.fileList)
+      }).catch(error => {
+      })
+      console.log("成功删除图片")
+    }
+
   },
 
 
@@ -116,7 +121,7 @@ Page({
         //用户点击删除就删除帖子
         if (res.confirm) {
           // 删除云上的帖子的图片
-          // that.removeImage(post_imgs)
+          that.removeImage(post_imgs)
           // 调用云函数删除数据库中的数据
           wx.cloud.callFunction({
             name: 'deletePost',

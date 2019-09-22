@@ -5,8 +5,8 @@
 <view class="post">
     <!-- 发帖人查看接单人信息 -->
     <view wx:if="{{post_data.accepter_openid==user_openid&&post_data._openid!=user_openid}}" class="userPhone">
-      <text  class="text-user"> 微信号：{{post_data.wechat_id}}</text>
-      <text  class="text-user"> 手机电话: {{post_data.phone}}</text>
+      <text  class="text-user"> 微信号：{{user_data.wechat_id}}</text>
+      <text  class="text-user"> 手机电话: {{user_data.phone}}</text>
     </view>
     <!-- 接单者查看发帖人信息 -->
     <view wx:if="{{post_data.accepter_openid!=''&&post_data._openid==user_openid}}" class="userPhone">
@@ -46,7 +46,7 @@
   <view class="block1"></view>
   <!-- 图片自适应 -->
   <!-- style="width:100%" mode="aspectFill"style="width=100%" mode="aspectFill" -->
-    <view wx:if="{{post_data.accepter_openid==''}}" class="floatbutton">
+    <view wx:if="{{post_data.accepter_openid=='' && post_data._openid!=user_openid}}" class="floatbutton">
         <button  class="circle" bindtap="showModal" data-target="Modal">
             <view class="want">接单</view>
         </button>
