@@ -57,39 +57,13 @@
     background:rgb(241, 241, 241)
   
   }
-  .floatbutton{
-     /* bottom:0; */
-     margin:10rpx 10rpx 20rpx 30rpx;
-     position:fixed; 
-    bottom: 30rpx;
-    /* padding: 0 auto; */
-        display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .circle{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30rpx;
-     width: 70px;
-     height:70px;
-     background: rgb(229, 77, 66);
-     border-radius: 100%;
-     margin:0 290rpx;
-  
-  
-  
-  }
   .want{
     color: #ffffff;
     
   }
   
   .btnImg {
-    width: 70rpx;
+    width: 60rpx;
     height: 60rpx;
   }
   /* 下划线 */
@@ -157,14 +131,7 @@
       justify-content: space-between;
       padding: 15rpx 15rpx;
   }
-  .post .postInformation2{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      background:#fff;
-      margin: 0 15rpx 0 15rpx;
-      padding:30rpx 30rpx 5rpx 45rpx;
-  }
+
   .post .postInformation4{
       display: flex;
       flex-direction: column;
@@ -205,10 +172,18 @@
     font-size: 30rpx;
     text-decoration:line-through;
   }
-  
+  .post .postInformation2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:#fff;
+    margin: 0 15rpx 0 15rpx;
+    padding:65rpx 30rpx 5rpx 45rpx;
+  }
   .post .postInformation2 .postContent{
       font-size:33rpx;
       color: rgb(117, 117, 117);
+      word-break: break-all;
   }
   
    .goodsImg{
@@ -242,4 +217,12 @@
     color: #e74552;
   }
   
-  
+  .share {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+}
+
+.share button {
+  background-color: rgb(111, 200, 255);
+}

@@ -1,7 +1,3 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">我的闲置</view>
-</cu-custom>
 <!--主导航栏-->
 <!-- <view class="navbar"> 
   <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text> 
@@ -9,4 +5,4 @@
 
 <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
 
-  <template is="twoCol" data="{{feed, categories, currentData, user_openid, myPage, windowHeight}}"></template>
+  <template is="twoCol" data="{{feed, categories, currentData, user_openid, myPage}}"></template>

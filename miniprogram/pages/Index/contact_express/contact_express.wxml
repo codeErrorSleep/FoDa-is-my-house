@@ -1,10 +1,6 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">商品详细</view>
-</cu-custom>
 <view class="post">
     <!-- 接单者查看发帖人信息 -->
-    <view wx:if="{{express_data.accepter_openid==user_openid&&express_data._openid!=user_openid}}" class="userInformation">
+    <view wx:if="{{express_data.accepter_openid==user_openid&&express_data._openid!=user_openid&&user_openid!=''}}" class="userInformation">
       <text  class="text-user"> 姓名: {{express_data.real_name}}</text>
       <text  class="text-user"> 微信号：{{express_data.wechat_id}}</text>
       <text  class="text-user"> 手机电话: {{express_data.phone}}</text>
@@ -17,10 +13,15 @@
         <text  class="text-user"> 手机电话: {{accepter_phone}}</text>
     </view>
 
-    <view class="postInformation">
+    <view wx:if="{{express_data.accepter_openid == ''}}" class="shareBlock">
+      <view class="share">
+        <button class="cu-btn round bg-blue shadow" open-type="share">分享</button>
+      </view>
+    </view>
+    <view class="postInformation" style="margin-top: {{express_data.accepter_openid == ''?'0rpx':'20rpx'}}; border-radius: {{express_data.accepter_openid == ''?'0 0 0 0':'25rpx 25rpx 0 0'}};">
       <view class="text-campus">{{express_data.region}}校区</view>
-       <text  class="goodsPrice"> 酬金</text>
-        <span class="red">¥{{express_data.price}}</span>
+      <text  class="goodsPrice"> 酬金</text>
+      <span class="red">¥{{express_data.price}}</span>
     </view>
     <view class="cu-item">
       <view class="content">
@@ -69,12 +70,9 @@
             <text class="tag1 "style="margin:10rpx 20rpx 30rpx 30rpx;">温馨提示：该订单已经被接啦！</text>
         </view>
     </view>
-    <view class="block3">
-    </view>
-    <view wx:if="{{express_data.accepter_openid=='' && express_data._openid!=user_openid}}" class="floatbutton">
-        <button  class="circle" bindtap="showModal" data-target="Modal">
-            <view class="want">接单</view>
-        </button>
+    <!-- <view class="block3"></view> -->
+    <view wx:if="{{express_data.accepter_openid=='' && express_data._openid!=user_openid}}" style="position: fixed; bottom: 30px; left: {{(windowWidth-80)/2}}px;">
+        <image style="width:80px; height:80px;" src="/images/contact/express.png" bindtap="showModal" data-target="Modal"/>
     </view>
     <view class="cu-modal {{modalName=='Modal'?'show':''}}">
         <view class="cu-dialog">

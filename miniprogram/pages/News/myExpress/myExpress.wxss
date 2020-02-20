@@ -10,21 +10,24 @@
     font-size: 30rpx; 
     text-align: center; 
     background: #fff; 
-    font-weight: bold; 
+    /* font-weight: bold;  */
    } 
    .navbar .item.active{ 
-    color: #f00; 
+    color: #1296DB;  
     position: relative; 
    } 
    .navbar .item.active::after{ 
     content: "";
     display: block;
     position: absolute;
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
     height: 4rpx; 
     bottom: 0;
     left: 0;
     right: 0;
-    background: #f00;
+    background: #1296DB; 
    }
    .categories{ 
     display: flex; 
@@ -37,21 +40,24 @@
     font-size: 30rpx; 
     text-align: center; 
     background: #fff; 
-    font-weight: bold; 
+    /* font-weight: bold;  */
    } 
    .categories .item.active{ 
-    color: #f00;
+    color: #1296DB; 
     position: relative;
    } 
    .categories .item.active::after{ 
     content: ""; 
     display: block; 
     position: absolute; 
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
     height: 4rpx; 
     bottom: 0; 
     left: 0; 
     right: 0; 
-    background: #f00; 
+    background: #1296DB; 
    }
    
    
@@ -192,7 +198,7 @@
    .express-card.article>.express-item .content .text-content3 {
       font-size: 30rpx;
       padding: 35rpx 0 10rpx 0;
-      color:rgb(27, 149, 212) ;
+      color:#1296DB;
       width:250px; 
       white-space:nowrap;
       overflow:hidden;
@@ -225,6 +231,12 @@
      transform:rotate(-15deg);
    }
   
-   .delete{
-      margin: 0 20rpx 30rpx 20rpx;
-   }
+ .express-card.delete {
+   height: 80rpx;
+   background: #fff;
+   border-radius: 10rpx;
+   margin: 0rpx 20rpx 20rpx 20rpx;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }

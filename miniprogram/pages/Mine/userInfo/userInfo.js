@@ -92,7 +92,7 @@ Page({
   ChooseImage() {
     wx.chooseImage({
       count: 1, //默认9
-      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], //从相册选择
       success: (res) => {
         if (this.data.imgList.length != 0) {
@@ -209,11 +209,18 @@ Page({
       Num += Math.floor(Math.random() * 10);
     }
     var data = e.detail.value;
-    this.setData({
-      phone: data,
-      editPhone: true,
-      rightcode: Num
-    })
+    if (data == "" || data == this.data.ori_phone) {
+      this.setData({
+        phone: this.data.ori_phone,
+        editPhone: false,
+      })
+    }else {
+      this.setData({
+        phone: data,
+        editPhone: true,
+        rightcode: Num
+      })
+    }
   },
   //验证码限时
   timer: function () {
@@ -438,13 +445,14 @@ Page({
         phone: this.data.ori_phone
       })
     }
-
-    if (this.data.imgList != app.globalData.userCloudData.approve_img) {
-      this.setData({
-        approve: false,
-        al_approve: false
-      })
-    }
+    // 如果是未通过的用户更新资料需要更新al_approve
+    // if (this.data.imgList != app.globalData.userCloudData.approve_img) {
+    if  (!this.data.approve)  {
+          this.setData({
+            approve:  false,
+            al_approve:  false
+        })
+    }
     this.setData({
       code: e.detail.value.code,
       formId: e.detail.formId,

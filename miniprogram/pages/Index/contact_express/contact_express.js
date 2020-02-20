@@ -17,22 +17,34 @@ Page({
     accepter_phone: "",
     //接收者取件码
     accepter_code: "",
+    //窗口宽度
+    windowWidth: 0,    
+    // json格式的帖子信息
+    ori_express_data: {},
   },
 
   onLoad: function (options) {
-    var express_data=JSON.parse(options.express_data)
+    var express_data = JSON.parse(options.express_data)
     this.setData({
-      express_data:express_data,
-      user_openid: app.globalData.userCloudData._openid,
+      express_data: express_data,
+      // user_openid: app.globalData.userCloudData._openid,
+      windowWidth: wx.getSystemInfoSync().windowWidth,
+      ori_express_data: options.express_data,
     })
-    this.setData({
-      express_weight: this.data.express_data.weight.split('(')[0]
-    })
+    // 判断是否已有全局的用户信息
+    if (typeof app.globalData.userCloudData._openid != "undefined") {
+      this.setData({
+        user_openid: app.globalData.userCloudData._openid,
+      })
+    }
+
+    // 检查是否有人接单
     this.getAccepter()
 
     console.log(express_data.accepter_openid)
     console.log(express_data._openid)
     console.log(this.data.user_openid)
+
     
   },
 
@@ -48,49 +60,90 @@ Page({
     })
   },
 
+
+
+  // 页面分享函数
+  onShareAppMessage: function (options) {
+    if (options.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(options.target)
+    }
+    return {
+      //## 此为转发页面所显示的标题
+      // title: "快递: "+this.data.express_data.region+" "+this.data.express_data.destination_1+this.data.express_data.destination_2,
+      title: "帮拿快递",
+      path: 'pages/Index/contact_express/contact_express?express_data=' + this.data.ori_express_data + "&scene=1",
+      // imageUrl:this.data.express_data.imgs[0],
+      success: function (res) {
+        console.log("发送成功")
+      },
+      fail: function () {
+        console.log("发送失败")
+      }
+    }
+  },
+
+
+
   //接收快递任务
-  accept:function(){
+  accept: function () {
 
     console.log(this.data.express_data._id)
     console.log(this.data.user_openid)
 
     // 判断当前用户是否为以注册用户
-    var isRegistered=util.isRegistered()
-    if(isRegistered){
-      wx.cloud.callFunction({
-        name: 'updateAccepter',
-        data: {
-          _id: this.data.express_data._id,
-          user_openid: this.data.user_openid,
-          database:"express"
-        },
-        success: res => {
-          console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
-          wx.showModal({
-            title: '更新成功',
-            content: '成功更新信息',
-            showCancel: false,
-          })
-  
-          // 发送接单成功的模板信息
-          this.sendExpress("true")
-  
-  
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '调用失败',
-          })
-          console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
-        }
-      })
-      wx.navigateBack({})
+    var isRegistered = util.isRegistered()
+    if (isRegistered) {
+      // 通过转发进来的需要设置他的openid
+      if (!this.data.user_openid) {
+        this.setData({
+          user_openid: app.globalData.userCloudData._openid
+        })
+      }
+
+      if (this.data.express_data._openid == this.data.user_openid) {
+        wx.showToast({
+          title: "本人不能接自己发的单,还是让人来帮忙吧",
+          icon: 'none',
+          duration: 1500,
+          mask: true
+        });
+      } else {
+        // 成功接单
+        wx.cloud.callFunction({
+          name: 'updateAccepter',
+          data: {
+            _id: this.data.express_data._id,
+            user_openid: this.data.user_openid,
+            database: "express"
+          },
+          success: res => {
+            console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
+            wx.showModal({
+              title: '成功接单',
+              content: '你已成功接单',
+              showCancel: false,
+            })
+            // 发送接单成功的模板信息
+            this.sendExpress("true")
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '调用失败',
+            })
+            console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
+          }
+        })
+        // wx.navigateBack({})
+        // 直接跳转到我的求助
+        wx.redirectTo({
+          url: "../../News/myExpress/myExpress"
+        })
+      }
     }
 
-
   },
-
 
 
   // 发送快递模板消息

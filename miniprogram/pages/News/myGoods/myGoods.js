@@ -8,7 +8,7 @@ Page({
    */
   data: {
     //闲置分类导航栏
-    categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+    categories: ["全部", "化妆类", "电器类", "学习类", "衣物类", "生活类"],
     //分类导航栏下标
     currentData: 0,
     //所要读取的数据库
@@ -21,8 +21,6 @@ Page({
     nextPage: 0,
     //我的页面
     myPage: true,
-    // 可用屏幕高度
-    windowHeight:0,
     //用户openid
     user_openid: "",
 
@@ -65,7 +63,7 @@ Page({
     that.setData({
       feed: [],
       nextPage: 0,
-      categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+      categories: ["全部", "化妆类", "电器类", "学习类", "衣物类", "生活类"],
       currentData: 0,
     })
 
@@ -156,6 +154,11 @@ Page({
                 icon: 'success',
                 duration: 1000
               })
+              that.setData({
+                feed: [],
+                nextPage: 0,
+              })
+              that.userLoad();
             }
           })
         }
@@ -187,6 +190,7 @@ Page({
 
   //删除发现
   deletePost: function(e) {
+    var that = this
     var id = e.currentTarget.id
     //获得帖子id
     var post_id = this.data.feed[id]._id
@@ -211,6 +215,11 @@ Page({
                 icon: 'success',
                 duration: 1000
               })
+              that.setData({
+                feed: [],
+                nextPage: 0,
+              })
+              that.userLoad();
             }
           })
         }

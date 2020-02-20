@@ -11,7 +11,7 @@
         初始化
  ==================== */
 body {
-	background-color: #f1f1f1;
+	background-color: #fff;
 	font-size: 28upx;
 	color: #333333;
 	font-family: Helvetica Neue, Helvetica, sans-serif;
@@ -752,7 +752,7 @@ button.cuIcon.lg {
 }
 
 .cu-tag:not([class*="bg"]):not([class*="line"]) {
-	background-color: #f1f1f1;
+	background-color: #fff;
 }
 
 .cu-tag[class*="line-"]::after {
@@ -923,13 +923,13 @@ button.cuIcon.lg {
 
 .cu-avatar-group .cu-avatar {
 	margin-left: -30upx;
-	border: 4upx solid #f1f1f1;
+	border: 4upx solid #fff;
 	vertical-align: middle;
 }
 
 .cu-avatar-group .cu-avatar.sm {
 	margin-left: -20upx;
-	border: 1upx solid #f1f1f1;
+	border: 1upx solid #fff;
 }
 
 /* ==================
@@ -2038,7 +2038,7 @@ button.cuIcon.lg {
 }
 
 .cu-timeline>.cu-item>.content:not([class*="bg-"]) {
-	background-color: #f1f1f1;
+	background-color: #fff;
 	color: #333333;
 }
 
@@ -2264,7 +2264,7 @@ button.cuIcon.lg {
 
 /* card.dynamic>.cu-item .comment {
   padding: 20upx;
-  background-color: #f1f1f1;
+  background-color: #fff;
   margin: 0 30upx 30upx;
   border-radius: 6upx;
 } */

@@ -13,7 +13,7 @@ Page({
     }, {
       id: 1,
         type: 'image',
-        url: 'http://tva1.sinaimg.cn/large/007X8olVly1g786i9lm0aj31400u0dk6.jpg',
+        url: 'http://tva1.sinaimg.cn/large/007X8olVly1g786i9e923j31400u078p.jpg',
     }, {
       id: 2,
       type: 'image',
@@ -25,6 +25,7 @@ Page({
 
 
     //这里不写第一次启动展示的时候会有问题
+    // 目前轮播图显示的位置
     swiperCurrent: 0
   },
 
@@ -34,22 +35,33 @@ Page({
   onLoad: function (options) {
     // 初始化towerSwiper 传已有的数组名即可
     this.towerSwiper('swiperList');
-
-    //获取用户的openid并设置为全局变量
-    wx.cloud.callFunction({
-      name: 'login',
-      complete: res => {
-        console.log('callFunction test result: ', res)
-        this.setData({
-          openid:res.result.openid
-        })
-        util.getUserInCloud(this.data.openid);
-      }
-    })
-
+    // 登录
+    this.login();
+    // 获取手机屏幕可用高度
+    this.getPhoneHight();
   },
 
+
   onShow: function (options) {
+    this.login();
+  },
+
+
+
+  // 获取手机屏幕可用高度
+  getPhoneHight:function(){
+    try {
+      var res = wx.getSystemInfoSync()
+      var windowHeight = 0.88 * res.windowHeight - 10
+      app.globalData.windowHeight=windowHeight
+      console.log(app.globalData.windowHeight)
+    } catch (e) { }
+  },
+
+
+
+  // 登录操作(从云上获取用户信息)
+  login: function(){
     //获取用户的openid并设置为全局变量
     wx.cloud.callFunction({
       name: 'login',
@@ -63,21 +75,20 @@ Page({
     })
   },
 
-  ////////////////////////////////  轮播图 控制
-  DotStyle(e) {
-    this.setData({
-      DotStyle: e.detail.value
-    })
-  },
+
+
+
+
+  ////////////////////////////////轮播图 滑动控制////////////////////////////////
   // cardSwiper
-  cardSwiper(e) {
+  cardSwiper: function(e) {
     this.setData({
       cardCur: e.detail.current
     })
   },
   // towerSwiper
   // 初始化towerSwiper
-  towerSwiper(name) {
+  towerSwiper: function(name) {
     let list = this.data[name];
     for (let i = 0; i < list.length; i++) {
       list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
@@ -87,11 +98,12 @@ Page({
       swiperList: list
     })
   },
-  ////////////////////////////////  轮播图 控制
+  ////////////////////////////////轮播图 滑动控制////////////////////////////////
+
 
 
   // 改变现在的图片点
-  swiperChange(e) {
+  swiperChange: function(e) {
     this.setData({
       swiperCurrent: e.detail.current
     })
@@ -106,24 +118,40 @@ Page({
   },
 
   // 跳转到指定的列表地址
-  jumpToList: function(e){
+  jumpToList: function (e) {
+    var tab_id = 0
+    var category_id = 0
     // 判断跳转的选项卡
-    var tab_id=0
-    switch(e.currentTarget.id){
+    switch (e.currentTarget.id) {
       case "secondHand":
-          tab_id=0;
-          break; 
+        tab_id = 0;
+        break;
       case "express":
-          tab_id=1;
-          break; 
-      case "trifles":
-          tab_id=2;
-          break; 
+        tab_id = 1;
+        break;
+      case "help":
+        tab_id = 2;
+        category_id = 0;
+        break;
+      case "find":
+        tab_id = 2;
+        category_id = 1;
+        break;
+      case "team":
+        tab_id = 2;
+        category_id = 2;
+        break;
+      case "coupon":
+        // 优惠券直接设置路径
+        url = "../coupon/coupon"
+    }
+    if (e.currentTarget.id != "coupon") {
+      url = "../goods/goods?tab_id=" + tab_id + "&category_id=" + category_id
     }
     wx.navigateTo({
-      url:"../goods/goods?tab_id=" + tab_id
-      // url:"../../BackUp/test2/test2" 
+      // url:"../goods/goods?tab_id=" + tab_id + "&category_id=" + category_id
       // url:"../../BackUp/test/test" 
+      url: url
     })
   },
 
@@ -150,13 +178,13 @@ Page({
   },
 
   // 弹出发布选择框
-  showModal(e) {
+  showModal:function(e) {
     this.setData({
       modalName: e.currentTarget.dataset.target
     })
   },
   // 隐藏发布选择框
-  hideModal(e) {
+  hideModal:function(e) {
     this.setData({
       modalName: null
     })

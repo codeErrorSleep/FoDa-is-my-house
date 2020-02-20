@@ -39,6 +39,13 @@ Page({
     mode:"",
     // 辨别用户第几次点击发布
     display:true,
+
+    //可选择联系方式
+    contact_wechat: true,
+    contact_phone: true,
+
+    //发布的联系方式
+    contact_way: "all",
   },
 
   /**
@@ -71,6 +78,8 @@ Page({
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
+      contact_wechat: true,
+      contact_phone: true,
       type_index: e.detail.value,
       type:this.data.types[e.detail.value]
     })
@@ -116,8 +125,18 @@ Page({
       this.setData({
         warning: "请输入标题",
       })
-    }  
-    else if (this.data.type=="求助"){
+    } else if (this.data.type != "求助") {
+      if (this.data.contact_way == "none") {
+        this.setData({
+          warning: "请至少选择一种联系方式",
+        })
+      } else {
+        this.setData({
+          warning: "发布成功",
+          mode: true,
+        })
+      }
+    }else if (this.data.type=="求助"){
       // 如果是求助类型的判断 有无输入时间和价钱
       if (this.data.price == "") {
         this.setData({
@@ -173,12 +192,18 @@ Page({
       timeStamp:new Date(deadline).getTime(),
       deadline:deadline
     })
+    //发布完成后跳转
+    category_id=0
 
 
     console.log(database)
 
-    if(this.data.type!="求助"){
+    if(this.data.type=="寻物"){
       database="discover"
+      category_id=1
+    } else if (this.data.type == "找队友"){
+      database = "discover"
+      category_id = 2
     }
 
     const db = wx.cloud.database()
@@ -194,6 +219,7 @@ Page({
         "deadline":this.data.deadline,
         "formId":this.data.formId,
         'accepter_openid': "",
+        "contact": this.data.contact_way,
       },
       success(res){
         //成功上传后提示信息
@@ -206,7 +232,7 @@ Page({
         })
 
         wx.redirectTo({
-          url:"../../Index/goods/goods?tab_id=" + 2
+          url: "../../Index/goods/goods?tab_id=" + 2 + "&category_id=" + category_id
         })
 
       }
@@ -256,7 +282,7 @@ Page({
     if (that.data.images.length < 3) {
       wx.chooseImage({
         count: 3, //最多可以选择的图片张数
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: res => {
           this.setData({
@@ -312,6 +338,47 @@ Page({
       date: e.detail.value
     })
 
+  },
+
+  //选择微信联系方式
+  switch1Change: function (e) {
+    console.log('wechat', e.detail.value)
+    this.setData({
+      contact_wechat: e.detail.value,
+    })
+    this.contactChange()
+    console.log('contact_way值为：', this.data.contact_way)
+  },
+
+  //选择手机号联系方式
+  switch2Change: function (e) {
+    console.log('phone', e.detail.value)
+    this.setData({
+      contact_phone: e.detail.value,
+    })
+    this.contactChange()
+    console.log('contact_way值为：', this.data.contact_way)
+  },
+
+  //选择联系方式
+  contactChange: function () {
+    if (this.data.contact_wechat && this.data.contact_phone) {
+      this.setData({
+        contact_way: "all"
+      })
+    } else if (!this.data.contact_wechat && this.data.contact_phone) {
+      this.setData({
+        contact_way: "phone"
+      })
+    } else if (this.data.contact_wechat && !this.data.contact_phone) {
+      this.setData({
+        contact_way: "wechat"
+      })
+    } else {
+      this.setData({
+        contact_way: "none"
+      })
+    }
   },
 
 })    

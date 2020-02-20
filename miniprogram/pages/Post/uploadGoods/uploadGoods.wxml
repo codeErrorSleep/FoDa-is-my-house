@@ -1,14 +1,13 @@
-<!--pages/update/update.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">发布闲置</view>
-</cu-custom>
 <view class="page">
   <form report-submit='true' bindsubmit='uploadPost'>
 
     <!--分类-->
+    <view class='tips'>
+      <text class='tips_text'>不需要的物品都可以在这里发布哦</text>
+    </view>
     <view class='sell_cells'>
       <view class="sell_cell">
+        <text style="color: red;">*</text>
         <text class="sell_title">分类</text>
         <picker name="goods_type" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindPickerChange" value="{{type_index}}" range="{{types}}">
           <text class="sell_select">{{goods_type!=""?goods_type:"请选择闲置物品分类"}}</text>
@@ -20,6 +19,7 @@
     <!--校区-->
     <view class='sell_cells'>
       <view class="sell_cell">
+        <text style="color: red;">*</text>
         <text class="sell_title">校区</text>
         <picker name="goods_region" style="flex:1;display:flex;justify-content:flex-end" bindchange="bindRegionChange" value="{{region_index}}" range="{{regions}}">
           <text class="sell_select">{{goods_region!=""?goods_region:"请选择闲置物品所在校区"}}</text>
@@ -31,11 +31,13 @@
     <!--标题和描述-->
     <view class="sell_cells">
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text style="color: red;">*</text>
         <text class="sell_title">标题</text>
         <input name="post_title" class="sell_input" placeholder="请输入您的商品名称（不超过15个字）" placeholder-class='placeholder' maxlength='15' />
       </view>
 
       <view class="sell_cell" style="align-items: flex-start">
+        <text style="color: red;">*</text>
         <text class="sell_title">描述</text>
         <textarea name="goods_content" class="sell_input" placeholder="请简要的描述一下您的商品，新旧程度、出售原因等（文字不超过140个字，附图不超过3张）" placeholder-class='placeholder' maxlength='140' bindinput='bindInput'></textarea>
       </view>
@@ -70,16 +72,35 @@
     <!--价格和原价-->
     <view class='sell_cells'>
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
+        <text style="color: red;">*</text>
         <text class="sell_title">价格</text>
         <input name="goods_price" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
 
       <view class="sell_cell">
+        <text style="color: red;">*</text>
         <text class="sell_title">原价</text>
         <input name="oriPrice" class="sell_input price" type="digit" placeholder="￥0.00" placeholder-class='placeholder' maxlength='5' />
       </view>
     </view>
     <!---->
+
+    <!--选择联系方式-->
+    <view class='sell_cells'>
+      <view class="sell_cell" style="align-items: flex-start">
+        <text style="color: red;">*</text>
+        <text class="sell_title">联系方式</text>
+        <checkbox-group>
+          <view class="checkbox" style="margin-bottom: 5px;">
+            <switch checked="{{contact_wechat}}" bindchange="switch1Change"/>  通过<span style="font-weight: bold">微信</span>联系
+            
+          </view>
+          <view class="checkbox">
+            <switch checked="{{contact_phone}}" bindchange="switch2Change"/>  通过<span style="font-weight: bold">电话</span>联系
+          </view>
+        </checkbox-group>
+      </view>
+    </view>
 
     <button wx:if="{{display}}" class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 

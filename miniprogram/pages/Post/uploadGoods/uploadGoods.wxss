@@ -1,4 +1,10 @@
-
+.tips {
+background-color: rgb(157, 217, 245);
+text-align: center;
+}
+.tips_text{
+  color: rgb(255, 255, 255);
+}
 .sell_cells {
   margin: 30rpx 0;
   padding: 0 30rpx;
@@ -12,7 +18,7 @@
 }
 
 .sell_title {
-  width: 40px;
+  width: 80px;
   font-size: 15px;
   font-weight: bold;
 }

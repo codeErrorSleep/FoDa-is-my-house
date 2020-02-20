@@ -1,28 +1,49 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">{{navbar[currentIndex]}}</view>
-</cu-custom>
-
 <!-- 主导航栏 -->
-<view class="navbar">
-  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text>
-</view>
+<movable-area style="min-height:100vh;width:100vw;">
 
-<import src="../../../templates/oneCol-template/oneCol-template.wxml" />
-<import src="../../../templates/twoCol-template/twoCol-template.wxml" />
-<import src="../../../templates/express-template/express-template.wxml" />
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}" bindtap="navbarTab" wx:key="unique">{{item}}</text>
+  </view>
 
+  <import src="../../../templates/oneCol-template/oneCol-template.wxml" />
+  <import src="../../../templates/twoCol-template/twoCol-template.wxml" />
+  <import src="../../../templates/express-template/express-template.wxml" />
 
-<view hidden="{{currentIndex!=0}}">
-  <template is="twoCol" data="{{feed, categories, currentData, myPage, windowHeight}}"></template>
-</view>
-
-
-<view hidden="{{currentIndex!=1}}">
-  <template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid, price, allRegion1, allRegion2, allRegion3, region1, region2, allTime1, allTime2, time1, selectTime, selectRegion, windowHeight}}"></template>
-</view>
+  <view hidden="{{currentIndex!=0}}">
+    <template is="twoCol" data="{{feed, categories, currentData, myPage}}"></template>
+  </view>
 
 
-<view hidden="{{currentIndex!=2}}">
-  <template is="oneCol" data="{{feed, accFeed, categories, currentData, myPage, nowDate, windowHeight}}"></template>
-</view>
+  <view hidden="{{currentIndex!=1}}">
+    <template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid, price, allRegion1, allRegion2, allRegion3, region1, region2, allTime1, allTime2, time1, selectTime, selectRegion}}"></template>
+  </view>
+
+
+  <view hidden="{{currentIndex!=2}}">
+    <template is="oneCol" data="{{feed, accFeed, categories, currentData, myPage, nowDate}}"></template>
+  </view>
+
+
+  <!-- <movable-view style="width: 60px; height: 60px;" x="{{x}}" y="{{y}}" direction="all" bindchange="buttonMove" damping="80" friction="0.1">
+    <image wx:if="{{float_show}}" class="main_button" src='/images/tabbar/show.png' lazy-load="true" bindtap="floatShow"></image>
+    <image wx:if="{{!float_show}}" class="main_button" src='/images/tabbar/hide.png' lazy-load="true" bindtap="floatShow"></image>
+  </movable-view> -->
+
+  <view style="position: fixed; bottom: 30px; right: 15px; width: 60px; height: 60px;">
+    <image wx:if="{{float_show}}" class="main_button" src='/images/tabbar/add.png' lazy-load="true" bindtap="floatShow"></image>
+    <image wx:if="{{!float_show}}" class="main_button" src='/images/tabbar/add.png' lazy-load="true" bindtap="floatShow"></image>
+  </view>
+
+  <view wx:if="{{float_show}}">
+    <button wx:if="{{currentIndex == 0}}" bindtap="searchItem">
+      <image style="top: {{y_1}}px; left: {{x_1}}px;" class="sub_button" src='/images/tabbar/search.png' lazy-load="true"></image>
+    </button>
+    <button bindtap="postItem">
+      <image style="top: {{y_2}}px; left: {{x_2}}px;" class="sub_button" src='/images/tabbar/add.png' lazy-load="true"></image>
+    </button>
+    <button bindtap="refreshItem">
+      <image style="top: {{y_3}}px; left: {{x_3}}px;" class="sub_button" src='/images/tabbar/refresh.png' lazy-load="true"></image>
+    </button>
+  </view>
+
+</movable-area>

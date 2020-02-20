@@ -16,6 +16,10 @@ Page({
     post_data:{},
     //头像列表
     swiperList:[],
+    //窗口宽度
+    windowWidth: 0,
+    // json格式的帖子信息
+    ori_post_data: {},
   },
   showModal(e) {
     this.setData({
@@ -37,14 +41,53 @@ Page({
     this.setData({
         swiperList: app.globalData.swiperList,
         post_data:post_data,
-        user_id:post_data._openid
+        user_id:post_data._openid,
+        windowWidth: wx.getSystemInfoSync().windowWidth,
+        ori_post_data: options.post_data,
     })
+
+    // 允许此页面进行转发
+    wx.showShareMenu({
+      withShareTicket: true
+    }); 
 
     console.log(this.data.post_data)
     console.log(this.data.user_id)
 
     this.getUserData()
   },
+
+
+
+
+  // 页面分享函数
+  onShareAppMessage: function (options) {
+    var post_type = "闲置"
+    if (this.data.post_data.type == "寻物") {
+      post_type = "寻物"
+    } else if (this.data.post_data.type == "找队友") {
+      post_type = "找队友"
+    }
+
+    if (options.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(options.target)
+    }
+    return {
+      //## 此为转发页面所显示的标题
+      title: post_type + ": " + this.data.post_data.title,
+      path: 'pages/Index/contact/contact?post_data=' + this.data.ori_post_data,
+      imageUrl: this.data.post_data.imgs[0],
+      success: function (res) {
+        console.log("发送成功")
+      },
+      fail: function () {
+        console.log("发送失败")
+      }
+    }
+  },
+
+
 
   // 获取物品主人的信息
   getUserData:function(){

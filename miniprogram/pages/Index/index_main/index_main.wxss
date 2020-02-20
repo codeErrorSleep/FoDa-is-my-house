@@ -1,15 +1,82 @@
-swiper{
+swiper {
   width: 100%;
   height: 360rpx;
 }
 
-swiper-item{
-  padding-top: 30rpx;  
-  background: #f1f1f1;
+swiper-item {
+  padding-top: 30rpx;
+  background: #f6f6f6;
 }
 
+.card-swiper {
+  height: 420rpx !important;
+}
 
+.card-swiper swiper-item {
+  width: 610rpx !important;
+  left: 70rpx;
+  box-sizing: border-box;
+  padding: 40rpx 0rpx 70rpx;
+  overflow: initial;
+}
 
+.card-swiper swiper-item .swiper-item {
+  width: 100%;
+  display: block;
+  height: 120%;
+  border-radius: 10rpx;
+  transform: scale(0.9);
+  transition: all 0.2s ease-in 0s;
+  overflow: hidden;
+}
+
+.card-swiper swiper-item.cur .swiper-item {
+  transform: none;
+  transition: all 0.2s ease-in 0s;
+}
+
+.swiper-item image, .swiper-item video {
+  width: 100%;
+  display: block;
+  height: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+
+.navs {
+  display: flex;
+  /* background-color: white; */
+}
+
+.nav-item {
+  /* width: 25%; */
+  width: 33%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20rpx;
+}
+
+.nav-item .nav-image {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.nav-item .nav-image1 {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.nav-item text {
+  padding-top: 14rpx;
+  font-size: 30rpx;
+}
+
+.nav-item text1 {
+  padding-top: 10rpx;
+  font-size: 14rpx;
+}
 
 .but{
     display: flex;
@@ -181,9 +248,67 @@ background-color: #ffce46;
 .chooseList button{
   float:flex;
   width: 60%;
-  
   background: #578ef5;
   color: #fff;
 }
 
+.cu-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1110;
+  opacity: 0;
+  outline: 0;
+  text-align: center;
+  -ms-transform: scale(1.185);
+  transform: scale(1.185);
+  backface-visibility: hidden;
+  perspective: 2000rpx;
+  background: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease-in-out 0s;
+  pointer-events: none;
+}
 
+.cu-modal::before {
+  content: "\200B";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.cu-modal.show {
+  opacity: 1;
+  transition-duration: 0.3s;
+  -ms-transform: scale(1);
+  transform: scale(1);
+  overflow-x: hidden;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.cu-dialog {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  width: 680rpx;
+  max-width: 100%;
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.shutalert {
+  width: 110rpx;
+  margin: -50rpx auto;
+}
+
+.shutalert image {
+  height: 100rpx;
+  width: 100rpx;
+  /* position: absolute; */
+  bottom: 300rpx;
+}

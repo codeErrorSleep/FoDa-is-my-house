@@ -14,11 +14,8 @@ Page({
   onLoad: function () {
     // this.uploadUser()
     // 判断是否显示管理员页面
-    if(app.globalData.userCloudData.admin){
-      this.setData({
-        admin:true
-      })
-    }
+    this.showAdmin();
+    // 初始化用户数据
     this.setData({
       swiperList: app.globalData.swiperList,
       userData:app.globalData.userCloudData
@@ -27,19 +24,30 @@ Page({
 
   },
 
+
+
+
+
+
   onShow: function (options) {
     // this.uploadUser()
     // 判断是否显示管理员页面
-    if (app.globalData.userCloudData.admin) {
-      this.setData({
-        admin: true
-      })
-    }
+    this.showAdmin();
+
     this.setData({
       swiperList: app.globalData.swiperList,
       userData: app.globalData.userCloudData
     })
 
+    //获取用户的openid并设置为全局变量
+    this.login();
+
+  },
+
+
+
+  // 登录操作(从云上获取用户信息)
+  login: function(){
     //获取用户的openid并设置为全局变量
     wx.cloud.callFunction({
       name: 'login',
@@ -51,10 +59,20 @@ Page({
         util.getUserInCloud(this.data.openid);
       }
     })
-
   },
 
-  
+
+
+  // 判断是否显示管理员入口
+  showAdmin:function(){
+    // 判断全局变量中用户的数据
+    if(app.globalData.userCloudData.admin){
+      this.setData({
+        admin:true
+      })
+    }
+  },
+
 
   // 跳转我的页面
   showMyGoods:function(e){
@@ -100,27 +118,15 @@ Page({
     }
   },
 
-  uploadUser: function () {
-    wx.cloud.callFunction({
-      name: 'openapi',
-      data: {
-        action: 'uploadUser',
-      },
-      success: res => {
-        console.warn('[云函数] [openapi] uploadUser 调用成功：', res)
-        wx.showModal({
-          title: '发送成功',
-          content: '成功发送信息',
-          showCancel: false,
-        })
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '调用失败',
-        })
-        console.error('[云函数] [openapi] uploadUser 调用失败：', err)
-      }
+
+
+  //联系客服
+  getCustomer:function() {
+    
+    var images = ["cloud://yf-ab2989.7966-yf-ab2989-1258230310/联系客服图.jpg"]
+    wx.previewImage({
+      current: "cloud://yf-ab2989.7966-yf-ab2989-1258230310/联系客服图.jpg",  //当前预览的图片
+      urls: images,  //所有要预览的图片
     })
-  },
+  }
 })

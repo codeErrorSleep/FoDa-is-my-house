@@ -4,8 +4,7 @@
 
 
 page {
-  background-color:rgb(241,241,241)
- ;
+  background-color:#f6f6f6;
 }
 .container {
   height: 100%;

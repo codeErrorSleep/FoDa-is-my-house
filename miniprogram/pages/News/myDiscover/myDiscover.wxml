@@ -1,9 +1,3 @@
-<!-- pages/News/myDiscover/myDiscover.wxml -->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">我的发现</view>
-</cu-custom>
-
 <import src="../../../templates/oneCol-template/oneCol-template.wxml" />
 
-<template is="oneCol" data="{{feed, accFeed, categories, categories1, currentData, currentData1, myPage, nowDate, windowHeight}}"></template>
+<template is="oneCol" data="{{feed, accFeed, categories, categories1, currentData, currentData1, myPage, nowDate}}"></template>

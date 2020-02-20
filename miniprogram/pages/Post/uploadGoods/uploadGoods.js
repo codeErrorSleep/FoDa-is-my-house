@@ -10,7 +10,7 @@ Page({
    */
   data: {
     //选择物品类型
-    types:["电器类","学习类","衣物类","生活类","其它"],
+    types: ["化妆类", "电器类", "学习类", "衣物类", "生活类"],
     type_index:0,
     //选择校区
     regions: ["江湾", "仙溪", "河滨"],
@@ -38,6 +38,13 @@ Page({
     mode: "",
     // 辨别用户第几次点击发布
     display:true,
+
+    //可选择联系方式
+    contact_wechat: true,
+    contact_phone: true,
+
+    //发布的联系方式
+    contact_way: "all",
   },
 
   /**
@@ -160,6 +167,10 @@ Page({
       this.setData({
         warning: "请输入闲置物品的原价",
       })
+    } else if (this.data.contact_way == "none") {
+      this.setData({
+        warning: "请至少选择一种联系方式",
+      })
     } else {
       this.setData({
         warning: "发布成功",
@@ -194,6 +205,7 @@ Page({
         "oriPrice":this.data.oriPrice,
         "date":date,
         "formId":this.data.formId,
+        "contact":this.data.contact_way,
       },
       success(res){
         //成功上传后提示信息
@@ -258,7 +270,7 @@ Page({
     if (that.data.images.length < 3) {
       wx.chooseImage({
         count: 3, //最多可以选择的图片张数
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: res => {
           this.setData({
@@ -302,7 +314,45 @@ Page({
     console.log(this.data.images)
   },
 
+  //选择微信联系方式
+  switch1Change: function (e) {
+    console.log('wechat', e.detail.value)
+    this.setData({
+       contact_wechat: e.detail.value,
+    })
+    this.contactChange()
+    console.log('contact_way值为：', this.data.contact_way)
+  },
 
+  //选择手机号联系方式
+  switch2Change: function (e) {
+    console.log('phone', e.detail.value)
+    this.setData({
+      contact_phone: e.detail.value,
+    })
+    this.contactChange()
+    console.log('contact_way值为：', this.data.contact_way)
+  },
 
+  //选择联系方式
+  contactChange: function () {
+    if (this.data.contact_wechat && this.data.contact_phone) {
+      this.setData({
+        contact_way: "all"
+      })
+    } else if (!this.data.contact_wechat && this.data.contact_phone) {
+      this.setData({
+        contact_way: "phone"
+      })
+    } else if (this.data.contact_wechat && !this.data.contact_phone) {
+      this.setData({
+        contact_way: "wechat"
+      })
+    }else {
+      this.setData({
+        contact_way: "none"
+      })
+    }
+  },
 
 })    

@@ -1,4 +1,10 @@
-
+.tips {
+background-color: rgb(157, 217, 245);
+text-align: center;
+}
+.tips_text{
+  color: rgb(255, 255, 255);
+}
 .sell_cells {
   margin: 30rpx 15rpx;
   border-radius: 5%;

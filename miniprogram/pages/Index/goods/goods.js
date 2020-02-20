@@ -10,7 +10,7 @@ Page({
     //主导航栏
     navbar: ["闲置", "快递", "发现"],
     //闲置分类导航栏
-    categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+    categories: ["全部", "化妆类", "电器类", "学习类", "衣物类", "生活类"],
     //主导航栏下标
     currentIndex: 0,
     //分类导航栏下标
@@ -54,47 +54,78 @@ Page({
     selectRegion: "",
     //筛选时间
     selectTime: 0,
-    // 可用屏幕高度
-    windowHeight: 0,
+
     //数据库待接单数量
     count: 0,
+
+    //显示悬浮按钮
+    float_show: false,
+
+    //悬浮按钮位置
+    x: 0,
+    y: 0,
+    x_1: 0,
+    y_1: 0,
+    x_2: 0,
+    y_2: 0,
+    x_3: 0,
+    y_3: 0,
+
+    //窗口宽高
+    windowHeight: 0,
+    windowWidth: 0,
   },
 
   //页面加载时读取数据库
   onLoad: function (options) {
-    // 获取手机屏幕可用高度
-    try {
-      var res = wx.getSystemInfoSync()
-      console.log(res.windowHeight)
-      var windowHeight = 0.8 * res.windowHeight - 10
-    } catch (e) { }
+
 
     this.setData({
       currentIndex: options.tab_id,
       nowDate: Number(new Date().getTime()),
-      windowHeight: windowHeight
+      float_show: false,
+      windowHeight: wx.getSystemInfoSync().windowHeight,
+      windowWidth: wx.getSystemInfoSync().windowWidth,
+    })
+    if (options.category_id != "") {
+      this.setData({
+        currentData: options.category_id
+      })
+    }
+    this.setData({
+      x: this.data.windowWidth - 60 - 15,
+      y: this.data.windowHeight - 60-30,
     })
     this.navbarTab();
     // 添加到全局变量 (时间戳)
-    app.globalData.nowDate = this.data.nowDate
+    app.globalData.nowDate = this.data.nowDate;
+
+    //初始化子悬浮按钮位置
+    this.subButton();
   },
 
   //点击更新主导航栏下标
   navbarTab: function (e) {
     if (e) {
       this.setData({
-        currentIndex: e.currentTarget.dataset.index
+        currentIndex: e.currentTarget.dataset.index,
+        currentData: 0,
+        float_show: false,
       });
     }
+
+    //初始化子悬浮按钮位置
+    this.subButton();
+
     console.log(this.data.currentIndex)
     var that = this;
     if (that.data.currentIndex == 0) {
       that.setData({
         feed: [],
         nextPage: 0,
-        categories: ["全部", "电器类", "学习类", "衣物类", "生活类", "其它"],
+        categories: ["全部", "化妆类", "电器类", "学习类", "衣物类", "生活类"],
         database: 'post',
-        currentData: 0,
+        currentData: this.data.currentData,
       })
     } else if (that.data.currentIndex == 1) {
       that.setData({
@@ -108,16 +139,29 @@ Page({
         currentData: 3,
       })
     } else if (that.data.currentIndex == 2) {
-      that.setData({
-        feed: [],
-        accFeed: [],
-        count: 0,
-        nextPage: 0,
-        nextPage1: 0,
-        categories: ["求助", "寻物", "找队友"],
-        database: "recourse",
-        currentData: 0,
-      })
+      if (that.data.currentData == 0) {
+        that.setData({
+          feed: [],
+          accFeed: [],
+          count: 0,
+          nextPage: 0,
+          nextPage1: 0,
+          categories: ["求助", "寻物", "找队友"],
+          database: "recourse",
+          currentData: this.data.currentData,
+        })
+      }else {
+        that.setData({
+          feed: [],
+          accFeed: [],
+          count: 0,
+          nextPage: 0,
+          nextPage1: 0,
+          categories: ["求助", "寻物", "找队友"],
+          database: "discover",
+          currentData: this.data.currentData,
+        })
+      }
     };
     this.allLoad();
   },
@@ -126,7 +170,8 @@ Page({
   categoriesTab: function (e) {
     this.setData({
       // currentIndex: e.currentTarget.dataset.index
-      currentData: e.currentTarget.dataset.index
+      currentData: e.currentTarget.dataset.index,
+      float_show: false,
     })
     console.log(this.data.currentData)
 
@@ -145,7 +190,8 @@ Page({
     // 这里的source是判断是否是手指触摸 触发的事件
     if (source === 'touch') {
       this.setData({
-        currentData: current
+        currentData: current,
+        float_show: false,
       })
       console.log(this.data.currentData)
       // 判断如果为寻物和找队友则更改搜索的数据库
@@ -195,9 +241,12 @@ Page({
     if (that.data.currentIndex == 1 || (that.data.currentIndex == 2 && that.data.currentData == 0)){
       util.countUnAcc(that, '.');
       util.accUnAccLoad(that, '.');
-    }else{
-      console.log('ask:', that.data.database);
+    } else if (that.data.currentIndex == 0){
       util.allLoad(that);
+    } else if (that.data.currentIndex == 2 && that.data.currentData == 1){
+      util.discoverLoad("寻物", this);
+    } else if (that.data.currentIndex == 2 && that.data.currentData == 2) {
+      util.discoverLoad("找队友", this);
     }
   },
 
@@ -280,6 +329,7 @@ Page({
       allTime2: [],
       //日期
       time1: "",
+      float_show: false,
     })
   },
 
@@ -399,6 +449,151 @@ Page({
       categories: this.data.categories,
       currentData: 3
     })
+  },
+
+  //关闭快递选项显示
+  select_close: function () {
+    this.setData({
+      currentData: 3,
+    })
+  },
+
+  // 悬浮按钮
+  floatShow: function () {
+    this.setData({
+      float_show: !this.data.float_show
+    })
+  },
+
+  // 发布信息
+  postItem: function () {
+    if (this.data.currentIndex == 0) {
+      wx.navigateTo({
+        url: "../../Post/uploadGoods/uploadGoods"
+      })
+    } else if (this.data.currentIndex == 1) {
+      wx.navigateTo({
+        url: "../../Post/uploadExpress/uploadExpress"
+      })
+    } else if (this.data.currentIndex == 2) {
+      wx.navigateTo({
+        url: "../../Post/uploadDiscover/uploadDiscover"
+      })
+    }
+    this.setData({
+      float_show: false
+    })
+  },
+
+  //刷新信息
+  refreshItem: function () {
+    this.navbarTab();
+    this.setData({
+      float_show: false
+    })
+  },
+
+  //搜索信息
+  searchItem: function () {
+    wx.navigateTo({
+      url: "../search/search"
+    })
+    this.setData({
+      float_show: false
+    })
+  },
+
+  //悬浮按钮移动
+  buttonMove: function (e) {
+    this.setData({
+      x: e.detail.x,
+      y: e.detail.y,
+    })
+
+    //调节子悬浮按钮位置
+    this.subButton();
+
+  },
+
+  //子悬浮按钮位置
+  subButton: function () {
+    if (this.data.x > (this.data.windowWidth - 60) / 2) {
+      if (this.data.y < (this.data.windowHeight - 60) / 2) {
+        if (this.data.currentIndex == 0) {
+          this.setData({
+            x_1: this.data.x,
+            y_1: this.data.y + 100,
+            x_2: this.data.x - 70,
+            y_2: this.data.y + 70,
+            x_3: this.data.x - 100,
+            y_3: this.data.y,
+          })
+        } else {
+          this.setData({
+            x_2: this.data.x - 30,
+            y_2: this.data.y + 90,
+            x_3: this.data.x - 90,
+            y_3: this.data.y + 30,
+          })
+        }
+      } else {
+        if (this.data.currentIndex == 0) {
+          this.setData({
+            x_1: this.data.x,
+            y_1: this.data.y - 100,
+            x_2: this.data.x - 70,
+            y_2: this.data.y - 70,
+            x_3: this.data.x - 100,
+            y_3: this.data.y,
+          })
+        } else {
+          this.setData({
+            x_2: this.data.x - 30,
+            y_2: this.data.y - 90,
+            x_3: this.data.x - 90,
+            y_3: this.data.y - 30,
+          })
+        }
+      }
+    }else {
+      if (this.data.y < (this.data.windowHeight - 60) / 2) {
+        if (this.data.currentIndex == 0) {
+          this.setData({
+            x_1: this.data.x,
+            y_1: this.data.y + 100,
+            x_2: this.data.x + 70,
+            y_2: this.data.y + 70,
+            x_3: this.data.x + 100,
+            y_3: this.data.y,
+          })
+        } else {
+          this.setData({
+            x_2: this.data.x + 30,
+            y_2: this.data.y + 90,
+            x_3: this.data.x + 90,
+            y_3: this.data.y + 30,
+          })
+        }
+      } else {
+        if (this.data.currentIndex == 0) {
+          this.setData({
+            x_1: this.data.x,
+            y_1: this.data.y - 100,
+            x_2: this.data.x + 70,
+            y_2: this.data.y - 70,
+            x_3: this.data.x + 100,
+            y_3: this.data.y,
+          })
+        } else {
+          this.setData({
+            x_2: this.data.x + 30,
+            y_2: this.data.y - 90,
+            x_3: this.data.x + 90,
+            y_3: this.data.y - 30,
+          })
+        }
+      }
+    }
   },
 
 })

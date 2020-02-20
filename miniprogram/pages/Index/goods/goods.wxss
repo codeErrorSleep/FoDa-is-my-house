@@ -9,21 +9,24 @@
   font-size: 30rpx; 
   text-align: center; 
   background: #fff; 
-  font-weight: bold; 
+  /* font-weight: bold;  */
  } 
  .navbar .item.active{ 
-  color: #f00; 
+  color: #1296DB; 
   position: relative; 
  } 
  .navbar .item.active::after{ 
   content: "";
   display: block;
   position: absolute;
+  margin-left: auto;
+  margin-right:auto;
+  width: 50%;
   height: 4rpx; 
   bottom: 0;
   left: 0;
   right: 0;
-  background: #f00;
+  background: #1296DB;
  }
  .categories{ 
   display: flex; 
@@ -36,21 +39,24 @@
   font-size: 30rpx; 
   text-align: center; 
   background: #fff; 
-  font-weight: bold; 
+  /* font-weight: bold;  */
  } 
  .categories .item.active{ 
-  color: #f00;
+  color: #1296DB;
   position: relative;
  } 
  .categories .item.active::after{ 
   content: ""; 
   display: block; 
-  position: absolute; 
+  position: absolute;
+  margin-left: auto;
+  margin-right:auto;
+  width: 50%;
   height: 4rpx; 
   bottom: 0; 
   left: 0; 
   right: 0; 
-  background: #f00; 
+  background: #1296DB;
  }
  
  
@@ -171,22 +177,25 @@
  .cu-card.article>.cu-item .content>image {
    width: 240rpx;
    height: 6.4em;
-   margin-right: 20rpx;
+   margin-right: 50rpx;
+   margin-bottom: 60rpx;
    border-radius: 6rpx;
  }
  
  .cu-card.article>.cu-item .content .desc {
-   flex: 1;
+   flex: 0.5;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
  }
- 
+
  .cu-card.article>.cu-item .content .text-content {
-   font-size: 28rpx;
+   font-size: 30rpx;
    color: #888;
    height: 4.8em;
    overflow: hidden;
+   word-break: break-all;
+   width: 330rpx;
  }
  
  
@@ -235,10 +244,11 @@
  /* / */
  .express-card>.express-item {
    display: block;
-   background-color: var(--white);
    overflow: hidden;
+   background: #fff;
    border-radius: 25rpx;
    margin: 10rpx 20rpx;
+   z-index: 1;
  }
  
  .express-card.article {
@@ -297,8 +307,8 @@
  .express-card.article>.express-item .content .text-content3 {
     font-size: 30rpx;
     padding: 35rpx 0 10rpx 0;
-    color:rgb(27, 149, 212) ;
-    width:250px; 
+    color:#1296DB;
+    width:200px; 
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -309,7 +319,6 @@
        display: flex;
      flex-direction: row;
      flex-wrap: wrap;
-     background:#fff;
      border-radius: 0;
      /* margin: 2.5rpx 15rpx 0 15rpx; */
      justify-content: flex-start;
@@ -329,6 +338,15 @@
    /* float: right; */
    transform:rotate(-15deg);
  }
+ .express-card .delete {
+   height: 80rpx;
+   background: #fff;
+   border-radius: 10rpx;
+   margin: 0rpx 20rpx 20rpx 20rpx;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
 
 
 
@@ -343,37 +361,38 @@
 .select_field .select_box{
   flex: auto;
   text-align: center;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .select_text{
   font-size: 30rpx; 
 }
 .select_text.active{
-  color: red;
+  color: #1296DB;
 }
 .select_img{
   font-size: 40rpx;
   transition:transform 0.3s;
 }
 .select_img.active{
-  color: red;
+  color: #1296DB;
   transform:rotate(180deg); 
 }
 
 
 
 .select_oneCol{
-  position: relative;
+  position: absolute;
+  z-index: 3;
   width: 100%;
   overflow-y: scroll;
-  padding: 0 0 0 20rpx;
   line-height:100rpx;
   background: white;
 }
 .select_threeCol{
-  position: relative;
+  position: absolute;
+  width:100%;
   height: 450rpx;
-  z-index: 5;
+  z-index: 3;
 }
 .select_threeCol .col_detail{
   overflow-y: scroll;
@@ -383,11 +402,37 @@
   line-height: 80rpx;
   box-sizing: border-box; 
   font-size: 14px;
-  color: #717273;
 }
 .current1{
-  background: #e0e0e0;
+  color: #1296DB;
+  background: rgb(248, 252, 255);
 }
 .current2{
-  background: #fff;
+  color: #1296DB;
+  background: rgb(239, 249, 255);
+}
+.mask{
+  position: absolute;
+  z-index: 2;
+  background: #c5c5c5; opacity:0.5;
+  width: 100%;
+  height: 100%;
+}
+
+/*显示父悬浮按钮*/
+.main_button {
+  background-color: #fff;
+  border-radius: 50%;
+  position: fixed;
+  width:60px;
+  height:60px;
+}
+
+/*显示子悬浮按钮*/
+.sub_button {
+  background-color: #fff;
+  border-radius: 50%;
+  position: fixed;
+  width:50px;
+  height:50px;
 }

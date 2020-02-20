@@ -1,0 +1,22 @@
+
+<scroll-view scroll-y="true" class="container" style="position: absolute; height:100%;" >
+  <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+    <view class="cu-card case " id='{{idx}}' bindtap="jumpToPublic">
+      <view class="cu-item shadow">
+        <view class="image">
+          <image src="{{item.imgs[0]}}" mode="widthFix"></image>
+          <view class="cu-tag bg-blue">{{item.type}}</view>
+          <view class="cu-bar bg-shadeBottom">
+            <text class="text-cut">{{item.title}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+
+
+
+  <view style="position: fixed; bottom: 30px; left: {{(windowWidth-170)}}px;">
+    <image  style="width:150px; height:50px;" src="/images/cooperation.png" bindtap="showCooperationPhoto" data-target="Modal"/>
+  </view>

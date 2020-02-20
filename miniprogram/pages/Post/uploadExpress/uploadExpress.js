@@ -4,14 +4,14 @@ var app = getApp()
 Page({
   data: {
     //快递数量
-    express_num: "",
+    express_num: 1,
     //可选快递数量
     chooseNum: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     //所选快递数量下标
     numIndex: 0,
 
     //快递总重量
-    express_weight: "",
+    express_weight: "轻小件",
     //可选快递总重量
     chooseWeight: ["轻小件", "中件", "大件", "超大件"],
     //所选快递总重量下标
@@ -21,11 +21,11 @@ Page({
     express_pay: "",
 
     //快递取件地址
-    express_pickUp: "江湾 中门中通",
+    express_pickUp: "江湾 大成楼中通",
     express_pickUp_1: "江湾",
-    express_pickUp_2: "中门中通",
+    express_pickUp_2: "大成楼中通",
     //可选快递取件地址
-    choosePickUp: [["江湾", "仙溪", "河滨"], ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"]],
+    choosePickUp: [["江湾", "仙溪", "河滨"], ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "顺丰", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"]],
     //所选快递取件地址下标
     pickUpIndex: [0, 0],
     //快递收件地址
@@ -80,6 +80,9 @@ Page({
     mode: "",
     // 辨别用户第几次点击发布
     display:true,
+
+    //判断用户是否更改姓名
+    changeName: false,
   },
 
   onLoad: function (options) {
@@ -89,7 +92,6 @@ Page({
     var endDate = new Date()
     endDate.setDate(startDate.getDate() + 2)
     this.setData({
-      express_name: app.globalData.userCloudData.real_name,
       express_wechat: app.globalData.userCloudData.wechat_id,
       express_phone: app.globalData.userCloudData.phone,
       ori_express_name: app.globalData.userCloudData.real_name,
@@ -149,7 +151,7 @@ Page({
       case 0:
         switch (data.pickUpIndex[0]) {
           case 0:
-            data.choosePickUp[1] = ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"];
+            data.choosePickUp[1] = ["大成楼中通", "大成楼申通", "大成楼唯品会", "大成楼当当", "大成楼天猫", "大成楼京东", "大成楼苏宁", "顺丰", "商业街菜鸟驿站", "南门中国邮政", "移动店", "中区百世", "中区圆通"];
             break;
           case 1:
             data.choosePickUp[1] = ["北区", "南区"];
@@ -285,9 +287,10 @@ Page({
   uploadPost(e) {
     if (e.detail.value.express_name != "") {
       this.setData({
-        express_name: e.detail.value.express_name
+        express_name: e.detail.value.express_name,
+        changeName: true,
       })
-    } else {
+    } else if (this.data.ori_express_name != null) {
       this.setData({
         express_name: this.data.ori_express_name
       })
@@ -313,8 +316,17 @@ Page({
       })
     }
 
+    if (this.data.express_pickUp_2 == '顺丰') {
+      this.setData({
+        express_pay: '0',
+      })
+    }else {
+      this.setData({
+        express_pay: e.detail.value.express_pay,
+      })
+    }
+
     this.setData({
-      express_pay: e.detail.value.express_pay,
       express_destination_detail: e.detail.value.express_destination_detail,
       express_note: e.detail.value.express_note,
       express_code: e.detail.value.express_code,
@@ -342,6 +354,9 @@ Page({
 
     if (this.data.mode) {
       this.uploadData();
+      if (this.data.changeName) {
+        this.changeUsername();
+      }
     }
   },
 
@@ -458,4 +473,27 @@ Page({
       }
     })
   },
+
+  //上传用户名
+  changeUsername() {
+    console.log("上传数据")
+    const db = wx.cloud.database()
+    db.collection("users").doc(app.globalData.userCloudData._id).update({
+      data: {
+        "real_name": this.data.express_name,
+      },
+      success: function (res) {
+        //成功上传后提示信息
+        console.log("上传成功")
+        wx.showLoading({
+          title: '成功上传',
+          icon: 'success',
+          duration: 1000,
+
+        })
+        wx.navigateBack({})
+      }
+    })
+  },
+
 })

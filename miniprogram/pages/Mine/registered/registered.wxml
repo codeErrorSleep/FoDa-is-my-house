@@ -1,10 +1,3 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">注册</view>
-  <view class="action" slot="right">
-    <view class="cu-load load-icon {{isLoad?'loading':'over'}}"></view>
-  </view>
-</cu-custom>
 <form report-submit='true' bindsubmit='formSubmit'>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
@@ -20,23 +13,15 @@
   </view>
 	<view class="cu-form-group margin-top">
 		<view class="title">昵称</view>
-		<input name="nick_name" placeholder="请输入您的昵称"></input>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">姓名</view>
-		<input name="real_name" placeholder="请输入您的姓名"></input>
+		<input name="nick_name" placeholder="{{nick_name!=''?nick_name:'请输入您的昵称'}}" maxlength="10"></input>
 	</view>
   <view class="cu-form-group">
 		<view class="title">校区</view>
 		<picker bindchange="RegionChange" value="{{region_index}}" range="{{choose}}">
 			<view class="picker">
-				{{region_index?choose[region_index]:'请选择您所在的校区'}}
+				{{region_index!=null?choose[region_index]:'请选择您所在的校区'}}
 			</view>
 		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">微信号</view>
-		<input name="wechat_id" placeholder="请输入您的微信号(可用手机号代替)"></input>
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
@@ -52,8 +37,23 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">验证码</view>
-		<input name="code" placeholder="请输入验证码"></input>
+		<input name="code" placeholder="请输入验证码" maxlength="10"></input>
 		<button style="color: black;" class="cu-btn round bg-blue shadow" bindtap="sendCode" data-target="Modal"  disabled='{{btnDisabled}}'>{{btnValue}}</button>
+	</view>
+  <view class="cu-form-group">
+    <div style="display: flex;">
+      <div style="margin-right: 30rpx;">
+        <checkbox class="round blue" bindtap="associateWechat" checked="true"></checkbox>
+      </div>
+      <div>
+        <text wx:if="{{associate}}">微信号与手机号关联</text>
+        <text wx:else>微信号与手机号不关联</text>
+      </div>
+    </div>
+  </view>
+  <view wx:if="{{!associate}}" class="cu-form-group">
+		<view class="title">微信号</view>
+		<input name="wechat_id" placeholder="请输入您的微信号" maxlength="20"></input>
 	</view>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">

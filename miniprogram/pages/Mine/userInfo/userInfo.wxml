@@ -1,11 +1,8 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">个人信息</view>
-  <view class="action" slot="right">
-    <view class="cu-load load-icon {{isLoad?'loading':'over'}}"></view>
-  </view>
-</cu-custom>
 <form report-submit='true' bindsubmit='formSubmit'>
+  <view class="cu-form-group margin-top">
+		<view class="title">验证状态</view>
+		<text class="approve">{{al_approve?(approve?'通过':'未通过'):'待检验'}}</text>
+	</view>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
 			头像
@@ -22,21 +19,13 @@
 		<view class="title">昵称</view>
 		<input name="nick_name" placeholder="{{ori_nick_name}}"></input>
 	</view>
-	<view class="cu-form-group">
-		<view class="title">姓名</view>
-		<input name="real_name" placeholder="{{ori_real_name}}"></input>
-	</view>
   <view class="cu-form-group">
 		<view class="title">校区</view>
 		<picker bindchange="RegionChange" value="{{region_index}}" range="{{choose}}">
 			<view class="picker">
-				{{region_index?choose[region_index]:'请选择您所在的校区'}}
+				{{region_index!=null?choose[region_index]:'请选择您所在的校区'}}
 			</view>
 		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">微信号</view>
-		<input name="wechat_id" placeholder="{{ori_wechat_id}}"></input>
 	</view>
   	<view class="cu-form-group">
 		<view class="title">手机号码</view>
@@ -50,10 +39,14 @@
 			</view>
 		</view>
 	</view>
-	<view class="cu-form-group" hidden="{{!editPhone}}">
+  <view class="cu-form-group" hidden="{{!editPhone}}">
 		<view class="title">验证码</view>
 		<input name="code" placeholder="请输入验证码"></input>
-		<button class="cu-btn round bg-yellow shadow" bindtap="sendCode" data-target="Modal">验证码</button>
+		<button style="color: black;" class="cu-btn round bg-yellow shadow" bindtap="sendCode" data-target="Modal"  disabled='{{btnDisabled}}'>{{btnValue}}</button>
+	</view>
+  <view class="cu-form-group">
+		<view class="title">微信号</view>
+		<input name="wechat_id" placeholder="{{ori_wechat_id}}"></input>
 	</view>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
@@ -72,10 +65,6 @@
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>
-	</view>
-  <view class="cu-form-group margin-top">
-		<view class="title">验证状态</view>
-		<text class="approve">{{al_approve?(approve?'通过':'未通过'):'待检验'}}</text>
 	</view>
   <view class="padding flex flex-direction">
     <button class="cu-btn round bg-yellow shadow lg" form-type='submit'>确认修改</button>

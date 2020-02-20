@@ -24,8 +24,6 @@ Page({
     nextPage1: 0,
     //我的页面
     myPage: true,
-    // 可用屏幕高度
-    windowHeight:0,
     //用户openid
     user_openid: "",
     //数据库待接单数量
@@ -35,14 +33,7 @@ Page({
 
   //页面加载时读取数据库
   onLoad: function (options) {
-    // 计算屏幕可用高度
-    try {
-      const res = wx.getSystemInfoSync()
-      console.log(res.windowHeight)
-      this.setData({
-        windowHeight:0.8*res.windowHeight-10
-      })
-    } catch (e) {}
+
     this.setData({
       user_openid: app.globalData.userCloudData._openid,
     })
@@ -145,8 +136,9 @@ Page({
     })
   },
 
-  //删除商品
+  //删除未接单快递
   deleteExpress: function (e) {
+    var that=this
     var id = e.currentTarget.id
     //获得帖子id
     var express_id = this.data.feed[id]._id
@@ -165,6 +157,50 @@ Page({
                 icon: 'success',
                 duration: 1000
               })
+              that.setData({
+                count: 0,
+                feed: [],
+                accFeed: [],
+                nextPage: 0,
+                nextPage1: 0,
+              })
+              that.userLoad();
+            }
+          })
+        }
+      }
+    })
+  },
+
+  //删除已接单快递
+  deleteAccExpress: function (e) {
+    var that=this
+    var id = e.currentTarget.id
+    //获得帖子id
+    var express_id = this.data.accFeed[id]._id
+    wx.showModal({
+      title: '删除快递',
+      success(res) {
+        //用户点击删除就删除帖子
+        if (res.confirm) {
+          const db = wx.cloud.database()
+          db.collection('express').doc(express_id).remove({
+            //删除成功显示提示
+            success: function (res) {
+              console.log("删除成功")
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success',
+                duration: 1000
+              })
+              that.setData({
+                count: 0,
+                feed: [],
+                accFeed: [],
+                nextPage: 0,
+                nextPage1: 0,
+              })
+              that.userLoad();
             }
           })
         }

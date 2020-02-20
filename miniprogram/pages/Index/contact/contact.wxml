@@ -1,14 +1,14 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">帖子详情</view>
-</cu-custom>
 <view class="post">
   <view class="userInformation">
     <view class="userImg">
-      <image src="{{swiperList[user_data.head_index].url}}" lazy-load />
+      <image src="{{swiperList[user_data.head_index].url}}" lazy-load="true" />
     </view>
     <view class="userName">
       <text>{{user_data.nick_name}}</text>
+    </view>
+    <!--分享-->
+    <view class="share">
+      <button class="cu-btn round bg-blue shadow" open-type="share">分享</button>
     </view>
   </view>
   <view class="postInformation">
@@ -32,20 +32,19 @@
   <view class="postInformation4">
     <view class="goodsImg">
       <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
-        <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" />
+        <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" lazy-load="true"/>
       </view>
     </view>
   </view>
-  <view class="block1"></view>
+  <!-- <view class="block1"></view> -->
   <!-- 图片自适应 -->
   <!-- style="width:100%" mode="aspectFill"style="width=100%" mode="aspectFill" -->
-  <view class="floatbutton">
-    <button class="circle" bindtap="showModal" data-target="Modal">
-      <view wx:if="{{post_data.type=='寻物'}}" class="want">找到</view>
-      <view wx:elif="{{post_data.type=='找队友'}}" class="want">组队</view>
-      <view wx:else class="want">想要</view>
-    </button>
+  <view style="position: fixed; bottom: 30px; left: {{(windowWidth-80)/2}}px;">
+    <image wx:if="{{post_data.type=='寻物'}}" style="width:80px; height:80px;" src="/images/contact/search.png" bindtap="showModal" data-target="Modal"/>
+    <image wx:elif="{{post_data.type=='找队友'}}" style="width:80px; height:80px;" src="/images/contact/cooperation.png" bindtap="showModal" data-target="Modal"/>
+    <image  wx:else style="width:80px; height:80px;" src="/images/contact/pay.png" bindtap="showModal" data-target="Modal"/>
   </view>
+
   <view class="cu-modal {{modalName=='Modal'?'show':''}}">
     <view class="cu-dialog">
       <view class="cu-bar bg-white justify-end">
@@ -56,11 +55,11 @@
       </view>
       <view class="padding-xl">
         <view style="width:520rpx;margin:7.5rpx 15rpx 5rpx 15rpx;display:flex">
-          <button id="wechatButton" class='btn1' bindtap="showConnect">
+          <button wx:if="{{post_data.contact == 'all' || post_data.contact == 'wechat'}}" id="wechatButton" class='btn1' bindtap="showConnect">
             <image class='btnImg' src='../../../images/wechat.png'></image>
             <view>微信联系</view>
           </button>
-          <button id="phoneButton" class='btn2' bindtap="showConnect">
+          <button wx:if="{{post_data.contact == 'all' || post_data.contact == 'phone'}}" id="phoneButton" class='btn2' bindtap="showConnect">
             <image class='btnImg' src='../../../images/phone.png'></image>
             <view>手机联系</view>
           </button>

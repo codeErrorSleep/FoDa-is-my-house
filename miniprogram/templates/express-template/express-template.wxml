@@ -4,48 +4,50 @@
     <view class="select_field">
       <!--下拉菜单-->
       <view wx:for="{{categories}}" data-index="{{index}}" wx:for-item="item" class="select_box" bindtap="menusTap">
-        <text class="select_text {{currentData==index?'active':''}}">{{item}}</text>
-        <text class="select_img {{currentData==index?'active cuIcon-triangleupfill':'cuIcon-triangledownfill'}}"></text>
+        <text class="select_text {{currentData==index?'active':''}}">{{item}} </text>
+        <text style="font-size: 15px;" class="select_img {{currentData==index?'active cuIcon-fold':'cuIcon-unfold'}}"></text>
       </view>
     </view>
     <!--酬金高低-->
     <view class="select_oneCol" hidden="{{currentData!=0}}">
-      <view wx:for="{{price}}" bindtap="selectByPrice" data-price='{{item}}'>
+      <view style="padding: 0 0 0 50rpx;" wx:for="{{price}}" bindtap="selectByPrice" data-price='{{item}}'>
           {{item}}
       </view>
     </view>
     <!--宿舍筛选-->
     <view class="select_threeCol" hidden="{{currentData!=1}}">
-      <view class="col_detail" style="background: #c5c5c5;">
-          <view class="{{region1 == index ? 'current1' : ''}}" wx:for="{{allRegion1}}" bindtap="selectByRegion1" data-region1='{{index}}'>
-              {{index}}
-          </view>
-      </view>
-      <view class="col_detail" style="background: #e0e0e0;">
-          <view class="{{region2 == index ? 'current2' : ''}}" wx:for="{{allRegion2}}" bindtap="selectByRegion2" data-region2='{{index}}'>
-              {{index}}
-          </view>
-      </view>
       <view class="col_detail" style="background: #fff;">
-          <view wx:for="{{allRegion3}}" data-region3="{{item}}" bindtap="selectByRegion3">
+          <view style="padding: 0 0 0 50rpx;" class="{{region1 == index ? 'current1' : ''}}" wx:for="{{allRegion1}}" bindtap="selectByRegion1" data-region1='{{index}}'>
+              {{index}}
+          </view>
+      </view>
+      <view class="col_detail" style="background: rgb(248, 252, 255);">
+          <view style="padding: 0 0 0 50rpx;" class="{{region2 == index ? 'current2' : ''}}" wx:for="{{allRegion2}}" bindtap="selectByRegion2" data-region2='{{index}}'>
+              {{index}}
+          </view>
+      </view>
+      <view class="col_detail" style="background: rgb(239, 249, 255);">
+          <view style="padding: 0 0 0 50rpx;" wx:for="{{allRegion3}}" data-region3="{{item}}" bindtap="selectByRegion3">
               {{item}}
           </view>
       </view>
     </view>
     <!--时间筛选-->
     <view class="select_threeCol" hidden="{{currentData!=2}}">
-      <view class="col_detail" style="background: #c5c5c5;">
-        <view class="{{time1 == item ? 'current1' : ''}}" wx:for="{{allTime1}}" bindtap="selectByTime1" wx:for-item='item' data-time1='{{item}}'>
+      <view class="col_detail" style="background: #fff;">
+        <view style="padding: 0 0 0 50rpx;" class="{{time1 == item ? 'current1' : ''}}" wx:for="{{allTime1}}" bindtap="selectByTime1" wx:for-item='item' data-time1='{{item}}'>
             {{item}}
         </view>
       </view>
-      <view class="col_detail" style="background: #e0e0e0;">
-        <view wx:for="{{allTime2}}" data-time2='{{item}}' bindtap="selectByTime2">
+      <view class="col_detail" style="background: rgb(248, 252, 255);">
+        <view style="padding: 0 0 0 50rpx;" wx:for="{{allTime2}}" data-time2='{{item}}' bindtap="selectByTime2">
             {{item}}
         </view>
       </view>
-      <view class="col_detail" style="background: #e0e0e0;">
+      <view style="padding: 0 0 0 50rpx;" class="col_detail" style="background: rgb(248, 252, 255);">
       </view>
+    </view>
+    <view class="{{(currentData == 0 || currentData == 1 || currentData == 2) ? 'mask':''}}" bindtap="select_close">
     </view>
   </view>
   <!-- 我的快递页面列表样式 -->
@@ -54,7 +56,7 @@
       <text wx:for="{{categories}}" data-index="{{index}}" class="item {{currentData==index?'active':''}}" bindtap="categoriesTab" wx:key="unique" wx:key="key" >{{item}}</text>
     </view>
   </view>
-  <scroll-view scroll-y="true"  class="container swiper" style="height:{{windowHeight}}px;;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
+  <scroll-view scroll-y="true"  class="container swiper" style="position: absolute; height:100%;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
     <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
       <view wx:if="{{!myPage}}">
         <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
@@ -71,9 +73,9 @@
             <template is="express_cells" data="{{item, idx}}"></template>
           </view>
         </view>
-      </view>
-      <view class="delete flex flex-direction" hidden="{{!myPage || currentData == 1}}">
-        <button class="cu-btn bg-red lg" bindtap="deleteExpress" id='{{idx}}'>删除</button>
+        <view wx:if="{{currentData != 1}}" class="express-card delete" bindtap="deleteExpress" id='{{idx}}'>
+          <image style="width:30px; height:30px;" src="/images/delete.png"/>
+        </view>
       </view>
     </block>
     <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
@@ -92,6 +94,9 @@
             <template is="express_cells" data="{{item, idx}}"></template>
           </view>
         </view>
+        <view wx:if="{{currentData != 1}}" class="express-card delete" bindtap="deleteAccExpress" id='{{idx}}'>
+          <image style="width:30px; height:30px;" src="/images/delete.png"/>
+        </view>
       </view>
     </block>
   </scroll-view>
@@ -100,6 +105,9 @@
 <!--快递单元信息-->
 <template name="express_cells">
   <view class="express-item shadow">
+    <view wx:if="{{item.pickUp == '顺丰'}}" style="position: absolute;">
+      <image src="/images/index/shunfeng.png" style="opacity: 0.2; width: 250rpx; height:250rpx;"/>
+    </view>
     <view class="title">
       <view class="flex justify-between">
         <text class="text-cut">{{item.region}}  {{item.destination_1}}  {{item.destination_2}}</text>

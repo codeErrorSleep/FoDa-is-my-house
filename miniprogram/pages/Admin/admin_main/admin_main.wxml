@@ -1,9 +1,3 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">管理</view>
-</cu-custom>
-
-
 <view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}} margin-top">
   <view class="cu-item {{menuArrow?'arrow':''}}" bindtap="adminSH">
     <view class="content">

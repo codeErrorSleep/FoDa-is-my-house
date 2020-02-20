@@ -30,21 +30,31 @@ function getUserInCloud(openid){
 }
 
 // 判断是否为注册用户
-function isRegistered(){
+function isRegistered() {
   // 判断当前用户是否为以注册用户
   // if(!app.globalData.userCloudData.approve){
-    // Object.keys(app.globalData.userCloudData.approve)
-  if(app.globalData.userCloudData.approve==="0"){
+  // Object.keys(app.globalData.userCloudData.approve)
+  if (!app.globalData.userCloudData) {
+    //获取用户的openid并设置为全局变量
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        console.log('callFunction test result: ', res)
+        getUserInCloud(res.result.openid);
+      }
+    })
+  }
+  else if (app.globalData.userCloudData.approve === "0") {
     wx.redirectTo({
       url: '../../Mine/registered/registered?show=true'
     })
   }
-  else if(!app.globalData.userCloudData.approve){
+  else if (!app.globalData.userCloudData.approve) {
     wx.redirectTo({
       url: '../../Mine/userInfo/userInfo?show=true'
     })
   }
-  else{
+  else {
     return true
   }
 
@@ -149,6 +159,53 @@ function accLoad(that) {
   db.collection(that.data.database)
     .where({
       "accepter_openid": that.data.user_openid
+    })
+    .orderBy('date', 'desc')
+    .skip(that.data.nextPage)
+    .limit(10) // 限制返回数量为 10 条
+    .get({
+      //成功读取写入数据
+      success: res => {
+        that.setData({
+          //feed: JSON.stringify(res.data, null, 2)
+          //feed:res.data
+          feed: tempFeed.concat(res.data),
+          nextPage: tempNextPage + 10
+        })
+        console.log('[数据库] [查询记录] 成功: ', that.data.feed)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    });
+  wx.showToast({
+    title: '加载成功',
+    icon: 'success',
+    duration: 1000
+  })
+}
+
+//在云数据库上查找用户接收数据(查找10条)
+function searchLoad(that) {
+  wx.showToast({
+    title: '加载中',
+    icon: 'loading',
+    duration: 500
+  })
+  var tempFeed = that.data.feed
+  var tempNextPage = that.data.nextPage
+  const db = wx.cloud.database()
+  //查询所有用户的闲置二手信息
+  db.collection(that.data.database)
+    .where({
+      "title": db.RegExp({
+        regexp: that.data.keyword,
+        options: 'i',
+      })
     })
     .orderBy('date', 'desc')
     .skip(that.data.nextPage)
@@ -380,6 +437,7 @@ module.exports.getDate = getDate;
 module.exports.allLoad = allLoad;
 module.exports.userLoad = userLoad;
 module.exports.accLoad = accLoad;
+module.exports.searchLoad = searchLoad;
 module.exports.getUserInCloud = getUserInCloud;
 module.exports.isRegistered=isRegistered;
 module.exports.countUnAcc=countUnAcc;

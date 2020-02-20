@@ -152,6 +152,8 @@ Page({
     var that = this
     var user_id = this.data.feed[idx]._id
     var users_Name = this.data.feed[idx].nick_name
+    var user_openid  =  this.data.feed[idx]._openid
+    var formId  =  this.data.feed[idx].formId
     wx.showModal({
       title: '认证不通过',
       content: users_Name,
@@ -191,6 +193,17 @@ Page({
       current: images[index],  //当前预览的图片
       urls: images,  //所有要预览的图片
     })
+  },
+
+  //刷新注册用户
+  refresh:function() {
+    this.setData({
+      //获取的二手物品数据
+      feed: [],
+      //下拉继续读取数据
+      nextPage: 0,
+    })
+    this.allLoad();
   }
 
 

@@ -1,15 +1,12 @@
-<!--pages/Post/uploadExpress/uploadExpress.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">发布快递</view>
-</cu-custom>
 <view class="page">
   <form report-submit='true' bindsubmit='uploadPost'>
-
+    <view class='tips'>
+      <text class='tips_text'>发布快递信息哦</text>
+    </view>
     <view class='sell_cells'>
 
         <view class="sell_cell">
-          <text class="sell_title line-yellow">快递信息</text>
+          <text class="sell_title line-blue">快递信息</text>
         </view>
 
         <!--快递件数-->
@@ -31,8 +28,8 @@
         <!--总报酬金额-->
         <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
           <text class="sell_title">总报酬金额(元)</text>
-          <input name="express_pay" class="sell_input price" type="digit" placeholder="请输入报酬金额(2元起)" placeholder-class='placeholder' maxlength='3'/>
-          <button class="cu-btn round line-yellow text-bold" bindtap="payNote">?</button>
+          <input name="express_pay" class="sell_input price" disabled="{{express_pickUp_2 == '顺丰'}}" type="digit" placeholder="{{express_pickUp_2 == '顺丰'?'丰行者免费送上门':'请输入报酬金额(2元起)'}}" placeholder-class='placeholder' maxlength='3'/>
+          <button class="cu-btn round line-blue text-bold" bindtap="payNote">?</button>
         </view>
         
         <!--快递取件地址-->
@@ -55,19 +52,19 @@
     <view class='sell_cells'>
 
       <view class="sell_cell">
-        <text class="sell_title line-yellow">详细信息</text>
+        <text class="sell_title line-blue">详细信息</text>
       </view>
 
       <!--详细地址-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">取件码</text>
-        <input name="express_code" class="sell_input" type="number" placeholder="货物取件码(若无可不填)" placeholder-class='placeholder'/>
+        <input name="express_code" class="sell_input" type="number" placeholder="货物取件码(若无可不填)" placeholder-class='placeholder' maxlength='11'/>
       </view>
 
       <!--详细地址-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">详细地址</text>
-        <input name="express_destination_detail" class="sell_input" placeholder="请输入您的详细收件地址" placeholder-class='placeholder'/>
+        <input name="express_destination_detail" class="sell_input" placeholder="请输入您的详细收件地址" placeholder-class='placeholder' maxlength='10'/>
       </view>
 
       <!--送达时间-->
@@ -84,19 +81,19 @@
       <!--快递取件人姓名-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">姓名</text>
-        <input name="express_name" class="sell_input" placeholder="{{ori_express_name}}" placeholder-class='placeholder'/>
+        <input name="express_name" class="sell_input" placeholder="{{ori_express_name}}" placeholder-class='placeholder' maxlength='10'/>
       </view>
 
       <!--快递微信号-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">微信号</text>
-        <input name="express_wechat" class="sell_input" placeholder="{{ori_express_wechat}}" placeholder-class='placeholder'/>
+        <input name="express_wechat" class="sell_input" placeholder="{{ori_express_wechat}}" placeholder-class='placeholder' maxlength='20'/>
       </view>
 
       <!--快递手机号-->
       <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
         <text class="sell_title">手机号</text>
-        <input name="express_phone" class="sell_input" placeholder="{{ori_express_phone}}" placeholder-class='placeholder'/>
+        <input name="express_phone" class="sell_input" placeholder="{{ori_express_phone}}" placeholder-class='placeholder' maxlength='11'/>
       </view>
 
       <!--详细-->
@@ -138,6 +135,7 @@
             <text class="payNote">4.超大件一件建议10元起</text>
             <text class="payNote">5.如果一次需拿多几件，可以适当增加报酬</text>
             <text class="payNote">6.恶劣天气可以适当增加报酬</text>
+            <text class="payNote" style="font-weight: bold;">(注意：顺丰丰行者提供快递免费送上门服务)</text>
           </view>
           <view wx:else>
             {{warning}}

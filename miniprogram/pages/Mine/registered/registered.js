@@ -8,11 +8,9 @@ Page({
     //头像索引
     head_index: "",
     //昵称
-    nick_name: "",
-    //姓名
-    real_name: "",
+    nick_name: "Dd_",
     //校区索引
-    region_index: null,
+    region_index: 0,
     //校区选择
     choose: ["江湾", "仙溪", "河滨"],
     //微信号
@@ -39,6 +37,8 @@ Page({
     btnDisabled: false,
     //是否同意协议
     agree: false,
+    //微信号与手机号关联
+    associate: true,
   },
   onLoad(options) {
     this.setData({
@@ -47,7 +47,8 @@ Page({
     // 初始化towerSwiper 传已有的数组名即可
     this.towerSwiper('swiperList');
     this.setData({
-      head_index: this.data.swiperList[3].id
+      head_index: this.data.swiperList[3].id,
+      nick_name: this.data.nick_name + this.randomNickName(),
     })
     console.log('head_index:', this.data.head_index)
   
@@ -67,7 +68,7 @@ Page({
   ChooseImage() {
     wx.chooseImage({
       count: 1, //默认9
-      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], //从相册选择
       success: (res) => {
         if (this.data.imgList.length != 0) {
@@ -325,28 +326,9 @@ Page({
       this.setData({
         warning: "昵称已被注册",
       })
-    } else if (this.data.real_name == "") {
-      this.setData({
-        warning: "姓名不能为空",
-      })
     } else if (this.data.region_index == null) {
       this.setData({
         warning: "校区不能为空",
-      })
-    } else if (this.data.wechat_id == "") {
-      this.setData({
-        warning: "微信号不能为空",
-      })
-    } 
-    // 先不让用户输入微信号（此段代码在userinfo中也与快递那里都有，修改一同修改）
-    // else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
-    //   this.setData({
-    //     warning: "请输入正确的微信号",
-    //   })
-    // } 
-    else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
-      this.setData({
-        warning: "微信号已被注册",
       })
     } else if (this.data.phone == "") {
       this.setData({
@@ -359,6 +341,21 @@ Page({
     } else if (await this.checkDB('phone', this.data.phone)) {
       this.setData({
         warning: "手机号码已被注册",
+      })
+    } else if (this.data.wechat_id == "") {
+      this.setData({
+        warning: "微信号不能为空",
+      })
+    }
+    // 先不让用户输入微信号（此段代码在userinfo中也与快递那里都有，修改一同修改）
+    // else if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/.test(this.data.wechat_id))) {
+    //   this.setData({
+    //     warning: "请输入正确的微信号",
+    //   })
+    // } 
+    else if (await this.checkDB('wechat_id', this.data.wechat_id)) {
+      this.setData({
+        warning: "微信号已被注册",
       })
     } else if (this.data.imgList.length == 0) {
       this.setData({
@@ -388,10 +385,21 @@ Page({
   },
   //提交表单
   formSubmit(e) {
+    if (e.detail.value.nick_name != "") {
+      this.setData({
+        nick_name: e.detail.value.nick_name,
+      })
+    }
+    if (this.data.associate) {
+      this.setData({
+        wechat_id: e.detail.value.phone,
+      })
+    }else {
+      this.setData({
+        wechat_id: e.detail.value.wechat_id,
+      })
+    }
     this.setData({
-      nick_name: e.detail.value.nick_name,
-      real_name: e.detail.value.real_name,
-      wechat_id: e.detail.value.wechat_id,
       phone: e.detail.value.phone,
       code: e.detail.value.code,
       formId: e.detail.formId,
@@ -400,7 +408,6 @@ Page({
 
     console.log(this.data.head_index);
     console.log(this.data.nick_name);
-    console.log(this.data.real_name);
     console.log(this.data.region_index);
     console.log(this.data.wechat_id);
     console.log(this.data.phone);
@@ -419,7 +426,6 @@ Page({
       data: {
         "head_index": this.data.head_index,
         "nick_name": this.data.nick_name,
-        "real_name": this.data.real_name,
         "region_index": this.data.region_index,
         "wechat_id": this.data.wechat_id,
         "phone": this.data.phone,
@@ -486,5 +492,26 @@ Page({
     wx.navigateTo({
       url:"../../Admin/agreement/agreement"
     })
-  }
+  },
+
+  //生成随机数
+  randomNickName(){
+    var nickname = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i = 0; i < 6; i++ ) {
+      nickname += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return nickname;
+  },
+
+  //微信号与手机号关联
+  associateWechat() {
+    this.setData({
+      associate: !this.data.associate
+    })
+    console.log("associate?", this.data.associate)
+  },
+
 })

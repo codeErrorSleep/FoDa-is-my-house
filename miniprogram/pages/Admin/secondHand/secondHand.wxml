@@ -1,7 +1,3 @@
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">闲置</view>
-</cu-custom>
 <view class='list'>
     <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
         <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
@@ -17,7 +13,7 @@
                     <view class="item-img">
                         <view wx:for="{{item.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
                             <view wx:if="{{img_num < 3}}">
-                                <image wx:if='{{goods_item_img}}' src="{{goods_item_img}}" lazy-load />
+                                <image wx:if='{{goods_item_img}}' src="{{goods_item_img}}" lazy-load="true" />
                             </view>
                         </view>
                         <!-- <image src="../../../images/test.jpg" /> -->

@@ -10,21 +10,24 @@
     font-size: 30rpx; 
     text-align: center; 
     background: #fff; 
-    font-weight: bold; 
+    /* font-weight: bold;  */
    } 
    .navbar .item.active{ 
-    color: #f00; 
+    color: #1296DB; 
     position: relative; 
    } 
    .navbar .item.active::after{ 
     content: "";
     display: block;
     position: absolute;
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
     height: 4rpx; 
     bottom: 0;
     left: 0;
     right: 0;
-    background: #f00;
+    background: #1296DB; 
    }
    .categories{ 
     display: flex; 
@@ -37,21 +40,24 @@
     font-size: 30rpx; 
     text-align: center; 
     background: #fff; 
-    font-weight: bold; 
+    /* font-weight: bold;  */
    } 
    .categories .item.active{ 
-    color: #f00;
+    color: #1296DB; 
     position: relative;
    } 
    .categories .item.active::after{ 
     content: ""; 
     display: block; 
     position: absolute; 
+    margin-left: auto;
+    margin-right:auto;
+    width: 50%;
     height: 4rpx; 
     bottom: 0; 
     left: 0; 
     right: 0; 
-    background: #f00; 
+    background: #1296DB;  
    }
    
    
@@ -130,88 +136,108 @@
             卡片
     ==================== */
    
-    .cu-card {
-     display: block;
-     overflow: hidden;
-   }
-   
-   .cu-card>.cu-item {
-     display: block;
-     background-color: var(--white);
-     overflow: hidden;
-     border-radius: 10rpx;
-     margin: 10rpx 20rpx;
-   }
-   
-   .cu-card.article {
-     display: block;
-   }
-   
-   .cu-card.article>.cu-item {
-     padding-bottom: 30rpx;
-   }
-   
-   .cu-card.article>.cu-item .title .text-cut{
-     font-size: 30rpx;
-     font-weight: 900;
-     color: var(--black);
-     line-height: 100rpx;
-     padding: 0 0 0 0;
-   }
-   
-   .cu-card.article>.cu-item .title .text-price{
-     font-size: 30rpx;
-     color: var(--black);
-     line-height: 100rpx;
-     padding: 0 30rpx;
-     color: red;
-   }
-   
-   
-   .cu-card.article>.cu-item .content {
-     display: flex;
-     padding: 0 30rpx;
-   }
-   
-   .cu-card.article>.cu-item .content>image {
-     width: 240rpx;
-     height: 6.4em;
-     margin-right: 20rpx;
-     border-radius: 6rpx;
-   }
-   
-   .cu-card.article>.cu-item .content .desc {
-     flex: 1;
-     display: flex;
-     flex-direction: column;
-     justify-content: space-between;
-   }
-   
-   .cu-card.article>.cu-item .content .text-content {
-     font-size: 28rpx;
-     color: #888;
-     height: 4.8em;
-     overflow: hidden;
-   }
-   
-   
-   .cu-tag.sm {
-   font-size: 25rpx;
-   }
-   
-   
-  
-   .cu-card .condition{
-    position: absolute;
-    margin-top: 0rpx;   
-    margin-left: 443rpx; 
-  }
-  
-  .cu-card .cond{
-    width: 215rpx;
-    height: 215rpx;
-    transform:rotate(-15deg);
-  }
+  .cu-card {
+   display: block;
+   overflow: hidden;
+ }
+ 
+ .cu-card>.cu-item {
+   display: block;
+   background-color: var(--white);
+   overflow: hidden;
+   border-radius: 10rpx;
+   margin: 10rpx 20rpx;
+ }
+ 
+ .cu-card.article {
+   display: block;
+ }
+ 
+ .cu-card.article>.cu-item {
+   padding-bottom: 30rpx;
+ }
+ 
+ .cu-card.article>.cu-item .title .text-cut{
+   font-size: 30rpx;
+   font-weight: 900;
+   color: var(--black);
+   line-height: 100rpx;
+   padding: 0 0 0 0;
+ }
+ 
+ .cu-card.article>.cu-item .title .text-price{
+   font-size: 30rpx;
+   color: var(--black);
+   line-height: 100rpx;
+   padding: 0 30rpx;
+   color: red;
+ }
+ 
+ 
+ .cu-card.article>.cu-item .content {
+   display: flex;
+   padding: 0 30rpx;
+ }
+ 
+ .cu-card.article>.cu-item .content>image {
+   width: 240rpx;
+   height: 6.4em;
+   margin-right: 50rpx;
+   margin-bottom: 60rpx;
+   border-radius: 6rpx;
+ }
+ 
+ .cu-card.article>.cu-item .content .desc {
+   flex: 0.5;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   /* margin: 100rpx 100rpx 10rpx 10rpx; */
+   /* margin-bottom: 1rpx;
+   padding-bottom: 1rpx; */
+ }
+/*  
+ .time{
+   display: felx;
+   margin-left: 20rpx;
+ } */
+ .cu-card.article>.cu-item .content .text-content {
+   font-size: 28rpx;
+   color: #888;
+   height: 4.8em;
+   overflow: hidden;
+ }
+ 
+ 
+ .cu-tag.sm {
+ font-size: 25rpx;
+ }
+ 
+ 
+ .cu-card  .condition{
+   display: inline-block; 
+      position: absolute;
+      margin-top: 10rpx;
+      margin-left: 463rpx; 
+}
+.cu-card  .condition .cond{
+  width: 215rpx;
+  height: 215rpx;
+  /* float: right; */
+  transform:rotate(-15deg);
+}
+
+.cu-card .condition{
+  position: absolute;
+  margin-top: 0rpx;   
+  margin-left: 443rpx; 
+}
+
+.cu-card .cond{
+  width: 215rpx;
+  height: 215rpx;
+  transform:rotate(-15deg);
+}
   
   
   
@@ -292,7 +318,7 @@
    .express-card.article>.express-item .content .text-content3 {
       font-size: 30rpx;
       padding: 35rpx 0 10rpx 0;
-      color:rgb(27, 149, 212) ;
+      color:#1296DB;
       width:250px; 
       white-space:nowrap;
       overflow:hidden;
@@ -325,6 +351,12 @@
      transform:rotate(-15deg);
    }
   
-   .delete{
-      margin: 0 20rpx 30rpx 20rpx;
-   }
+   .express-card.delete {
+   height: 80rpx;
+   background: #fff;
+   border-radius: 10rpx;
+   margin: 0rpx 20rpx 20rpx 20rpx;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }

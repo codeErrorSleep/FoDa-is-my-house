@@ -5,6 +5,7 @@
     "pages/Index/contact/contact",
     "pages/Index/contact_express/contact_express",
     "pages/Index/contact_recourse/contact_recourse",
+    "pages/Index/coupon/coupon",
     "pages/News/myGoods/myGoods",
     "pages/News/myDiscover/myDiscover",
     "pages/News/myExpress/myExpress",
@@ -17,13 +18,14 @@
     "pages/Admin/secondHand/secondHand",
     "pages/Admin/user/user",
     "pages/Admin/agreement/agreement",
-    "pages/Mine/userInfo/userInfo"
+    "pages/Mine/userInfo/userInfo",
+    "pages/Index/search/search"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#39b54a",
-    "navigationBarTitleText": "Color UI",
-    "navigationStyle": "custom",
-    "navigationBarTextStyle": "white"
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "佛大叮当",
+    "navigationBarTextStyle": "black"
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"

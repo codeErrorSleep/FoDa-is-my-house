@@ -1,14 +1,5 @@
-<!--pages/News/myExpress/myExpress.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
-	<view slot="backText">返回</view>
-	<view slot="content">我的快递</view>
-</cu-custom>
-
-
-
-
 <import src="../../../templates/express-template/express-template.wxml" />
-<template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid, windowHeight}}"></template>
+<template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid}}"></template>
 
 
 

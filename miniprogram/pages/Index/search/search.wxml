@@ -1,0 +1,17 @@
+<!--miniprogram/pages/Index/search/search.wxml-->
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input name="keyword" type="text" placeholder="输入搜索的关键词" confirm-type="searchByKeyword" bindinput="inputKeyword"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-blue shadow-blur round" bindtap="searchByKeyword">搜索</button>
+  </view>
+</view>
+<view wx:if="{{feed.length == 0}}" class="search_main">
+  <image src='/images/shop.png' lazy-load="true"></image>
+</view>
+<import src="../../../templates/twoCol-template/twoCol-template.wxml" />
+<view>
+  <template is="twoCol" data="{{feed, searchPage}}"></template>
+</view>
