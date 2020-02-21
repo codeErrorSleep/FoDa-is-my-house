@@ -89,7 +89,7 @@ Page({
 
   },
   //选择图片
-  ChooseImage() {
+  ChooseImage:function() {
     wx.chooseImage({
       count: 1, //默认9
       sizeType: ['compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -108,14 +108,14 @@ Page({
     });
   },
   //显示图片
-  ViewImage(e) {
+  ViewImage:function(e) {
     wx.previewImage({
       urls: this.data.imgList,
       current: e.currentTarget.dataset.url
     });
   },
   //删除图片
-  DelImg(e) {
+  delImg:function(e) {
     wx.showModal({
       title: '提示',
       content: '确定要删除该图片吗？',
@@ -131,70 +131,13 @@ Page({
       }
     })
   },
-  // towerSwiper
-  // 初始化towerSwiper
-  towerSwiper(name) {
-    let list = this.data[name];
-    for (let i = 0; i < list.length; i++) {
-      list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
-      list[i].mLeft = i - parseInt(list.length / 2)
-    }
-    this.setData({
-      swiperList: list
-    })
-  },
-  // towerSwiper触摸开始
-  towerStart(e) {
-    this.setData({
-      towerStart: e.touches[0].pageX
-    })
-  },
-  // towerSwiper计算方向
-  towerMove(e) {
-    this.setData({
-      direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
-    })
-  },
-  // towerSwiper计算滚动
-  towerEnd(e) {
-    let direction = this.data.direction;
-    let list = this.data.swiperList;
-    if (direction == 'right') {
-      let mLeft = list[0].mLeft;
-      let zIndex = list[0].zIndex;
-      for (let i = 1; i < list.length; i++) {
-        list[i - 1].mLeft = list[i].mLeft
-        list[i - 1].zIndex = list[i].zIndex
-      }
-      list[list.length - 1].mLeft = mLeft;
-      list[list.length - 1].zIndex = zIndex;
-      this.setData({
-        swiperList: list
-      })
-    } else {
-      let mLeft = list[list.length - 1].mLeft;
-      let zIndex = list[list.length - 1].zIndex;
-      for (let i = list.length - 1; i > 0; i--) {
-        list[i].mLeft = list[i - 1].mLeft
-        list[i].zIndex = list[i - 1].zIndex
-      }
-      list[0].mLeft = mLeft;
-      list[0].zIndex = zIndex;
-      this.setData({
-        swiperList: list
-      })
-    }
-    //zIndex=4 ,mLeft=0为中心图片
-    var that = this;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].mLeft == 0) {
-        that.setData({
-          head_index: list[i].id
-        })
-      }
-    }
-    console.log('head_index:', this.data.head_index)
-  },
+
+
+
+
+
+
+
   //选择校区
   RegionChange: function (e) {
     this.setData({
@@ -279,6 +222,7 @@ Page({
   },
   //发送验证码
   async sendCode(e) {
+    // 判断手机号码格式
     if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.data.phone))) {
       this.setData({
         warning: "请输入正确的手机号码",
@@ -306,7 +250,7 @@ Page({
     })
   },
   //数据库查重
-  checkDB(key,value) {
+  checkDB:function(key,value) {
     return new Promise((resolve,reject)=>{
       const db = wx.cloud.database()
       const _ = db.command
@@ -395,8 +339,18 @@ Page({
       this.setData({
         warning: "提交成功",
       })
-      //上传数据
-      this.uploadImages()
+      //判断是否有修改校园卡信息
+      // 有则需要上传图片
+      if (this.data.imgList != app.globalData.userCloudData.approve_img){
+        // 删除旧照片,上传新照片
+        this.delApproveImg()
+        this.uploadImages()
+      }
+      else{
+        this.uploadData()
+      }
+
+
     }
     wx.hideLoading()
     this.setData({
@@ -405,7 +359,7 @@ Page({
     })
   },
   //提交表单
-  formSubmit(e) {
+  formSubmit:function(e) {
     if (e.detail.value.nick_name != "") {
       this.setData({
         nick_name: e.detail.value.nick_name
@@ -459,22 +413,14 @@ Page({
       warning: "",
     })
 
-    console.log(this.data.head_index);
-    console.log(this.data.nick_name);
-    console.log(this.data.real_name);
-    console.log(this.data.region_index);
-    console.log(this.data.wechat_id);
-    console.log(this.data.phone);
-    console.log(this.data.code);
-    console.log(this.data.imgList[0]);
-    console.log(app.globalData.userCloudData.approve_img);
-    console.log(this.data.formId);
+    // console.log(this.data.head_index);
+    // console.log(this.data.nick_name);
 
     this.checkInfo()
 
   },
   //上传数据
-  uploadData() {
+  uploadData:function() {
     console.log("上传数据")
     const db = wx.cloud.database()
     db.collection("users").doc(app.globalData.userCloudData._id).update({
@@ -504,40 +450,123 @@ Page({
     })
   },
   //上传用户图片信息
-  uploadImages() {
-    if (this.data.imgList != app.globalData.userCloudData.approve_img) {
-      console.log("上传图片")
-      var images = this.data.imgList
-      //先添加到这一变量,在最后一个再改变this.data.中的approve_img
-      var approve_img = []
-      // 对用户点击的图片进行上传
-      images.forEach(item => {
-        console.log(item)
-        wx.cloud.uploadFile({
-          cloudPath: "approve_imgs/" + item.substring(item.length - 20), // 上传至云端的路径
-          filePath: item, // 小程序临时文件路径
-          success: res => {
-            // 返回文件 ID
-            console.log(res.fileID)
-            approve_img.push(res.fileID)
-            console.log(approve_img)
-            //获取所有图片在云端的位置后上传到数据库
-            if (approve_img.length === images.length) {
-              //将局部变量赋给this.data
-              this.setData({
-                approve_img: approve_img
-              })
-              console.log(this.data.approve_img)
-
-
-              this.uploadData()
-            }
-          },
-          fail: console.error
-        })
-      });
-    }else {
-      this.uploadData()
-    }
+  uploadImages:function() {
+    console.log("上传图片")
+    var images = this.data.imgList
+    //先添加到这一变量,在最后一个再改变this.data.中的approve_img
+    var approve_img = []
+    // 对用户点击的图片进行上传
+    images.forEach(item => {
+      console.log(item)
+      wx.cloud.uploadFile({
+        cloudPath: "approve_imgs/" + item.substring(item.length - 20), // 上传至云端的路径
+        filePath: item, // 小程序临时文件路径
+        success: res => {
+          // 返回文件 ID
+          approve_img.push(res.fileID) 
+          //获取所有图片在云端的位置后上传到数据库
+          if (approve_img.length === images.length) {
+            //将局部变量赋给this.data
+            this.setData({
+              approve_img: approve_img
+            })
+            console.log(this.data.approve_img)
+          }
+        },
+        fail: console.error
+      })
+    });
+    // 上传完图片后上传用户数据
+    this.uploadData()
   },
+
+  // 删除旧校园卡图片
+  delApproveImg:function(){
+    console.log("删除旧校园卡照片(云上)")
+    console.log(app.globalData.userCloudData.approve_img)
+    wx.cloud.deleteFile({
+      fileList: app.globalData.userCloudData.approve_img,
+      success: res => {
+        // handle success
+        console.log("删除旧图片成功")
+      },
+      fail: console.error
+    })
+
+  },
+
+
+
+  
+
+  ////////////////////////////////轮播图 滑动控制////////////////////////////////
+  // towerSwiper
+  // 初始化towerSwiper
+  towerSwiper:function(name) {
+    let list = this.data[name];
+    for (let i = 0; i < list.length; i++) {
+      list[i].zIndex = parseInt(list.length / 2) + 1 - Math.abs(i - parseInt(list.length / 2))
+      list[i].mLeft = i - parseInt(list.length / 2)
+    }
+    this.setData({
+      swiperList: list
+    })
+  },
+  // towerSwiper触摸开始
+  towerStart(e) {
+    this.setData({
+      towerStart: e.touches[0].pageX
+    })
+  },
+  // towerSwiper计算方向
+  towerMove(e) {
+    this.setData({
+      direction: e.touches[0].pageX - this.data.towerStart > 0 ? 'right' : 'left'
+    })
+  },
+  // towerSwiper计算滚动
+  towerEnd(e) {
+    let direction = this.data.direction;
+    let list = this.data.swiperList;
+    if (direction == 'right') {
+      let mLeft = list[0].mLeft;
+      let zIndex = list[0].zIndex;
+      for (let i = 1; i < list.length; i++) {
+        list[i - 1].mLeft = list[i].mLeft
+        list[i - 1].zIndex = list[i].zIndex
+      }
+      list[list.length - 1].mLeft = mLeft;
+      list[list.length - 1].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    } else {
+      let mLeft = list[list.length - 1].mLeft;
+      let zIndex = list[list.length - 1].zIndex;
+      for (let i = list.length - 1; i > 0; i--) {
+        list[i].mLeft = list[i - 1].mLeft
+        list[i].zIndex = list[i - 1].zIndex
+      }
+      list[0].mLeft = mLeft;
+      list[0].zIndex = zIndex;
+      this.setData({
+        swiperList: list
+      })
+    }
+    //zIndex=4 ,mLeft=0为中心图片
+    var that = this;
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].mLeft == 0) {
+        that.setData({
+          head_index: list[i].id
+        })
+      }
+    }
+    console.log('head_index:', this.data.head_index)
+  },
+  ////////////////////////////////轮播图 滑动控制////////////////////////////////
+
+
+
+
 })
