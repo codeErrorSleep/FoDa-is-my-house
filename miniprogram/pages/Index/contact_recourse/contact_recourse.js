@@ -179,7 +179,6 @@ Page({
       name: 'openapi',
       data: {
         action: 'sendRecourseTemplate',
-        formId: this.data.post_data.formId,
         orders: orders,
         user_openid: this.data.post_data._openid
       },

@@ -18,7 +18,7 @@
 
 <view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}  margin-top">
 <view class="cu-item {{menuArrow?'arrow':''}}">
-  <form report-submit='true' bindsubmit='formSubmit'>
+  <form report-submit='true' bindsubmit='sendRegistered'>
     <button class="cu-btn content" id='1' report-submit='true' form-type='submit'>
     <text class="cuIcon-fork text-grey"></text>
     <text class="text-grey">发送注册成功模板消息</text>
@@ -27,7 +27,7 @@
 </view>
 
 <view class="cu-item {{menuArrow?'arrow':''}}">
-  <form report-submit='true' bindsubmit='formSubmit'>
+  <form report-submit='true' bindsubmit='sendRegistered'>
     <button class="cu-btn content" id='2' report-submit='true' form-type='submit'>
     <text class="cuIcon-fork text-grey"></text>
     <text class="text-grey">发送注册失败模板消息</text>
@@ -36,7 +36,7 @@
 </view>
 
 <view class="cu-item {{menuArrow?'arrow':''}}">
-  <form report-submit='true' bindsubmit='formSubmit'>
+  <form report-submit='true' bindsubmit='sendExpress'>
     <button class="cu-btn content" id='3' report-submit='true' form-type='submit'>
     <text class="cuIcon-fork text-grey"></text>
     <text class="text-grey">发送快递接单模板消息</text>
@@ -45,7 +45,7 @@
 </view>
 
 <view class="cu-item {{menuArrow?'arrow':''}}">
-  <form report-submit='true' bindsubmit='formSubmit'>
+  <form report-submit='true' bindsubmit='sendExpress'>
     <button class="cu-btn content" id='4' report-submit='true' form-type='submit'>
     <text class="cuIcon-fork text-grey"></text>
     <text class="text-grey">发送快递接单失败模板消息</text>
@@ -54,10 +54,32 @@
 </view>
 
 
+
+<view class="cu-item {{menuArrow?'arrow':''}}">
+  <form report-submit='true' bindsubmit='sendRecourse'>
+    <button class="cu-btn content" id='5' report-submit='true' form-type='submit'>
+    <text class="cuIcon-fork text-grey"></text>
+    <text class="text-grey">发送求助接单失败模板消息</text>
+    </button>
+  </form>
+</view>
+
+
+<view class="cu-item {{menuArrow?'arrow':''}}">
+  <form report-submit='true' bindsubmit='sendRecourse'>
+    <button class="cu-btn content" id='6' report-submit='true' form-type='submit'>
+    <text class="cuIcon-fork text-grey"></text>
+    <text class="text-grey">发送求助接单成功模板消息</text>
+    </button>
+  </form>
+</view>
+
+
+
 <view class="cu-item {{menuArrow?'arrow':''}}" >
-  <button class="cu-btn content" open-type="contact" bindtap="testAnything">
+  <button class="cu-btn content"  bindtap="testDing">
     <text class="cuIcon-btn text-olive"></text>
-    <text class="text-grey">测试预留位置</text>
+    <text class="text-grey">测试订阅消息</text>
   </button>
 </view>
 </view>

@@ -7,8 +7,8 @@ cloud.init()
 // 云函数入口函数
 exports.main = async (event, context) => {
   switch (event.action) {
-    case 'sendTemplateMessage': {
-      return sendTemplateMessage(event)
+    case 'sendRegisteredMessage': {
+      return sendRegisteredMessage(event)
     }
     case 'getWXACode': {
       return getWXACode(event)
@@ -29,33 +29,31 @@ exports.main = async (event, context) => {
 async function sendExpressTemplate(event) {
   // const { OPENID } = cloud.getWXContext()
   // 模板id
-  var templateId ="E5GPYPj3zOLuV9mGJPfIcTqbns4N83LZaBF7CRQ0O1k"
+  var templateId ="l3MDM8SSqxszV1FJ-TY-LxJTKo5m0Djf--ZVXrWLbzA"
 
 
   // 根据验证是否通过来发送信息
   var orders=event.orders
-  if(orders=="快递代收成功"){
+  if(orders=="代收成功"){
     note="你的快递也被接单,请等待代收人联系联系"
   }
   else{
-    orders="快递代收失败"
-    note="你的快递无人接单,请你自己拿回快递或者增加酬金"
+    orders="代收失败"
+    note="快递暂无人接单,请你拿回快递或提高酬金"
   }
-  var wechat_id=event.wechat_id
-  var phone=event.phone
-  const sendResult = await cloud.openapi.templateMessage.send({
+  // var wechat_id=event.wechat_id
+  // var phone=event.phone
+  const sendResult = await cloud.openapi.subscribeMessage.send({
     touser: event.user_openid,
-    templateId,
-    formId: event.formId,
+    template_id: templateId,
     data: {
-      keyword1: {
+      phrase3: {
         value: orders,
       },
-      keyword2: {
+      thing8: {
         value: note,
       },
     },
-    emphasisKeyword: 'keyword1.DATA'
   })
   return sendResult
 }
@@ -64,7 +62,7 @@ async function sendExpressTemplate(event) {
 async function sendRecourseTemplate(event) {
   // const { OPENID } = cloud.getWXContext()
   // 模板id
-  var templateId ="_EBC_UIgFrzGjCifzGHpJh5Ipah3R6C_WhsB1onRe2k"
+  var templateId ="ILE1bwSQDi7ctxacKh7yYhgBuh7esx6xfr68OKOhTCs"
 
 
   // 根据验证是否通过来发送信息
@@ -74,33 +72,34 @@ async function sendRecourseTemplate(event) {
   }
   else{
     orders="求助失败"
-    note="很遗憾,暂时还未帮你找到帮助者,请再次发出求助或提高酬金"
+    note="暂时未有帮助,请再次发出求助或提高酬金"
   }
   var wechat_id=event.wechat_id
   var phone=event.phone
-  const sendResult = await cloud.openapi.templateMessage.send({
+  const sendResult = await cloud.openapi.subscribeMessage.send({
     touser: event.user_openid,
-    templateId,
-    formId: event.formId,
+    template_id: templateId,
     data: {
-      keyword1: {
+      thing1: {
         value: orders,
       },
-      keyword2: {
+      thing3: {
         value: note,
       },
     },
-    emphasisKeyword: 'keyword1.DATA'
+    emphasisKeyword: 'thing1.DATA'
   })
   return sendResult
 
 }
 
+
+// 修改为订阅消息
 // 发送验证成功的模板信息
-async function sendTemplateMessage(event) {
+async function sendRegisteredMessage(event) {
   // const { OPENID } = cloud.getWXContext()
   // 模板id
-  var templateId ="uUx3rFnxGTofSq8_GGdvC9vYSzmAecPR1R3ZUscfWKs"
+  var templateId ="5PHcG60eH76swsvB351m8G6SENp1IKQceZqivYQkUA4"
 
 
   // 根据验证是否通过来发送信息
@@ -110,27 +109,21 @@ async function sendTemplateMessage(event) {
   }
   else{
     approve="认证不成功"
-    note="请重新上传图片进行验证"
-    templateId="lzOtWOZ6guKvbAiplT3t4jiOsMJQenu_fJ2S_BPuogU"
+    note="请重新上传校园卡进行验证"
   }
 
-
-  const sendResult = await cloud.openapi.templateMessage.send({
+  const sendResult = await cloud.openapi.subscribeMessage.send({
     touser: event.user_openid,
-    templateId,
-    formId: event.formId,
+    template_id: templateId,
     data: {
-      keyword1: {
+      thing1: {
         value: approve,
       },
-      keyword2: {
-        value: "佛大在校学生",
-      },
-      keyword3: {
+      thing5: {
         value: note,
       },
     },
-    emphasisKeyword: 'keyword1.DATA'
+    // miniprogramState: 'developer'
 
   })
   return sendResult

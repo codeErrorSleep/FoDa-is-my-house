@@ -149,9 +149,9 @@ Page({
   // 发送快递模板消息
   sendExpress: function (id) {
     if (id == "true") {
-      var orders = "快递代收成功"
+      var orders = "代收成功"
     } else if (id == "false") {
-      var orders = "快递代收失败"
+      var orders = "代收失败"
     }
 
     wx.cloud.init()
@@ -159,7 +159,6 @@ Page({
       name: 'openapi',
       data: {
         action: 'sendExpressTemplate',
-        formId: this.data.express_data.formId,
         orders: orders,
         user_openid: this.data.express_data._openid
       },
