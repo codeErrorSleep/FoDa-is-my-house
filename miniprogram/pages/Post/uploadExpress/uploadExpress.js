@@ -68,16 +68,17 @@ Page({
     //快递取件码
     express_code: "",
 
-    // 登记用户的formId在帖子数据库上
-    formId: "",
     //详细说明
     express_note: "",
 
     //警告
     warning: "",
 
-    //验证状态
-    mode: "",
+    //检验填写信息是否完整(boolean)
+    infoMode: false,
+    // 检验订阅消息是否通过
+    messageMode:false,
+
     // 辨别用户第几次点击发布
     display:true,
 
@@ -121,7 +122,7 @@ Page({
   //报酬金额提示
   payNote(e) {
     this.setData({
-      warning: "",
+      warning: "pay",
       modalName: "Modal",
     })
   },
@@ -129,7 +130,8 @@ Page({
   //隐藏模态窗口
   hideModal(e) {
     this.setData({
-      modalName: null
+      modalName: null,
+      warning:""
     })
   },
 
@@ -214,16 +216,8 @@ Page({
               case 1:
                 data.chooseDestination[2] = ["全部", "西一", "西二", "西三", "西四", "研究生A栋", "研究生B栋", "研究生C栋", "研究生D栋", "英语村"];
                 break;
-              case 2:
-                data.chooseDestination[2]=[]
-                break;
-              case 3:
-                data.chooseDestination[2]=[]
-                break;
-              case 4:
-                data.chooseDestination[2]=[]
-                break;
-              case 5:
+              // 后面需要补上中区南区等位置
+              case 2:case 3:case 4:case 5:
                 data.chooseDestination[2]=[]
                 break;
             }
@@ -283,8 +277,59 @@ Page({
     })
   },
 
-  //提交表单
-  uploadPost(e) {
+
+
+  // 提示用户选择订阅信息
+  showMessageModal:function(){
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '请允许我们选你发送快递通知,方便追踪快递走向',
+      success (res) {
+        // that.getMessage();
+        that.getMessage();
+      }
+    })
+
+  },
+
+  // 弹框获取发送订阅消息权限
+   getMessage:function(){
+     var that= this
+     wx.requestSubscribeMessage({
+      tmplIds: ['mYNAHVympU1Q5A_k914VwqMAmAdWdDpdCWzmBNcV4s4'],
+      success (res) {
+        console.log("订阅成功")
+    // 订阅弹框完成后上传数据
+        that.uploadData();
+    // 判断是否修改姓名
+        if (that.data.changeName) {
+          that.changeUsername();
+        }
+      },
+      fail(err) {
+        that.uploadData();
+    // 判断是否修改姓名
+        if (that.data.changeName) {
+          that.changeUsername();
+        }
+      },
+    })
+    // 点击订阅消息后上传数据
+    // this.setData({
+    //   messageMode:true
+    // })
+
+
+
+  },
+
+
+
+
+
+  // 检查用户个人信息
+  checkUserInfo:function(e){
     if (e.detail.value.express_name != "") {
       this.setData({
         express_name: e.detail.value.express_name,
@@ -316,52 +361,17 @@ Page({
       })
     }
 
-    if (this.data.express_pickUp_2 == '顺丰') {
-      this.setData({
-        express_pay: '0',
-      })
-    }else {
-      this.setData({
-        express_pay: e.detail.value.express_pay,
-      })
-    }
-
     this.setData({
       express_destination_detail: e.detail.value.express_destination_detail,
       express_note: e.detail.value.express_note,
       express_code: e.detail.value.express_code,
-      warning: "",
-      mode: false,
-      formId: e.detail.formId
+      express_pay: e.detail.value.express_pay,
     })
-
-    // console.log(this.data.express_num)
-    // console.log(this.data.express_weight)
-    // console.log(this.data.express_pay)
-    // console.log(this.data.express_pickUp_2)
-    // console.log(this.data.express_region)
-    // console.log(this.data.express_destination_1)
-    // console.log(this.data.express_destination_2)
-    // console.log(this.data.express_destination_detail)
-    // console.log(this.data.express_date)
-    // console.log(this.data.express_time)
-    // console.log(this.data.express_name)
-    // console.log(this.data.express_wechat)
-    // console.log(this.data.express_phone)
-    // console.log(this.data.express_note)
-
-    this.checkInfo();
-
-    if (this.data.mode) {
-      this.uploadData();
-      if (this.data.changeName) {
-        this.changeUsername();
-      }
-    }
   },
 
+
   //检查是否有空值
-  checkInfo() {
+  checkExpressInfo:function() {
     if (this.data.express_num == "") {
       this.setData({
         warning: "请选择快递件数"
@@ -419,16 +429,45 @@ Page({
       })
     } else {
       this.setData({
-        warning: "发布成功",
-        mode: true,
+        // warning: "发布成功",
+        infoMode: true,
         display:false
-
       })
     }
-    this.setData({
-      modalName: "Modal",
-    })
+    if(this.data.warning!=""){
+      this.setData({
+        modalName: "Modal",
+      })
+    }
   },
+
+
+  //验证微信号等信息
+  uploadPost(e) {
+    // 检查用户个人信息
+    this.checkUserInfo(e);
+    //检查是否有空值
+    this.checkExpressInfo();
+    // 填写信息完整则准备上传
+    if(this.data.infoMode){
+      this.showMessageModal();
+    }
+
+    // 注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // 将上传数据操作放到showMessageModal后调用
+    // 再处理完异步操作后统一放回这里地调用
+    // 注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    // if(isUpload){
+    //   console.log(isUpload)
+      // this.uploadData();
+      // // 判断是否修改姓名
+      // if (this.data.changeName) {
+      //   this.changeUsername();
+      // }
+    // }
+  },
+
 
   //上传数据
   uploadData: function () {
@@ -456,7 +495,6 @@ Page({
         "date": date,
         'accepter_openid': "",
         'code': this.data.express_code,
-        formId: this.data.formId,
       },
       success(res) {
         console.log("插入成功")
@@ -474,8 +512,8 @@ Page({
     })
   },
 
-  //上传用户名
-  changeUsername() {
+  //更新用户名
+  changeUsername:function() {
     console.log("上传数据")
     const db = wx.cloud.database()
     db.collection("users").doc(app.globalData.userCloudData._id).update({

@@ -143,6 +143,7 @@ Page({
 
   // 测试任何东西
   testDing: function (e) {
+
     wx.requestSubscribeMessage({
       // 依次为注册,快递,帮帮这三个订阅消息
       tmplIds: ['5PHcG60eH76swsvB351m8G6SENp1IKQceZqivYQkUA4',
@@ -157,6 +158,7 @@ Page({
         console.error(err);
         }
     })
+
   },
 
 })

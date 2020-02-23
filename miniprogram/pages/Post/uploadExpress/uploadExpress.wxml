@@ -1,5 +1,7 @@
 <view class="page">
   <form report-submit='true' bindsubmit='uploadPost'>
+  <!-- <form report-submit='true'> -->
+
     <view class='tips'>
       <text class='tips_text'>发布快递信息哦</text>
     </view>
@@ -28,7 +30,7 @@
         <!--总报酬金额-->
         <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
           <text class="sell_title">总报酬金额(元)</text>
-          <input name="express_pay" class="sell_input price" disabled="{{express_pickUp_2 == '顺丰'}}" type="digit" placeholder="{{express_pickUp_2 == '顺丰'?'丰行者免费送上门':'请输入报酬金额(2元起)'}}" placeholder-class='placeholder' maxlength='3'/>
+          <input name="express_pay" class="sell_input price"  type="digit" placeholder='2元起' placeholder-class='placeholder' maxlength='3'/>
           <button class="cu-btn round line-blue text-bold" bindtap="payNote">?</button>
         </view>
         
@@ -116,6 +118,7 @@
     </view>
 
     <!--提交表单按钮-->
+    <!-- 在form submit的方法中，加入wx.showModal()，这个弹窗上的点击事件也是可以触发订阅事件点击的 -->
     <button  wx:if="{{display}}" class="sell_btn" report-submit='true' form-type='submit'>确认发布</button>
 
     <!--模态窗口-->
@@ -128,7 +131,7 @@
           </view>
         </view>
         <view class="padding-xl">
-          <view wx:if='{{warning==""}}'>
+          <view wx:if='{{warning=="pay"}}'>
             <text class="payNote">1.轻小件一件建议2元起</text>
             <text class="payNote">2.中件一件建议4元起</text>
             <text class="payNote">3.大件一件建议6元起</text>
