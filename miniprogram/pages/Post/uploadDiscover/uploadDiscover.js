@@ -15,13 +15,12 @@ Page({
 
     //用户上传的信息
     title:"",
-    price:Number,
+    price:"",
     type:"",
     content:"",
     //照片在云的位置
     discover_imgs:[],
-    // 登记用户的formId在帖子数据库上
-    formId:"",
+
     //存放照片在手机中的位置
     images:[],
 
@@ -35,8 +34,8 @@ Page({
 
     //警告
     warning:"",
-    //检验状态
-    mode:"",
+    //检验填写信息是否完整(boolean)
+    infoMode: false,
     // 辨别用户第几次点击发布
     display:true,
 
@@ -55,6 +54,13 @@ Page({
     // 判断当前用户是否为以注册用户
     util.isRegistered()
 
+  // 初始化时间
+    this.initializeData()
+
+  },
+
+  // 初始化开始时间与结束时间
+  initializeData:function(){
     // 对求助开始时间和结束时间的处理
     var startDate=new Date()
     var endDate=new Date()
@@ -74,7 +80,7 @@ Page({
     })
   },
 
-  //判断物品的类型
+  //判断分类的类型(求助寻物找队友)
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -87,31 +93,59 @@ Page({
 
   //处理用户填写信息并准备上传
   uploadPost:function(e){
-    console.log(e.detail.formId)
     //得到用户填写的信息
     this.setData({
       title:e.detail.value.title,
       price:e.detail.value.price,
       content:e.detail.value.content,
       warning:"",
-      mode: false,
-      formId:e.detail.formId
+      infoMode: false,
     })
 
     
-    //检查提交信息
+    //检查提交信息是否正确
     this.checkInfo()
 
-    // 先将照片上传再上传数据库
-    if (this.data.mode) {
-      if (this.data.images.length === 0) {
-        console.log("没有上传图片")
-        this.uploadData()
-      } else {
-        this.uploadImages()
-      }
+    // 填写信息完整则准备上传
+    if(this.data.infoMode){
+      this.showMessageModal();
     }
+
+
   },
+
+
+  // 提示用户选择订阅信息
+  showMessageModal:function(){
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '请允许我们向你发送求助通知,方便追踪动向',
+      success (res) {
+        that.getMessage();
+      }
+    })
+
+  },
+
+  // 弹框获取发送订阅消息权限
+   getMessage:function(){
+     var that= this
+     wx.requestSubscribeMessage({
+      tmplIds: ['ILE1bwSQDi7ctxacKh7yYhgBuh7esx6xfr68OKOhTCs'],
+      complete(res){
+        // 先将照片上传再上传数据库
+        if (that.data.images.length === 0) {
+          console.log("没有上传图片")
+          that.uploadData()
+        } else {
+          that.uploadImages()
+        }
+      }
+    })
+
+  },
+
 
 
   //检查提交信息
@@ -120,7 +154,7 @@ Page({
       this.setData({
         warning: "请选择分类类型",
       })
-    } 
+    }
     else if (this.data.title=="") {
       this.setData({
         warning: "请输入标题",
@@ -132,8 +166,7 @@ Page({
         })
       } else {
         this.setData({
-          warning: "发布成功",
-          mode: true,
+          infoMode: true,
         })
       }
     }else if (this.data.type=="求助"){
@@ -154,26 +187,27 @@ Page({
       } // 多个 if else if else等嵌套,注意逻辑
         else {
         this.setData({
-          warning: "发布成功",
-          mode: true,
+          infoMode: true,
         })
       }
       // 都填完后就提示成功
     } 
     else {
       this.setData({
-        warning: "发布成功",
-        mode: true,
+        infoMode: true,
         display:false
       })
     }
-    this.setData({
-      modalName: "Modal",
-    })
+    // 有错误即弹框提示
+    if(!this.data.infoMode){
+      this.setData({
+        modalName: "Modal",
+      })
+    }
   },
 
   //隐藏模态窗口
-  hideModal(e) {
+  hideModal:function(e) {
     this.setData({
       modalName: null
     })
@@ -217,19 +251,12 @@ Page({
         "date":date,
         "timeStamp":this.data.timeStamp,
         "deadline":this.data.deadline,
-        "formId":this.data.formId,
         'accepter_openid': "",
         "contact": this.data.contact_way,
       },
       success(res){
         //成功上传后提示信息
         console.log("插入成功")
-
-        wx.showToast({
-          title: '成功上传',
-          icon: 'success',
-          duration: 1000
-        })
 
         wx.redirectTo({
           url: "../../Index/goods/goods?tab_id=" + 2 + "&category_id=" + category_id
@@ -341,7 +368,7 @@ Page({
   },
 
   //选择微信联系方式
-  switch1Change: function (e) {
+  switchWechat: function (e) {
     console.log('wechat', e.detail.value)
     this.setData({
       contact_wechat: e.detail.value,
@@ -351,7 +378,7 @@ Page({
   },
 
   //选择手机号联系方式
-  switch2Change: function (e) {
+  switchPhone: function (e) {
     console.log('phone', e.detail.value)
     this.setData({
       contact_phone: e.detail.value,
@@ -381,4 +408,4 @@ Page({
     }
   },
 
-})    
+})

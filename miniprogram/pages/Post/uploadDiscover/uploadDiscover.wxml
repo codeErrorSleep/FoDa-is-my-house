@@ -55,7 +55,7 @@
       <view class='sell_cells'>
         <view class="sell_cell" style="border-bottom:1px solid #e2e2e2">
           <text style="color: red;">*</text>
-          <text class="sell_title">价格</text>
+          <text class="sell_title">酬金</text>
           <input name="price" class="sell_input price" type="number" placeholder="￥0.00" placeholder-class='placeholder' maxlength='15' />
         </view>
       </view>
@@ -90,11 +90,11 @@
         <text class="sell_title">联系方式</text>
         <checkbox-group>
           <view class="checkbox" style="margin-bottom: 5px;">
-            <switch checked="{{contact_wechat}}" bindchange="switch1Change"/>  通过<span style="font-weight: bold">微信</span>联系
+            <switch checked="{{contact_wechat}}" bindchange="switchWechat"/>  通过<span style="font-weight: bold">微信</span>联系
             
           </view>
           <view class="checkbox">
-            <switch checked="{{contact_phone}}" bindchange="switch2Change"/>  通过<span style="font-weight: bold">电话</span>联系
+            <switch checked="{{contact_phone}}" bindchange="switchPhone"/>  通过<span style="font-weight: bold">电话</span>联系
           </view>
         </checkbox-group>
       </view>

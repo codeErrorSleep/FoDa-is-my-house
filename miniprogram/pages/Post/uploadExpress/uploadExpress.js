@@ -76,8 +76,6 @@ Page({
 
     //检验填写信息是否完整(boolean)
     infoMode: false,
-    // 检验订阅消息是否通过
-    messageMode:false,
 
     // 辨别用户第几次点击发布
     display:true,
@@ -284,7 +282,7 @@ Page({
     var that=this
     wx.showModal({
       title: '提示',
-      content: '请允许我们选你发送快递通知,方便追踪快递走向',
+      content: '请允许我们向你发送快递通知,方便追踪快递走向',
       success (res) {
         // that.getMessage();
         that.getMessage();
@@ -297,30 +295,16 @@ Page({
    getMessage:function(){
      var that= this
      wx.requestSubscribeMessage({
-      tmplIds: ['mYNAHVympU1Q5A_k914VwqMAmAdWdDpdCWzmBNcV4s4'],
-      success (res) {
-        console.log("订阅成功")
+      tmplIds: ['l3MDM8SSqxszV1FJ-TY-LxJTKo5m0Djf--ZVXrWLbzA'],
+      complete(res){
     // 订阅弹框完成后上传数据
         that.uploadData();
     // 判断是否修改姓名
         if (that.data.changeName) {
           that.changeUsername();
         }
-      },
-      fail(err) {
-        that.uploadData();
-    // 判断是否修改姓名
-        if (that.data.changeName) {
-          that.changeUsername();
-        }
-      },
+      }
     })
-    // 点击订阅消息后上传数据
-    // this.setData({
-    //   messageMode:true
-    // })
-
-
 
   },
 
@@ -434,7 +418,8 @@ Page({
         display:false
       })
     }
-    if(this.data.warning!=""){
+    // 有错误即弹框提示
+    if(!this.data.infoMode){
       this.setData({
         modalName: "Modal",
       })
@@ -452,20 +437,6 @@ Page({
     if(this.data.infoMode){
       this.showMessageModal();
     }
-
-    // 注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // 将上传数据操作放到showMessageModal后调用
-    // 再处理完异步操作后统一放回这里地调用
-    // 注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    // if(isUpload){
-    //   console.log(isUpload)
-      // this.uploadData();
-      // // 判断是否修改姓名
-      // if (this.data.changeName) {
-      //   this.changeUsername();
-      // }
-    // }
   },
 
 
@@ -498,12 +469,6 @@ Page({
       },
       success(res) {
         console.log("插入成功")
-        wx.showToast({
-          title: '成功上传',
-          icon: 'success',
-          duration: 1000
-        })
-
         wx.redirectTo({
           url: "../../Index/goods/goods?tab_id=" + 1
         })
