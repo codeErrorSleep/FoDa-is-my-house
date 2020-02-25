@@ -58,6 +58,7 @@
   </view>
   <scroll-view scroll-y="true"  class="container swiper" style="position: absolute; height:100%;" lower-threshold="5" bindscrolltolower="lower"  bindscrolltolower="lower" bindscrolltoupper="upper" upper-threshold="10">
     <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
+      <!-- 判断是否在我的快递页面 -->
       <view wx:if="{{!myPage}}">
         <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
           <view wx:if="{{selectTime==0||selectTime<=item.deadline_timeStamp}}">
@@ -78,7 +79,7 @@
         </view>
       </view>
     </block>
-    <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
+    <!-- <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
       <view wx:if="{{!myPage}}">
         <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
           <view wx:if="{{selectTime==0||selectTime<=item.deadline_timeStamp}}">
@@ -98,7 +99,7 @@
           <image style="width:30px; height:30px;" src="/images/delete.png"/>
         </view>
       </view>
-    </block>
+    </block> -->
   </scroll-view>
 </template>
 

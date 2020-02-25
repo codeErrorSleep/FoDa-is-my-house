@@ -55,9 +55,6 @@ Page({
     //筛选时间
     selectTime: 0,
 
-    //数据库待接单数量
-    count: 0,
-
     //显示悬浮按钮
     float_show: false,
 
@@ -133,7 +130,6 @@ Page({
         accFeed: [],
         count: 0,
         nextPage: 0,
-        nextPage1: 0,
         categories: ["酬金高低", "宿舍筛选", "时间筛选"],
         database: 'express',
         currentData: 3,
@@ -145,7 +141,6 @@ Page({
           accFeed: [],
           count: 0,
           nextPage: 0,
-          nextPage1: 0,
           categories: ["求助", "寻物", "找队友"],
           database: "recourse",
           currentData: this.data.currentData,
@@ -156,7 +151,6 @@ Page({
           accFeed: [],
           count: 0,
           nextPage: 0,
-          nextPage1: 0,
           categories: ["求助", "寻物", "找队友"],
           database: "discover",
           currentData: this.data.currentData,
@@ -239,10 +233,10 @@ Page({
   allLoad: function () {
     var that = this;
     if (that.data.currentIndex == 1 || (that.data.currentIndex == 2 && that.data.currentData == 0)){
-      util.countUnAcc(that, '.');
-      util.accUnAccLoad(that, '.');
+      util.expressLoad(that);
     } else if (that.data.currentIndex == 0){
       util.allLoad(that);
+      // util.expressLoad(that);
     } else if (that.data.currentIndex == 2 && that.data.currentData == 1){
       util.discoverLoad("寻物", this);
     } else if (that.data.currentIndex == 2 && that.data.currentData == 2) {
@@ -271,33 +265,12 @@ Page({
     }
   },
 
-  //跳转到点击页面
-  jumpToPost1: function (e) {
-    var id = e.currentTarget.id
-    console.log(e.currentTarget.id)
-    console.log(this.data.accFeed[id])
 
-    var post_data = JSON.stringify(this.data.accFeed[id])
-
-    wx.navigateTo({
-      // url: '../posttest/posttest?post_data=' + post_data
-      url: '../contact_recourse/contact_recourse?post_data=' + post_data
-    })
-  },
 
   //快递跳转到点击页面
   jumpToExpress: function(e) {
     var id = e.currentTarget.id
     var express_data = JSON.stringify(this.data.feed[id])
-    wx.navigateTo({
-      url: '../contact_express/contact_express?express_data=' + express_data
-    })
-  },
-
-  //快递跳转到点击页面
-  jumpToExpress1: function(e) {
-    var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.accFeed[id])
     wx.navigateTo({
       url: '../contact_express/contact_express?express_data=' + express_data
     })

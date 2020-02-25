@@ -267,121 +267,44 @@ function getDate(date){
 
 
 
-//统计数据库未接单数量
-function countUnAcc(that, limit){
+
+
+// 读取所有快递消息
+function expressLoad(that){
+  wx.showToast({
+    title: '加载中',
+    icon: 'loading',
+    duration: 500
+  })
+  var tempFeed=that.data.feed
+  var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
-  const _ = db.command
-  db.collection(that.data.database).where({
-    accepter_openid: _.eq(''),
-    _openid: db.RegExp({
-      regexp: limit,
-      options: 'i',
-    })
-  }).count({
+  // 读取快递数据库
+  db.collection(that.data.database)
+  .orderBy('accepter_openid', 'asc')
+  .orderBy('date', 'desc')
+  .skip(that.data.nextPage)
+  .get({
     success: function(res) {
       that.setData({
-        count: res.total
+        feed: tempFeed.concat(res.data),
+        nextPage: tempNextPage + 10
       })
+      console.log('[数据库] [查询记录] 成功 feed: ', that.data.feed)
+    },
+    fail: err => {
+      wx.showToast({
+        icon: 'none',
+        title: '查询记录失败'
+      })
+      console.error('[数据库] [查询记录] 失败：', err)
     }
   })
-}
-
-// 判断读取是否已接单的数据
-function accUnAccLoad(that,limit){
-  if (that.data.count >= that.data.feed.length){
-    this.unAccItem(that,limit)
-  }
-  if(that.data.count <= that.data.feed.length){
-    this.accItem(that,limit)
-  }
-}
-
-
-//读取数据库未接单的数据
-function unAccItem(that,limit){
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 500
-    })
-    var tempFeed=that.data.feed
-    var tempNextPage = that.data.nextPage
-    const db = wx.cloud.database()
-    const _ = db.command
-  db.collection(that.data.database).where({
-      accepter_openid: _.eq(''),
-      _openid: db.RegExp({
-        regexp: limit,
-        options: 'i',
-      })
-    })
-    .orderBy('date', 'desc')
-    .skip(that.data.nextPage)
-    .get({
-      success: function(res) {
-        that.setData({
-          feed: tempFeed.concat(res.data),
-          nextPage: tempNextPage + 10
-        })
-        console.log('[数据库] [查询记录] 成功 feed: ', that.data.feed)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-    wx.showToast({
-      title: '加载成功',
-      icon: 'success',
-      duration: 1000
-    })
-}
-
-//读取数据库已接单的数据
-function accItem(that,limit){
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 500
-    })
-    var tempaccFeed=that.data.accFeed
-    var tempNextPage1 = that.data.nextPage1
-    const db = wx.cloud.database()
-    const _ = db.command
-  db.collection(that.data.database).where({
-      accepter_openid: _.neq(''),
-      _openid: db.RegExp({
-        regexp: limit,
-        options: 'i',
-      })
-    })
-    .orderBy('date', 'desc')
-    .skip(that.data.nextPage1)
-    .limit(10)
-    .get({
-      success: function(res) {
-        that.setData({
-          accFeed: tempaccFeed.concat(res.data),
-          nextPage1: tempNextPage1 + 10
-        })
-        console.log('[数据库] [查询记录] 成功 accFeed: ', that.data.accFeed)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-    wx.showToast({
-      title: '加载成功',
-      icon: 'success',
-      duration: 1000
-    })
+  wx.showToast({
+    title: '加载成功',
+    icon: 'success',
+    duration: 1000
+  })
 }
 
 
@@ -395,7 +318,6 @@ function discoverLoad(type, that) {
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
-  //查询所有用户的闲置二手信息
   db.collection("discover")
     .where({
       "_openid": that.data.user_openid,
@@ -431,7 +353,7 @@ function discoverLoad(type, that) {
 
 }
 
-
+module.exports.expressLoad=expressLoad;
 module.exports.discoverLoad = discoverLoad;
 module.exports.getDate = getDate;
 module.exports.allLoad = allLoad;
@@ -440,7 +362,3 @@ module.exports.accLoad = accLoad;
 module.exports.searchLoad = searchLoad;
 module.exports.getUserInCloud = getUserInCloud;
 module.exports.isRegistered=isRegistered;
-module.exports.countUnAcc=countUnAcc;
-module.exports.unAccItem=unAccItem;
-module.exports.accItem=accItem;
-module.exports.accUnAccLoad=accUnAccLoad;
