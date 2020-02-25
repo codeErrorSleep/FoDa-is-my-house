@@ -18,14 +18,12 @@
                 <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
                   <view class="cu-card article">
                     <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
-                    
                       <view class="title">
                         <view class="flex justify-between">
                           <text class="text-cut">{{item.title}}</text>
                           <text class="text-price">{{item.price}}</text>
                         </view>
                       </view>
-
                       <view class="content">
                         <view class="condition" wx:if="{{item.accepter_openid!=''}}">
                           <image class="cond" src="/images/yijie.png" />
@@ -33,9 +31,7 @@
                         <view class="condition" wx:else>
                           <image class="cond" src="/images/weijie1.png" />
                         </view>
-
                         <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill" lazy-load="true"></image>
-
                         <view class="desc">
                           <view class="text-content">{{item.content}}</view>
                           <view class="cu-tag bg-blue light sm round">截止时间:{{item.deadline}}</view>
@@ -44,35 +40,6 @@
                     </view>
                   </view>
                   <view class="express-card delete" hidden="{{!myPage}}" bindtap="deletePost" id='{{idx}}'>
-                    <image style="width:30px; height:30px;" src="/images/delete.png"/>
-                  </view>
-                </block>
-
-                <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
-                  <view class="cu-card article">
-                    <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost1">
-                      <view class="title">
-                        <view class="flex justify-between">
-                          <text class="text-cut">{{item.title}}</text>
-                          <text class="text-price">{{item.price}}</text>
-                        </view>
-                      </view>
-                      <view class="content">
-                        <view class="condition" wx:if="{{item.accepter_openid!=''}}">
-                          <image class="cond" src="/images/yijie1.png" />
-                        </view>
-                        <view class="condition" wx:else>
-                          <image class="cond" src="/images/weijie.png" />
-                        </view>
-                        <image wx:if="{{item.imgs.length>0}}" src="{{item.imgs[0]}}" mode="aspectFill" lazy-load="true"></image>
-                        <view class="desc">
-                          <view class="text-content">{{item.content}}</view>
-                          <view class="cu-tag bg-gray light sm round">截止时间:{{item.deadline}}</view>
-                        </view>
-                      </view>
-                    </view>
-                  </view>
-                  <view class="express-card delete" hidden="{{!myPage}}" bindtap="deleteAccPost" id='{{idx}}'>
                     <image style="width:30px; height:30px;" src="/images/delete.png"/>
                   </view>
                 </block>
@@ -107,7 +74,7 @@
               </view>
             </view>
 
-            <view wx:if="{{category == '寻物'}}">
+            <view wx:if="{{category == '寻物' || category == '找队友'}}">
               <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
                 <view class="cu-card article">
                   <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
@@ -131,7 +98,7 @@
               </block>
             </view>
 
-            <view wx:if="{{category == '找队友'}}">
+            <!-- <view wx:if="{{category == '找队友'}}">
                 <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key">
                   <view class="cu-card article">
                     <view class="cu-item shadow" id='{{idx}}' bindtap="jumpToPost">
@@ -153,7 +120,7 @@
                     <image style="width:30px; height:30px;" src="/images/delete.png"/>
                   </view>
                 </block>
-              </view>
+              </view> -->
 
           </view>
         </scroll-view>

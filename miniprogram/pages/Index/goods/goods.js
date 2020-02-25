@@ -21,15 +21,12 @@ Page({
     count: "",
     //数据库数据
     feed: [],
-    // 快递中已接单的帖子
-    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
-    nextPage1: 0,
     //我的页面
     myPage: false,
     // 现在的时间戳 (暂时,添加到全局变量)
-    nowDate: 0,
+    nowDate: Number(new Date().getTime()),
     //酬金
     price: ["全部","酬金由低到高","酬金由高到低"],
     //全部校区
@@ -75,12 +72,9 @@ Page({
 
   //页面加载时读取数据库
   onLoad: function (options) {
-
-
     this.setData({
       currentIndex: options.tab_id,
       nowDate: Number(new Date().getTime()),
-      float_show: false,
       windowHeight: wx.getSystemInfoSync().windowHeight,
       windowWidth: wx.getSystemInfoSync().windowWidth,
     })
@@ -90,8 +84,8 @@ Page({
       })
     }
     this.setData({
-      x: this.data.windowWidth - 60 - 15,
-      y: this.data.windowHeight - 60-30,
+      x: this.data.windowWidth -75,
+      y: this.data.windowHeight - 90,
     })
     this.navbarTab();
     // 添加到全局变量 (时间戳)
@@ -111,10 +105,9 @@ Page({
       });
     }
 
-    //初始化子悬浮按钮位置
+    //更新子悬浮按钮位置
     this.subButton();
-
-    console.log(this.data.currentIndex)
+    // console.log(this.data.currentIndex)
     var that = this;
     if (that.data.currentIndex == 0) {
       that.setData({
@@ -127,7 +120,6 @@ Page({
     } else if (that.data.currentIndex == 1) {
       that.setData({
         feed: [],
-        accFeed: [],
         count: 0,
         nextPage: 0,
         categories: ["酬金高低", "宿舍筛选", "时间筛选"],
@@ -135,29 +127,24 @@ Page({
         currentData: 3,
       })
     } else if (that.data.currentIndex == 2) {
-      if (that.data.currentData == 0) {
         that.setData({
           feed: [],
-          accFeed: [],
           count: 0,
           nextPage: 0,
           categories: ["求助", "寻物", "找队友"],
-          database: "recourse",
           currentData: this.data.currentData,
         })
-      }else {
-        that.setData({
-          feed: [],
-          accFeed: [],
-          count: 0,
-          nextPage: 0,
-          categories: ["求助", "寻物", "找队友"],
-          database: "discover",
-          currentData: this.data.currentData,
-        })
-      }
+        if (that.data.currentData == 0) {
+          that.setData({
+            database: "recourse",
+          })
+        }else {
+          that.setData({
+            database: "discover",
+          })
+        }
     };
-    this.allLoad();
+    this.databaseLoad();
   },
 
   //滑动更新主导航栏下标
@@ -172,7 +159,7 @@ Page({
     // 判断如果为寻物和找队友则更改搜索的数据库
     if (this.data.currentIndex == "2") {
       // 根据所选tab更改查找的数据库
-      this.discoverType()
+      this.discoverType();
     }
   },
 
@@ -205,12 +192,10 @@ Page({
     })
     if (this.data.currentData == 0) {
       this.setData({
-        accFeed: [],
         count: 0,
-        nextPage1: 0,
         database: "recourse",
       })
-      this.allLoad();
+      this.databaseLoad();
     } else if (this.data.currentData == 1) {
       util.discoverLoad("寻物", this);
     }
@@ -224,19 +209,18 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.allLoad();}, 1000);
-    that.allLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.databaseLoad();}, 1000);
+    that.databaseLoad();
     console.log("lower")
   },
 
   // 调用util.js中读取数据库函数
-  allLoad: function () {
+  databaseLoad: function () {
     var that = this;
     if (that.data.currentIndex == 1 || (that.data.currentIndex == 2 && that.data.currentData == 0)){
-      util.expressLoad(that);
+      util.onlyLoad(that);
     } else if (that.data.currentIndex == 0){
-      util.allLoad(that);
-      // util.expressLoad(that);
+      util.onlyLoad(that);
     } else if (that.data.currentIndex == 2 && that.data.currentData == 1){
       util.discoverLoad("寻物", this);
     } else if (that.data.currentIndex == 2 && that.data.currentData == 2) {
@@ -308,22 +292,19 @@ Page({
 
   //根据酬金筛选
   selectByPrice: function(e){
-    this.allLoad();
+    this.databaseLoad();
     if (e.target.dataset.price == '全部') {
       this.data.categories[0]="酬金高低"
     } else {
       this.data.categories[0]=e.target.dataset.price.substring(2,6);
       if (this.data.categories[0] == '由低到高'){
         this.data.feed.sort((a, b) => parseInt(a.price) - parseInt(b.price))
-        this.data.accFeed.sort((a, b) => parseInt(a.price) - parseInt(b.price))
       }else {
         this.data.feed.sort((b, a) => parseInt(a.price) - parseInt(b.price))
-        this.data.accFeed.sort((b, a) => parseInt(a.price) - parseInt(b.price))
       }
     }
     this.setData({
       feed: this.data.feed,
-      accFeed: this.data.accFeed,
       categories: this.data.categories,
       currentData: 3
     })
@@ -338,7 +319,7 @@ Page({
       region2:'',
     });
     if (e.target.dataset.region1 == '全部'){
-      this.allLoad();
+      this.databaseLoad();
       this.data.categories[1]="宿舍筛选"
       this.setData({
         selectRegion: "",
@@ -353,7 +334,7 @@ Page({
       region2: e.target.dataset.region2,
     });
     if (e.target.dataset.region2 == '全部'){
-      this.allLoad();
+      this.databaseLoad();
       this.data.categories[1]=this.data.region1
       this.setData({
         selectRegion: "",
@@ -363,7 +344,7 @@ Page({
     }
   },
   selectByRegion3: function(e){
-    this.allLoad();
+    this.databaseLoad();
     if (e.target.dataset.region3 == '全部'){
       this.data.categories[1]=this.data.region1 + this.data.region2
     }else {
@@ -379,7 +360,7 @@ Page({
   //选择时间
   selectByTime1: function(e){  
     if (e.target.dataset.time1 == '全部') {
-      this.allLoad();
+      this.databaseLoad();
       this.data.categories[2]="时间筛选"
       this.setData({
         categories: this.data.categories,
@@ -396,7 +377,7 @@ Page({
     }
   },
   selectByTime2: function(e){
-    this.allLoad();
+    this.databaseLoad();
     if (e.target.dataset.time2 == '全部'){
       if (this.data.time1 == '今天') {
         this.data.selectTime = Number(new Date((util.getDate(new Date()))).getTime()) + 1 * 86400000

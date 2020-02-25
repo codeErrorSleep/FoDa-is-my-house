@@ -79,27 +79,6 @@
         </view>
       </view>
     </block>
-    <!-- <block wx:for="{{accFeed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="key1">
-      <view wx:if="{{!myPage}}">
-        <view wx:if="{{categories[1]=='宿舍筛选'||categories[1]==item.region||selectRegion==item.destination_1||selectRegion==item.destination_2}}">
-          <view wx:if="{{selectTime==0||selectTime<=item.deadline_timeStamp}}">
-            <view class="express-card article" id='{{idx}}' bindtap="jumpToExpress1">
-              <template is="express_cells" data="{{item, idx}}"></template>
-            </view>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
-        <view wx:if="{{currentData==0?item._openid==user_openid:item.accepter_openid==user_openid}}">
-          <view class="express-card article" id='{{idx}}' bindtap="jumpToExpress1">
-            <template is="express_cells" data="{{item, idx}}"></template>
-          </view>
-        </view>
-        <view wx:if="{{currentData != 1}}" class="express-card delete" bindtap="deleteAccExpress" id='{{idx}}'>
-          <image style="width:30px; height:30px;" src="/images/delete.png"/>
-        </view>
-      </view>
-    </block> -->
   </scroll-view>
 </template>
 

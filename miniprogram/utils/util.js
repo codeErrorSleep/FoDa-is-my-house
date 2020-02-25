@@ -62,11 +62,6 @@ function isRegistered() {
 
 //在云数据库上查找所有数据
 function allLoad(that) {
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
@@ -94,20 +89,11 @@ function allLoad(that) {
         console.error('[数据库] [查询记录] 失败：', err)
       }
     });
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
 }
 
 //在云数据库上查找指定用户数据(查找10条)
 function userLoad(that) {
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
+
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage 
   const db = wx.cloud.database()
@@ -138,20 +124,12 @@ function userLoad(that) {
         console.error('[数据库] [查询记录] 失败：', err)
       }
     });
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
+
 }
 
 //在云数据库上查找用户接收数据(查找10条)
 function accLoad(that) {
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
+
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
@@ -182,20 +160,12 @@ function accLoad(that) {
         console.error('[数据库] [查询记录] 失败：', err)
       }
     });
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
+
 }
 
 //在云数据库上查找用户接收数据(查找10条)
 function searchLoad(that) {
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
+
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
@@ -229,11 +199,7 @@ function searchLoad(that) {
         console.error('[数据库] [查询记录] 失败：', err)
       }
     });
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
+
 }
 
 
@@ -252,30 +218,9 @@ function getDate(date){
 
 
 
-
-// // 将时间戳转换为 具体时间 yyyy-mm-dd hh:mm
-// function getDeadLine(date){
-//   var date = new Date(date);
-//   Y = date.getFullYear() + '-';
-//   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-//   D = date.getDate() + ' ';
-//   h = date.getHours() + ':';
-//   m = date.getMinutes();
-//   date=Y+M+D+h+m
-//   return date
-// }
-
-
-
-
-
 // 读取所有快递消息
-function expressLoad(that){
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
+function onlyLoad(that){
+
   var tempFeed=that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
@@ -284,6 +229,7 @@ function expressLoad(that){
   .orderBy('accepter_openid', 'asc')
   .orderBy('date', 'desc')
   .skip(that.data.nextPage)
+  .limit(10) // 限制返回数量为 10 条
   .get({
     success: function(res) {
       that.setData({
@@ -300,21 +246,13 @@ function expressLoad(that){
       console.error('[数据库] [查询记录] 失败：', err)
     }
   })
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
+
 }
 
 
 // 查找发现的帖子(分开 寻物 与 找队友)
 function discoverLoad(type, that) {
-  wx.showToast({
-    title: '加载中',
-    icon: 'loading',
-    duration: 500
-  })
+
   var tempFeed = that.data.feed
   var tempNextPage = that.data.nextPage
   const db = wx.cloud.database()
@@ -345,15 +283,10 @@ function discoverLoad(type, that) {
         console.error('[数据库] [查询记录] 失败：', err)
       }
     });
-  wx.showToast({
-    title: '加载成功',
-    icon: 'success',
-    duration: 1000
-  })
 
 }
 
-module.exports.expressLoad=expressLoad;
+module.exports.onlyLoad=onlyLoad;
 module.exports.discoverLoad = discoverLoad;
 module.exports.getDate = getDate;
 module.exports.allLoad = allLoad;

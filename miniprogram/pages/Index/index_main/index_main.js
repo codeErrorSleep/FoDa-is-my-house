@@ -52,6 +52,7 @@ Page({
   getPhoneHight:function(){
     try {
       var res = wx.getSystemInfoSync()
+      // var windowHeight = res.windowHeight
       var windowHeight = 0.88 * res.windowHeight - 10
       app.globalData.windowHeight=windowHeight
       console.log(app.globalData.windowHeight)
