@@ -5,7 +5,7 @@
 
 <view class='list'>
     <scroll-view scroll-y="true" class="container" lower-threshold="5" bindscrolltolower="lower">
-        <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+        <block wx:for="{{feed}}" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}" wx:key="index">
             <view class="feed-item" id='{{idx}}'>
                 <view class="feed-content">
                     <view class="item-title">
@@ -15,7 +15,7 @@
                         <text>电话号码：{{item.phone}}\n</text>
                     </view>
                     <view class="item-img">
-                        <view wx:for="{{item.approve_img}}" wx:for-index="img_num" wx:for-item="approve_item_img">
+                        <view wx:for="{{item.approve_img}}" wx:for-index="img_num" wx:for-item="approve_item_img" wx:key="index">
                             <image bindtap="handleImagePreview" src="{{approve_item_img}}"  data-index="{{idx}}" lazy-load="true" />
                         </view>
                     </view>

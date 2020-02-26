@@ -5,7 +5,7 @@
 		</view>
 	</view>
   <view class="tower-swiper" bindtouchmove="towerMove" bindtouchstart="towerStart" bindtouchend="towerEnd">
-    <view class="tower-item {{item.zIndex==1?'none':''}} {{item.zIndex!=4?'imgBlur':''}}" wx:for="{{swiperList}}" wx:key style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
+    <view class="tower-item {{item.zIndex==1?'none':''}} {{item.zIndex!=4?'imgBlur':''}}" wx:for="{{swiperList}}" wx:key="id" style="--index:{{item.zIndex}};--left:{{item.mLeft}}">
       <view class="swiper-item">
         <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
       </view>
@@ -62,7 +62,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="grid col-3 grid-square flex-sub">
-			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
 				<image src='{{imgList[index]}}' mode='aspectFill'  bindtap="handleImagePreview" ></image>
 				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
 					<text class="cuIcon-close"></text>

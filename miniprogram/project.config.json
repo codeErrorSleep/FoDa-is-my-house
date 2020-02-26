@@ -10,7 +10,8 @@
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"coverView": true
+		"coverView": true,
+		"checkSiteMap":false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.0",

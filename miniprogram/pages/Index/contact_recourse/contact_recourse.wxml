@@ -38,7 +38,7 @@
   </view>
   <view class="postInformation4">
     <view class="goodsImg">
-      <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img">
+      <view wx:for="{{post_data.imgs}}" wx:for-index="img_num" wx:for-item="goods_item_img" wx:key="index">
         <image src="{{goods_item_img}}" data-index="{{index}}" bindtap="handleImagePreview" style="width=100%" mode="widthFix" lazy-load="true"/>
       </view>
     </view>
