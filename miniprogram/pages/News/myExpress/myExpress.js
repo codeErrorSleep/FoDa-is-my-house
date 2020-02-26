@@ -18,10 +18,8 @@ Page({
     database: 'express',
     //数据库数据
     feed: [],
-    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
-    nextPage1: 0,
     //我的页面
     myPage: true,
     //用户openid
@@ -54,14 +52,12 @@ Page({
     var that = this;
     that.setData({
       feed: [],
-      accFeed: [],
       nextPage: 0,
-      nextPage1: 0,
       count: 0,
       database: 'express',
     })
     console.log(this.data.currentData)
-    this.userLoad();
+    this.databaseLoad();
   },
 
   //更新副导航栏下标
@@ -69,7 +65,6 @@ Page({
   categoriesChange: function (e) {
     let current = e.detail.current;
     let source = e.detail.source
-    console.log("ffffffffffffffffff")
     //console.log(source);
     // 这里的source是判断是否是手指触摸 触发的事件
     if (source === 'touch') {
@@ -88,35 +83,23 @@ Page({
   lower: function (e) {
     wx.showNavigationBarLoading();
     var that = this;
-    // setTimeout(function(){wx.hideNavigationBarLoading();that.userLoad();}, 1000);
-    that.userLoad();
+    // setTimeout(function(){wx.hideNavigationBarLoading();that.databaseLoad();}, 1000);
+    that.databaseLoad();
     console.log("lower")
   },
 
   // 调用util.js中读取数据库函数
-  userLoad: function () {
+  databaseLoad: function () {
     var that = this;
     if (that.data.currentData==0){
-      util.countUnAcc(that, that.data.user_openid);
-      util.accUnAccLoad(that, that.data.user_openid);
+      // util.countUnAcc(that, that.data.user_openid);
+      // util.accUnAccLoad(that, that.data.user_openid);
+      util.onlyLoad(that);
     }else{
       util.accLoad(that);
-
     }
   },
 
-  //跳转到点击页面
-  jumpToPost: function (e) {
-    var id = e.currentTarget.id
-    console.log(e.currentTarget.id)
-    console.log(this.data.feed[id])
-    var post_data = JSON.stringify(this.data.feed[id])
-    wx.navigateTo({
-      // url: '../posttest/posttest?post_data=' + post_data
-      url: '../../Index/contact/contact?post_data=' + post_data
-
-    })
-  },
 
   //快递跳转到点击页面
   jumpToExpress: function(e) {
@@ -127,14 +110,7 @@ Page({
     })
   },
 
-  //快递跳转到点击页面
-  jumpToExpress1: function(e) {
-    var id = e.currentTarget.id
-    var express_data = JSON.stringify(this.data.accFeed[id])
-    wx.navigateTo({
-      url: '../../Index/contact_express/contact_express?express_data=' + express_data
-    })
-  },
+
 
   //删除未接单快递
   deleteExpress: function (e) {
@@ -144,6 +120,7 @@ Page({
     var express_id = this.data.feed[id]._id
     wx.showModal({
       title: '删除快递',
+      content:'是否删除快递点在'+this.data.feed[id].pickUp+'的快递',
       success(res) {
         //用户点击删除就删除帖子
         if (res.confirm) {
@@ -160,11 +137,9 @@ Page({
               that.setData({
                 count: 0,
                 feed: [],
-                accFeed: [],
                 nextPage: 0,
-                nextPage1: 0,
               })
-              that.userLoad();
+              that.databaseLoad();
             }
           })
         }
@@ -172,40 +147,5 @@ Page({
     })
   },
 
-  //删除已接单快递
-  deleteAccExpress: function (e) {
-    var that=this
-    var id = e.currentTarget.id
-    //获得帖子id
-    var express_id = this.data.accFeed[id]._id
-    wx.showModal({
-      title: '删除快递',
-      success(res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection('express').doc(express_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-              that.setData({
-                count: 0,
-                feed: [],
-                accFeed: [],
-                nextPage: 0,
-                nextPage1: 0,
-              })
-              that.userLoad();
-            }
-          })
-        }
-      }
-    })
-  },
 
 })

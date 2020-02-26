@@ -134,41 +134,52 @@ Page({
           mask: true
         });
       } else {
-        // 成功接单
-        wx.cloud.callFunction({
-          name: 'updateAccepter',
-          data: {
-            _id: this.data.post_data._id,
-            user_openid: this.data.user_openid,
-            database: "recourse"
-          },
-          success: res => {
-            console.warn('[云函数] [updateAccepter] updateAccepter 调用成功：', res)
-            wx.showModal({
-              title: '成功接单',
-              content: '你已成功接单',
-              showCancel: false,
-            })
-            // 成功后发送求助的模板信息
-            this.sendRecourse("求助成功")
-          },
-          fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '调用失败',
-            })
-            console.error('[云函数] [updateAccepter] updateAccepter 调用失败：', err)
-          }
+  // 添加接单者到数据库   
+        this.addAccepter();
+      }
+    }
+  },
+
+  // 添加接单者到数据库
+  addAccepter:function(){
+    wx.cloud.callFunction({
+      name: 'updateAccepter',
+      data: {
+        _id: this.data.post_data._id,
+        user_openid: this.data.user_openid,
+        database: "recourse"
+      },
+      success: res => {
+        console.warn('[云函数] [updateAccepter] updateAccepter 调用成功：', res)
+        wx.showModal({
+          title: '成功接单',
+          content: '你已成功接单',
+          showCancel: false,
         })
-        //跳转回原来的页面
-        // wx.navigateBack({})
+        // 成功后发送求助的模板信息
+        this.sendRecourse("求助成功")
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '调用失败',
+        })
+        console.error('[云函数] [updateAccepter] updateAccepter 调用失败：', err)
+      },
+      complete:res => {
         // 直接跳转到我的求助
         wx.redirectTo({
           url: "../../News/myDiscover/myDiscover"
         })
-      }
-    }
+      },
+    })
+
+
+
   },
+
+
+
 
 
   // 发送求助模板消息

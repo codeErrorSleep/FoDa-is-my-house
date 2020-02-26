@@ -20,10 +20,8 @@ Page({
     count: "",
     //数据库数据
     feed: [],
-    accFeed: [],
     //下拉更新数据库数据个数
     nextPage: 0,
-    nextPage1: 0,
     //我的页面
     myPage: true,
     //用户openid
@@ -49,9 +47,7 @@ Page({
     var that = this;
     that.setData({
       feed: [],
-      accFeed: [],
       nextPage: 0,
-      nextPage1: 0,
       count: 0,
     })
     console.log(this.data.currentData)
@@ -68,9 +64,7 @@ Page({
     var that = this;
     that.setData({
       feed: [],
-      accFeed: [],
       nextPage: 0,
-      nextPage1: 0,
       count: 0,
     })
     console.log(this.data.currentData1)
@@ -82,9 +76,7 @@ Page({
     var that = this;
     that.setData({
       feed: [],
-      accFeed: [],
       nextPage: 0,
-      nextPage1: 0,
       count: 0,
     })
     let current = e.detail.current;
@@ -105,42 +97,28 @@ Page({
 
   // 判断发现 的分类(求助 寻物 找队友)
   discoverType: function () {
+    var that = this;
     if (this.data.currentData == 0) {
-
       this.setData({
         database: "recourse",
         categories1: ["我的发布", "我的接单"],
       })
-
       if (this.data.currentData1 == 0) {
-        var that = this;
-
-        util.countUnAcc(that, that.data.user_openid);
-        util.accUnAccLoad(that, that.data.user_openid);
-
+        util.onlyLoad(that);
       }else {
-        var that = this;
-
         util.accLoad(that);
       }
-      
     } else if (this.data.currentData == 1) {
       this.setData({
         database: "discover",
         categories1: "",
       })
-
-      var that = this;
-
       util.discoverLoad("寻物", that);
     }else {
       this.setData({
         database: "discover",
         categories1: "",
       })
-
-      var that = this;
-
       util.discoverLoad("找队友", that);
     }
   },
@@ -175,18 +153,7 @@ Page({
     }
   },
 
-  //跳转到点击页面
-  jumpToPost1: function (e) {
-    var id = e.currentTarget.id
-    console.log(e.currentTarget.id)
-    console.log(this.data.accFeed[id])
-    var post_data = JSON.stringify(this.data.accFeed[id])
 
-    wx.navigateTo({
-      // url: '../posttest/posttest?post_data=' + post_data
-      url: '../../Index/contact_recourse/contact_recourse?post_data=' + post_data
-    })
-  },
 
   //删除发现
   deletePost: function(e) {
@@ -200,10 +167,8 @@ Page({
     if(this.data.feed[id].type!="求助"){
       database="discover"
     }
-
     console.log(post_id)
     console.log(post_name)
-
     wx.showModal({
       title: '删除发现',
       content:"是否删除标题为"+post_name+" 的发现",
@@ -223,9 +188,7 @@ Page({
               that.setData({
                 count: 0,
                 feed: [],
-                accFeed: [],
                 nextPage: 0,
-                nextPage1: 0,
               })
               that.discoverType();
             }
@@ -235,51 +198,6 @@ Page({
     })
   },
 
-  //删除已接受的求助
-  deleteAccPost: function(e) {
-    var that=this
-    var id = e.currentTarget.id
-    //获得帖子id
-    var post_id = this.data.accFeed[id]._id
-    var post_name = this.data.accFeed[id].title
 
-    var database = "recourse"
-    if (this.data.accFeed[id].type != "求助") {
-      database = "discover"
-    }
-
-    console.log(post_id)
-    console.log(post_name)
-
-    wx.showModal({
-      title: '删除发现',
-      content: "是否删除标题为" + post_name + " 的发现",
-      success(res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection(database).doc(post_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-              that.setData({
-                count: 0,
-                feed: [],
-                accFeed: [],
-                nextPage: 0,
-                nextPage1: 0,
-              })
-              that.discoverType();
-            }
-          })
-        }
-      }
-    })
-  },
 
 })

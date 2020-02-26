@@ -109,41 +109,47 @@ Page({
           mask: true
         });
       } else {
-        // 成功接单
-        wx.cloud.callFunction({
-          name: 'updateAccepter',
-          data: {
-            _id: this.data.express_data._id,
-            user_openid: this.data.user_openid,
-            database: "express"
-          },
-          success: res => {
-            console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
-            wx.showModal({
-              title: '成功接单',
-              content: '你已成功接单',
-              showCancel: false,
-            })
-            // 发送接单成功的模板信息
-            this.sendExpress("true")
-          },
-          fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '调用失败',
-            })
-            console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
-          }
-        })
-        // wx.navigateBack({})
-        // 直接跳转到我的求助
-        wx.redirectTo({
-          url: "../../News/myExpress/myExpress"
-        })
+        // 添加接单者信息到数据库
+          this.addAccepter();
       }
     }
 
   },
+
+// 添加接单者到数据库
+  addAccepter:function(){
+    wx.cloud.callFunction({
+      name: 'updateAccepter',
+      data: {
+        _id: this.data.express_data._id,
+        user_openid: this.data.user_openid,
+        database: "express"
+      },
+      success: res => {
+        console.warn('[云函数] [updateExpress] updateExpress 调用成功：', res)
+        wx.showModal({
+          title: '成功接单',
+          content: '你已成功接单',
+          showCancel: false,
+        })
+        // 发送接单成功的模板信息
+        this.sendExpress("true")
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '接单失败',
+        })
+        console.error('[云函数] [updateExpress] updateExpress 调用失败：', err)
+      },
+      complete:res => {
+        wx.redirectTo({
+          url: "../../News/myExpress/myExpress"
+        })
+      },
+    })
+  },
+
 
 
   // 发送快递模板消息
@@ -175,7 +181,7 @@ Page({
 
   //获取接收者信息
   async getAccepter(){
-    console.log('fuck',this.data.express_data.accepter_openid)
+    console.log(this.data.express_data.accepter_openid)
     var that=this
     if (this.data.express_data.accepter_openid!=""){
       const db = wx.cloud.database()

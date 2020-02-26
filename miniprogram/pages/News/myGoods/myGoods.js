@@ -185,46 +185,4 @@ Page({
   },
 
 
-
-
-
-  //删除发现
-  deletePost: function(e) {
-    var that = this
-    var id = e.currentTarget.id
-    //获得帖子id
-    var post_id = this.data.feed[id]._id
-    var post_name = this.data.feed[id].title
-
-    console.log(post_id)
-    console.log(post_name)
-
-    wx.showModal({
-      title: '删除发现',
-      content:"是否删除标题为"+post_name+" 的发现",
-      success(res) {
-        //用户点击删除就删除帖子
-        if (res.confirm) {
-          const db = wx.cloud.database()
-          db.collection(database).doc(post_id).remove({
-            //删除成功显示提示
-            success: function (res) {
-              console.log("删除成功")
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 1000
-              })
-              that.setData({
-                feed: [],
-                nextPage: 0,
-              })
-              that.userLoad();
-            }
-          })
-        }
-      }
-    })
-  },
-
 })

@@ -1,5 +1,5 @@
 <import src="../../../templates/express-template/express-template.wxml" />
-<template is="express" data="{{feed, accFeed, categories, currentData, myPage, nowDate, user_openid}}"></template>
+<template is="express" data="{{feed, categories, currentData, myPage, nowDate, user_openid}}"></template>
 
 
 
