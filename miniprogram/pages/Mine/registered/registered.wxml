@@ -1,4 +1,4 @@
-<form report-submit='true' bindsubmit='formSubmit'>
+<form report-submit='true' bindsubmit='processForm'>
   <view class="cu-form-group bg-white margin-top">
 		<view class="title">
 			头像
@@ -76,7 +76,7 @@
 	<view class="cu-form-group bg-white margin-top">
 		<checkbox class="round blue" bindtap="checkboxChange"></checkbox>
 		<text>我已阅读并同意</text>
-		<text style="color: #fbbd08;" bindtap="agreement">《佛大叮当服务用户协议》</text>
+		<text style="color: #fbbd08;" bindtap="openProtocol">《佛大叮当服务用户协议》</text>
 	</view>
   <view class="padding flex flex-direction">
     <button class="cu-btn round bg-blue shadow lg" form-type='submit'>确认提交</button>

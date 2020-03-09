@@ -25,10 +25,11 @@ Page({
     imgList: [],
     //照片在云的位置
     approve_img: [],
-    // 用户formid 向要用户发送模板消息
-    formId: "",
+
     //警告
     warning: "",
+    //检验填写信息是否完整(boolean)
+    infoMode: false,
     //验证码限时
     second: 60,
     //验证码按钮内容
@@ -311,13 +312,7 @@ Page({
   },
   //检验数据
   async checkInfo() {
-    this.setData({
-      isLoad: true,
-    })
-    wx.showLoading({
-      title: '正在验证',
-      icon: 'loading',
-    })
+
     if (this.data.nick_name == "") {
       this.setData({
         warning: "昵称不能为空",
@@ -370,21 +365,52 @@ Page({
       warning: "未同意佛大叮当用户服务协议",
       })
     }
-    else {
-      this.setData({
-        warning: "提交成功",
-      })
-      //上传数据
-      this.uploadImages()
+      // 填入数据无问题
+      else {
+        this.setData({
+          // warning: "发布成功",
+          infoMode: true,
+        })
+
     }
-    wx.hideLoading()
-    this.setData({
-      modalName: "Modal",
-      isLoad: false,
+    // 有错误即弹框提示
+    if(!this.data.infoMode){
+      this.setData({
+        modalName: "Modal",
+      })
+    }
+  },
+
+
+  // 提示用户选择订阅信息
+  showMessageModal:function(){
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '请允许我们向你发送注册通知.',
+      complete (res) {
+        // that.getMessage();
+        that.getMessage();
+      }
     })
   },
-  //提交表单
-  formSubmit(e) {
+
+  // 弹框获取发送订阅消息权限
+  getMessage:function(){
+    var that= this
+    wx.requestSubscribeMessage({
+     tmplIds: ['5PHcG60eH76swsvB351m8G6SENp1IKQceZqivYQkUA4'],
+     complete(res){
+      //上传数据
+      that.uploadImages()
+     }
+   })
+ },
+
+
+
+  // 记录用户填入信息
+  setUserInfo:function(e){
     if (e.detail.value.nick_name != "") {
       this.setData({
         nick_name: e.detail.value.nick_name,
@@ -402,24 +428,23 @@ Page({
     this.setData({
       phone: e.detail.value.phone,
       code: e.detail.value.code,
-      formId: e.detail.formId,
       warning: "",
     })
+  },
 
-    console.log(this.data.head_index);
-    console.log(this.data.nick_name);
-    console.log(this.data.region_index);
-    console.log(this.data.wechat_id);
-    console.log(this.data.phone);
-    console.log(this.data.code);
-    console.log(this.data.imgList[0]);
-    console.log(this.data.formId);
 
+  //处理表单信息
+  processForm:function(e) {
+    this.setUserInfo(e)
     this.checkInfo()
+    // 填写信息完整则准备上传
+    if(this.data.infoMode){
+      this.showMessageModal();
+    }
 
   },
   //上传数据
-  uploadData() {
+  uploadData:function() {
     console.log("上传数据")
     const db = wx.cloud.database()
     db.collection("users").add({
@@ -430,7 +455,6 @@ Page({
         "wechat_id": this.data.wechat_id,
         "phone": this.data.phone,
         "approve_img": this.data.approve_img,
-        "formId": this.data.formId,
         "approve": false,
         "al_approve": false,
       },
@@ -438,7 +462,7 @@ Page({
         //成功上传后提示信息
         console.log("上传成功")
         wx.showLoading({
-          title: '成功上传',
+          title: '注册信息成功提交',
           icon: 'success',
           duration: 1000
         })
@@ -447,7 +471,7 @@ Page({
     })
   },
   //上传用户图片信息
-  uploadImages() {
+  uploadImages:function() {
     console.log("上传图片")
     var images = this.data.imgList
     //先添加到这一变量,在最后一个再改变this.data.中的approve_img
@@ -488,7 +512,7 @@ Page({
   },
 
   //打开同意协议
-  agreement() {
+  openProtocol() {
     wx.navigateTo({
       url:"../../Admin/agreement/agreement"
     })

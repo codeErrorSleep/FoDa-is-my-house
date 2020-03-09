@@ -35,8 +35,7 @@ Page({
     imgList: [],
     //照片在云的位置
     approve_img: [],
-    // 用户formid 向要用户发送模板消息
-    formId: "",
+
     //警告
     warning: "",
     //认证状态
@@ -68,7 +67,6 @@ Page({
       ori_phone: app.globalData.userCloudData.phone,
       imgList: app.globalData.userCloudData.approve_img,
       approve_img: app.globalData.userCloudData.approve_img,
-      formId: app.globalData.userCloudData.formId,
       approve: app.globalData.userCloudData.approve,
       al_approve: app.globalData.userCloudData.al_approve,
     })
@@ -409,7 +407,6 @@ Page({
     }
     this.setData({
       code: e.detail.value.code,
-      formId: e.detail.formId,
       warning: "",
     })
 
@@ -432,7 +429,6 @@ Page({
         "wechat_id": this.data.wechat_id,
         "phone": this.data.phone,
         "approve_img": this.data.approve_img,
-        "formId": this.data.formId,
         "approve": this.data.approve,
         "al_approve": this.data.al_approve
       },

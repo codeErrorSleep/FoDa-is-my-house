@@ -81,7 +81,6 @@ Page({
     var user_id = this.data.feed[idx]._id
     var user_openid = this.data.feed[idx]._openid
     var users_Name = this.data.feed[idx].nick_name
-    var formId = this.data.feed[idx].formId
 
     // 更新数据库 用户消息
     wx.showModal({
@@ -103,7 +102,7 @@ Page({
             }
           })
           // 调用模板消息发送消息
-          that.sendTemplate("认证成功", user_openid, formId)
+          that.sendTemplate("认证成功", user_openid)
         }
       }
     })
@@ -116,14 +115,13 @@ Page({
   },
 
   // 发送模板消息
-  sendTemplate: function (approve, user_openid, formId) {
+  sendTemplate: function (approve, user_openid) {
     console.log(user_openid)
     wx.cloud.init()
     wx.cloud.callFunction({
       name: 'openapi',
       data: {
-        action: 'sendTemplateMessage',
-        formId: formId,
+        action: 'sendRegisteredMessage',
         approve: approve,
         user_openid: user_openid
       },
@@ -153,7 +151,6 @@ Page({
     var user_id = this.data.feed[idx]._id
     var users_Name = this.data.feed[idx].nick_name
     var user_openid  =  this.data.feed[idx]._openid
-    var formId  =  this.data.feed[idx].formId
     wx.showModal({
       title: '认证不通过',
       content: users_Name,
@@ -174,7 +171,7 @@ Page({
             }
           })
           // 调用模板消息发送消息
-          that.sendTemplate("认证不成功", user_openid, formId)
+          that.sendTemplate("认证不成功", user_openid)
         }
       }
 
