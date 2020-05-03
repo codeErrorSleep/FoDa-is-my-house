@@ -8,14 +8,39 @@
 
 
 ## 项目截图
+[![首页](https://s1.ax1x.com/2020/05/03/YSpJj1.md.png)](https://imgchr.com/i/YSpJj1)
+[![YSpr3d.md.jpg](https://s1.ax1x.com/2020/05/03/YSpr3d.md.jpg)](https://imgchr.com/i/YSpr3d)
+[![YSpdAO.md.jpg](https://s1.ax1x.com/2020/05/03/YSpdAO.md.jpg)](https://imgchr.com/i/YSpdAO)
+[![YSpNB6.md.jpg](https://s1.ax1x.com/2020/05/03/YSpNB6.md.jpg)](https://imgchr.com/i/YSpNB6)
+[![YSpwND.md.jpg](https://s1.ax1x.com/2020/05/03/YSpwND.md.jpg)](https://imgchr.com/i/YSpwND)
+[![YSpD9H.md.jpg](https://s1.ax1x.com/2020/05/03/YSpD9H.md.jpg)](https://imgchr.com/i/YSpD9H)
+[![YSp04e.md.jpg](https://s1.ax1x.com/2020/05/03/YSp04e.md.jpg)](https://imgchr.com/i/YSp04e)
 
 
 
+## 更多图片可扫描小程序码
+
+[![YSptnx.md.png](https://s1.ax1x.com/2020/05/03/YSptnx.md.png)](https://imgchr.com/i/YSptnx)
 
 
 
+## 功能列表
 
+- 首页
 
+- 闲置页面,能够发表和联系卖家
+
+- 快递页面,能够详细地查看快递信息
+
+- 互帮页面,能够解决给校园内的各种事情(约人跑步,借书等等)
+
+- 闲置物品搜索功能
+
+- 个人页面,能够通过校园卡与手机号码进行注册(提供短信验证)
+
+  
+
+  
 
 
 
