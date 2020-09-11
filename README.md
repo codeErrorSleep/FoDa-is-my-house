@@ -7,6 +7,20 @@
 
 
 
+## 如何部署
+
+目前部署的话只能看业务逻辑代码,云开发的有部分问题,暂时先不开放哈.
+
+我会尽快上一个部署云开发的教程的.
+
+
+
+
+
+
+
+
+
 ## 项目截图
 [![首页](https://s1.ax1x.com/2020/05/03/YSpJj1.md.png)](https://imgchr.com/i/YSpJj1)
 [![YSpr3d.md.jpg](https://s1.ax1x.com/2020/05/03/YSpr3d.md.jpg)](https://imgchr.com/i/YSpr3d)
