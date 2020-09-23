@@ -27,6 +27,42 @@
 
 
 
+## 代码树形结构图
+
+```
+Pages
+├─Admin 后台管理模块
+│  ├─admin_main 后台管理首页
+│  ├─agreement  佛大叮当服务协议
+│  ├─secondHand  闲置交易管理页面
+│  └─user		用户验证通过页面
+├─Index			主要页面模块
+│  ├─contact    闲置商品列表页面
+│  ├─contact_express 快递列表页面
+│  ├─contact_recourse 发现列表页面
+│  ├─coupon		优惠卷
+│  ├─goods		物品详情页面
+│  ├─index_main 首页
+│  ├─modal    这个是下面那个tabbar
+│  └─search   搜索页面
+├─Mine   个人模块
+│  ├─mine_main 个人模块主页
+│  ├─registered  注册页面
+│  └─userInfo  个人信息页面
+├─News  个人物品页面
+│  ├─myDiscover  我的发现
+│  ├─myExpress  我的快递
+│  └─myGoods   我的二手闲置物品
+└─Post    上传帖子页面
+    ├─uploadDiscover   上传发现页面之类的
+    ├─uploadExpress   上传快递
+    └─uploadGoods    上传闲置物品
+```
+
+
+
+
+
 ## 项目截图
 [![首页](https://s1.ax1x.com/2020/05/03/YSpJj1.md.png)](https://imgchr.com/i/YSpJj1)
 [![YSpr3d.md.jpg](https://s1.ax1x.com/2020/05/03/YSpr3d.md.jpg)](https://imgchr.com/i/YSpr3d)
@@ -41,6 +77,14 @@
 ## 更多图片可扫描小程序码
 
 [![YSptnx.md.png](https://s1.ax1x.com/2020/05/03/YSptnx.md.png)](https://imgchr.com/i/YSptnx)
+
+
+
+
+
+
+
+
 
 
 
@@ -60,6 +104,10 @@
 
   
 
+  
+  
+  
+  
   
 
 
